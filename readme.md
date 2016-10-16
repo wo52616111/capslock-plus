@@ -1,5 +1,6 @@
 [功能说明文档](http://cjkis.me/capslock+/)
 
+觉得好用欢迎[捐赠](http://cjkis.me/payment/)
 
 ##1.怎么运行Capslock+的源码？
 1. 下载 [AutoHotkey](http://www.ahkscript.org/)，并安装。
@@ -86,3 +87,5 @@ keyfunc_test2(str){
 我也觉得，当初 Capslock+ 是我写来自己用的，想要什么功能就直接加上去，没怎么规划，但求够用和快点写完。当然很大原因也是水平不够。
 
 一直想着有时间好好重构一遍，并写多些注释再扔出来。不过一直没时间，已经拖了好久了，就这样吧...
+
+
