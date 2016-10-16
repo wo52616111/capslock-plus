@@ -1,5 +1,6 @@
 [功能说明文档](http://cjkis.me/capslock+/)
 
+
 ##1.怎么运行Capslock+的源码？
 1. 下载 [AutoHotkey](http://www.ahkscript.org/)，并安装。
 2. 从 GitHub 下载 Capslock+ 源码。
@@ -25,7 +26,42 @@ keyfunc_test2(str){
 }
 ```
 
-具体要实现什么功能，就去学下 AutoHotkey 咯，很快上手的。
+*为了避免按键设置会调到内部函数，所以规定了所有函数以`keyfunc_`开头
+
+具体要实现什么功能，就去学下 AutoHotkey 咯，很快上手的。下面提供一下例子：
+
+###把 Capslock+Q 替换成 Listary
+有同学跟我吐槽`qbar`太弱鸡，让我参考`WOX`，`Listary`等把`qbar`写得厉害一点，但我觉得`qbar`就是够用就好，如果有更高的需求那就直接用它们代替`qbar`吧。以`Listary`为例子，`Listary`虽然强大，但是个人觉得跟`qbar`比有两个不足的地方：
+
+1. 呼出输入框快捷键不方便，按两下`Ctrl`太累人，其他自定义快捷键我都觉得不如`Capslock+Q`顺手。
+2. 更重要的是，不能将选中的文字直接填入，这个我是接受不了了。
+
+那我们可以这样做来解决这两个问题：
+
+1. 把下面代码复制到`/userAHK/main.ahk`里：
+  ```ahk
+  keyfunc_listary(){
+    ; 获取选中的文字
+    selText:=getSelText()
+
+    ; 发送 win+F 按键（Listary默认的呼出快捷键），呼出Listary
+    sendinput, #{f}
+
+    ; 等待 Listary 输入框打开
+    winwait, ahk_exe Listary.exe, , 0.5
+
+    ; 如果有选中文字的话
+    if(selText){
+      ; 在选中的字前面加上"gg "（因为谷歌搜索是我最常用的，你也可以不加）
+      selText:="gg " . selText
+      ; 输出刚才复制的文字，并按一下`home`键将光标移到开头，以方便加入其它关键词
+      sendinput, %selText%{home}
+    }
+  }
+  ```
+
+2. 在`Capslock+settings.ini` `[keys]`设置：`caps_q=keyfunc_listary()`，保存，按下`Capslock+F5`重载，搞定。
+![caps_q Listary](http://dn-cjk.qbox.me/caps_listary.gif)
 
 ##3.那你原有的功能我想改怎么改？
 `Capslock+.ahk`是入口文件，其他所有依赖文件都扔`/lib`里了，各文件说明如下：
