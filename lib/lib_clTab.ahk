@@ -44,8 +44,11 @@ clCalculate(inputStr,ByRef result,autoMatch:=0,isScratch:=0) ;46494*234-(123+234
     
     if(isScratch)
         result:=eval("fixFloatCalcRudely(" . calStr2 . ")")
+    else if(CLSets.global.javascriptOriginalReturn) ; 如果.ini设置了javascriptOriginalReturn=1，则返回原js结果
+        result:=eval(calStr2)
     else
-        result:=eval(calStr2) ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+        result:=eval("fixFloatCalcRudely(" . calStr2 . ")")
+        
         
     if(result="")
         result:="?"

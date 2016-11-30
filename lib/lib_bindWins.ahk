@@ -1,6 +1,6 @@
 ﻿bindWinsInit:
 global winsInfos:={}
-global tapTimes:={1:0,2:0,3:0,4:0,5:0,6:0,7:0,8:0,btn:-1}
+global tapTimes:={1:0,2:0,3:0,4:0,5:0,6:0,7:0,8:0,9:0,10:0,11:0,12:0,13:0,14:0,15:0,16:0,17:0,18:0,19:0,20:0,btn:-1}
 global winTapedX ;winTapedX用于判断多窗口绑定的切换是哪个按键的，在CapsLock松开后winsSort()用来判定一次窗口在窗口组的位置
 global lastActiveWinId ;在用窗口激活时，现在正在激活状态的窗口id
 ;标志有没获取过窗口信息，因为判断多次敲击需要等待时间，
@@ -81,7 +81,7 @@ getWinInfo(btnx, bindType)
     }
     else
     {
-      MsgBox, CapsLock+winsInfosRecorder.ini不存在
+      MsgBox, %lang_bw_noWIRini%
       return
     }
     loop, % infosGx.id.MaxIndex() ;除了第0个，其他都删掉

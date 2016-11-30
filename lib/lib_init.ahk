@@ -4,15 +4,31 @@ SetTimer, initAll, -400 ;等个100毫秒，等待其他文件的include都完成
 return
 
 initAll:
+Suspend, On ;挂起所有热键
 
-IniRead, isLoadingAnimation, CapsLock+settings.ini, Global, loadingAnimation, 1
+IniRead, loadingAnimation, CapsLock+settings.ini, Global, loadingAnimation, 1
+IniRead, language, CapsLock+settings.ini, Global, language, 0
 
-if(isLoadingAnimation)
+if(loadingAnimation != "0")
 	gosub, showLoading
 
-Suspend, On ;挂起所有热键
-gosub, language_zh_CN_Init ;字符串初始化,这个要第一个运行
+;------------  language -----------
+;  language:=CLsets.global.language
+
+; 字符串初始化,这个要第一个运行
+;  if(language and IsLabel("language_" . language))
+;  	gosub, language_%language%
+;  else if(getSystemLanguage() == "Chinese_PRC")
+;  	gosub, language_Simplified_Chinese
+;  else if(getSystemLanguage() == "Chinese_Hong_Kong" or getSystemLanguage() == "Chinese_Taiwan")
+;  	gosub, language_Traditional_Chinese
+;  else
+;  	gosub, language_English
+gosub, language_Simplified_Chinese
+;------------  /language -----------
+
 gosub, settingsInit ;初始化设置
+
 
 gosub, bindWinsInit
 
@@ -26,7 +42,7 @@ CLq() ;初始化+q
 setTimer, mouseSpeedInit, -1
 Suspend, Off
 
-if(isLoadingAnimation)
+if(loadingAnimation != "0")
 	gosub, hideLoading
 
 return

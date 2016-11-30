@@ -9,7 +9,9 @@ global TransEdit,transEditHwnd,transGuiHwnd, NativeString
 youdaoApiInit:
 global youdaoApiString:=""
 
-#Include *i youdaoApiKey.ahk
+;  #Include *i youdaoApiKey.ahk
+global youdaoApiKey0, youdaoApiKey1
+youdaoApiKey0=12763084
 
 if(CLSets.TTranslate.apiType=1)
 {
@@ -58,7 +60,7 @@ transStart:
 
 transGui:
 ;~ WinClose, 有道翻译
-MsgBoxStr:=NativeString?"翻译中...  （如果网络太差，程序会因为等待翻译请求而假死，稍等就好。）":""
+MsgBoxStr:=NativeString?lang_yd_translating:""
 
 DetectHiddenWindows, On ;可以检测到隐藏窗口
 WinGet, ifGuiExistButHide, Count, ahk_id %transGuiHwnd%
@@ -72,7 +74,7 @@ else ;IfWinNotExist,  ahk_id %transGuiHwnd% ;有道翻译
 {
 	;~ MsgBox, 0
 	
-	Gui, new, +HwndtransGuiHwnd , 有道翻译
+	Gui, new, +HwndtransGuiHwnd , %lang_yd_name%
 	Gui, +AlwaysOnTop -Border +Caption -Disabled -LastFound -MaximizeBox -OwnDialogs -Resize +SysMenu -Theme -ToolWindow
 	Gui, Font, s10 w400, Microsoft YaHei UI ;设置字体
 	Gui, Font, s10 w400, 微软雅黑
@@ -83,7 +85,7 @@ else ;IfWinNotExist,  ahk_id %transGuiHwnd% ;有道翻译
 	Gui, +LastFound
 	WinSet, TransColor, ffffff 210
 	;~ MsgBox, 1
-	Gui, Show, Center w500 h402, 有道翻译
+	Gui, Show, Center w500 h402, %lang_yd_name%
 	ControlFocus, , ahk_id %transEditHwnd%
 	SetTimer, setTransActive, 50
 }
@@ -105,7 +107,7 @@ SetFormat, integer, H
 UTF8Codes:=UTF8encode(NativeString)
 if(youdaoApiString="")
 {
-	MsgBoxStr=缺少有道翻译API的key，有道翻译无法使用`r`n（你现在用的应该是源码文件，而为了不让别人在其他地方乱用，源码文件中我把我申请的key去掉了，只能用你自己申请的key）
+	MsgBoxStr=%lang_yd_needKey%
 	goto, setTransText
 }
 sendStr:=youdaoApiString . UTF8Codes
@@ -120,7 +122,7 @@ try
 }
 catch
 {
-	MsgBoxStr:="发送异常，可能是网络已断开"
+	MsgBoxStr:=lang_yd_errorNoNet
 	goto, setTransText
 }
 afterSend:
@@ -135,35 +137,35 @@ if(returnError) ;如果返回错误结果，显示出相应原因
 {
 	if(returnError=10)
 	{
-		MsgBoxStr:="部分句子过长"
+		MsgBoxStr:=lang_yd_errorTooLong
 	}
 	if(returnError=11)
 	{
-		MsgBoxStr:="无词典结果"
+		MsgBoxStr:=lang_yd_errorNoResults
 	}
 	if(returnError=20)
 	{
-		MsgBoxStr:="要翻译的文本过长"
+		MsgBoxStr:=lang_yd_errorTextTooLong
 	}
 	else if(returnError=30)
 	{
-		MsgBoxStr:="无法进行有效的翻译"
+		MsgBoxStr:=lang_yd_errorCantTrans
 	}
 	else if(returnError=40)
 	{
-		MsgBoxStr:="不支持的语言类型"
+		MsgBoxStr:=lang_yd_errorLangType
 	}
 	else if(returnError=50)
 	{
-		MsgBoxStr:="无效的key"
+		MsgBoxStr:=lang_yd_errorKeyInvalid
 	}
 	else if(returnError=60)
 	{
-		MsgBoxStr:="已达到今日消费上限，或者请求长度超过今日可消费字符数"
+		MsgBoxStr:=lang_yd_errorSpendingLimit
 	}
 	else if(returnError=70)
 	{
-		MsgBoxStr:="帐户余额不足"
+		MsgBoxStr:=lang_yd_errorNoFunds
 	}
 	goto, setTransText
 	return
@@ -176,7 +178,7 @@ if(returnError) ;如果返回错误结果，显示出相应原因
 	{
 		MsgBoxStr:=% MsgBoxStr . "[" . transJson.basic.phonetic . "] "  ;读音
 	}
-	MsgBoxStr:= % MsgBoxStr . "`r`n`r`n------------------------------------有道翻译------------------------------------`r`n" ;分隔，换行
+	MsgBoxStr:= % MsgBoxStr . "`r`n`r`n" . lang_yd_trans . "`r`n" ;分隔，换行
 	;~ MsgBoxStr:= % MsgBoxStr . "--有道翻译--`n"
 	Loop
 	{
@@ -190,7 +192,7 @@ if(returnError) ;如果返回错误结果，显示出相应原因
 		}
 		else
 		{
-			MsgBoxStr:= % MsgBoxStr . "`r`n`r`n------------------------------------有道词典------------------------------------`r`n"
+			MsgBoxStr:= % MsgBoxStr . "`r`n`r`n" . lang_yd_dict . "`r`n"
 			break
 		}
 	}
@@ -208,7 +210,7 @@ if(returnError) ;如果返回错误结果，显示出相应原因
 		}
 		else
 		{
-			MsgBoxStr:= % MsgBoxStr . "`r`n`r`n--------------------------------------短语--------------------------------------`r`n"
+			MsgBoxStr:= % MsgBoxStr . "`r`n`r`n" . lang_yd_phrase . "`r`n"
 			break
 		}
 	}

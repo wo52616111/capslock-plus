@@ -1,4 +1,4 @@
-; keys functions start-------------
+﻿; keys functions start-------------
 ; 所有按键对应功能都放在这，为防止从set.ini通过按键设置调用到非按键功能函数，
 ; 规定函数以"keyFunc_"开头
 
@@ -59,30 +59,30 @@ keyFunc_moveRight(){
 }
 
 
-keyFunc_moveUp(){
+keyFunc_moveUp(i:=1){
     global
     if(WinActive("ahk_id" . GuiHwnd))
     {
         ControlFocus, , ahk_id %LV_show_Hwnd%
-        SendInput, {Up}
+        SendInput, {Up %i%}
         ControlFocus, , ahk_id %editHwnd%
     }
     else
-        SendInput,{up}
+        SendInput,{up %i%}
     Return
 }
 
 
-keyFunc_moveDown(){
+keyFunc_moveDown(i:=1){
     global
     if(WinActive("ahk_id" . GuiHwnd))
     {
         ControlFocus, , ahk_id %LV_show_Hwnd%
-        SendInput, {Down}
+        SendInput, {Down %i%}
         ControlFocus, , ahk_id %editHwnd%
     }
     else
-        SendInput,{down}
+        SendInput,{down %i%}
     Return
 }
 
@@ -499,14 +499,14 @@ keyFunc_jumpPageBottom(){
 }
 
 
-keyFunc_selectUp(){
-    SendInput, +{Up}
+keyFunc_selectUp(i:=1){
+    SendInput, +{Up %i%}
     return
 }
 
 
-keyFunc_selectDown(){
-    SendInput, +{Down}
+keyFunc_selectDown(i:=1){
+    SendInput, +{Down %i%}
     return
 }
 
@@ -535,34 +535,6 @@ keyFunc_selectEnd(){
 }
 
 
-keyFunc_up5(){
-    global
-    if(WinActive("ahk_id" . GuiHwnd))
-    {
-        ControlFocus, , ahk_id %LV_show_Hwnd%
-        SendInput, {Up 5}
-        ControlFocus, , ahk_id %editHwnd%
-    }
-    else
-        SendInput, {Up 5}
-    return
-}
-
-
-keyFunc_down5(){
-    global
-    if(WinActive("ahk_id" . GuiHwnd))
-    {
-        ControlFocus, , ahk_id %LV_show_Hwnd%
-        SendInput, {Down 5}
-        ControlFocus, , ahk_id %editHwnd%
-    }
-    else
-        SendInput, {Down 5}
-    return
-}
-
-
 keyFunc_selectWordLeft(){
     SendInput, +^{Left}
     return
@@ -575,39 +547,17 @@ keyFunc_selectWordRight(){
 }
 
 ;页面移动一行，光标不动
-keyFunc_pageMoveLineUp(){
-    SendInput, ^{Up}
+keyFunc_pageMoveLineUp(i:=1){
+    SendInput, ^{Up %i%}
     return
 }
 
 
-keyFunc_pageMoveLineDown(){
-    SendInput, ^{Down}
+keyFunc_pageMoveLineDown(i:=1){
+    SendInput, ^{Down %i%}
     return
 }
 
-;页面移动5行，光标不动
-keyFunc_pageMoveLineUp5(){
-    SendInput, ^{Up 5}
-    return
-}
-
-keyFunc_pageMoveLineDown5(){
-    SendInput, ^{Down 5}
-    return
-}
-
-
-keyFunc_selectUp5(){
-    SendInput, +{Up 5}
-    return
-}
-
-
-keyFunc_selectDown5(){
-    SendInput, +{Down 5}
-    return
-}
 
 
 keyFunc_getJSEvalString(){
@@ -619,7 +569,7 @@ keyFunc_getJSEvalString(){
     if(!ErrorLevel)
     {
         result:=escapeString(Clipboard)
-        inputbox, result,,%getDebugText%,,,,,,,, % result
+        inputbox, result,,%lang_kf_getDebugText%,,,,,,,, % result
         if(!ErrorLevel)
         {
             Clipboard:=result
@@ -784,3 +734,36 @@ keyFunc_goCjkPage(){
 
  
 ;keys functions end-------------
+; testing arer ---
+
+keyFunc_activateSideWin(UDLR){
+    activateSideWin(UDLR)
+}
+
+keyFunc_putWinToBottom(){
+    putWinToBottom()
+}
+
+keyFunc_winJumpIgnore(){
+    winJumpIgnore()
+}
+
+keyFunc_clearWinMinimizeStach(){
+    clearWinMinimizeStach()
+}
+
+keyFunc_popWinMinimizeStack(){
+    popWinMinimizeStack()
+}
+
+keyFunc_pushWinMinimizeStack(){
+    pushWinMinimizeStack()
+}
+
+keyFunc_unshiftWinMinimizeStack(){
+    unshiftWinMinimizeStack()
+}
+
+keyFunc_winTransparent(){
+    winTransparent()
+}

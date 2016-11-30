@@ -31,9 +31,9 @@ IfNotExist, CapsLock+settingsDemo.ini
 else
 {
     FileGetTime, setDemoModifyTime, CapsLock+settingsDemo.ini
-    IfExist, lib\lib_language.ahk
+    IfExist, language
     {
-        FileGetTime, thisScriptModifyTime, lib\lib_language.ahk
+        FileGetTime, thisScriptModifyTime, language
     }
     else
     {

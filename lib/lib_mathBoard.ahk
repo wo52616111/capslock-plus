@@ -1,7 +1,7 @@
 /*
 计算板
 */
-keyFunc_mathBoard:
+keyFunc_mathBoard(){
 ClipboardOld:=ClipboardAll
 Clipboard:=""
 SendInput, ^{c} ;
@@ -36,7 +36,7 @@ Sleep, 200
 Clipboard:=ClipboardOld
 CapsLock2:=""
 return
-
+}
 mathBoard_Size:
 WinGetPos, , ,mathBoard_W , mathBoard_H, ahk_id %CalcGui%
 ;  msgbox, % mathBoard_W . "#" . mathBoard_H

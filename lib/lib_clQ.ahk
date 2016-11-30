@@ -1348,13 +1348,18 @@ return
 appendSet(sec,key,val)
 {
     global
-    MsgBox, 0x40001, ,确定将以下字符串简写成 %key% ，并记录到%sec%？`n`n%val%
+    StringReplace, t, lang_clq_addIni, {replace0}, %key%
+    StringReplace, t, t, {replace1}, %sec%
+    
+    MsgBox, 0x40001, ,%t%`n`n%val%
     IfMsgBox, OK
     {
         temp:=CLSets[sec][key].setValue
         if(temp)
         {
-            MsgBox, 0x40001, ,%key%=%temp%`n已存在于%sec%，确定用以下设置覆盖？`n`n%key%=%val% 
+            StringReplace, t, lang_clq_existing, {replace0}, %key%=%temp%
+            StringReplace, t, t, {replace1}, %sec%
+            MsgBox, 0x40001, ,%t%`n`n%key%=%val%
             IfMsgBox, Cancel
                 return
         }
@@ -1409,7 +1414,7 @@ qrunBy(_exe, _paramStr:="", ifAdmin:=false)
             else
             {
                 t:=value.setValue
-                MsgBox, 0x40001, ,QRun中存在以下记录，而对应文件（文件夹）不存在，是否删除该设置？`n%key%=%t%
+                MsgBox, 0x40001, ,%lang_clq_qrunFileNotExist%`n%key%=%t%
                 IfMsgBox, OK
                 {
                     IniDelete, CapsLock+settings.ini, QRun , %key%
@@ -1541,7 +1546,7 @@ ButtonSubmit:
                 Run, http://cjkis.me/donate/
                 return
             }
-            MsgBox, 没有该命令
+            MsgBox, %lang_clq_noCmd%
             return
         }
         
@@ -1669,7 +1674,7 @@ ButtonSubmit:
             ifExist, % inputStr
                 run, % inputStr
             else
-                msgbox, 文件（文件夹）不存在
+                msgbox, %lang_clq_fileNotExist%
             return
         }
         if(strType = "ftp")
