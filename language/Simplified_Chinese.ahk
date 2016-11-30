@@ -1,9 +1,36 @@
 ﻿/*
 提出字符串放在这里(还有很多还嵌在代码中= =)
 */
-language_zh_CN_Init:
-lang_translating:="翻译中...  （如果网络太差，翻译请求会暂时阻塞程序，稍等就好）"
-lang_transGuiTitle:="有道翻译"
+language_Simplified_Chinese:
+; lib\lib_bindWins.ahk
+global lang_bw_noWIRini:="CapsLock+winsInfosRecorder.ini 不存在"
+
+; clq.ahk
+global lang_clq_addIni:="确定将以下字符串简写成 {replace0}，并记录到 {replace1}？"
+global lang_clq_existing:="{replace0}`n已存在于 {replace1}，确定用以下设置覆盖？"
+global lang_clq_qrunFileNotExist:="QRun中存在以下记录，而对应文件（文件夹）不存在，是否删除该设置？"
+global lang_clq_noCmd:="没有该命令"
+
+
+; ydTrans.ahk
+global lang_yd_translating:="翻译中...  （如果网络太差，翻译请求会暂时阻塞程序，稍等就好）"
+global lang_yd_name:="有道翻译"
+global lang_yd_needKey:="缺少有道翻译API的key，有道翻译无法使用"
+global lang_yd_fileNotExist:="文件（文件夹）不存在"
+global lang_yd_errorNoNet:="发送异常，可能是网络已断开"
+global lang_yd_errorTooLong:="部分句子过长"
+global lang_yd_errorNoResults:="无词典结果"
+global lang_yd_errorTextTooLong:="要翻译的文本过长"
+global lang_yd_errorCantTrans:="无法进行有效的翻译"
+global lang_yd_errorLangType:="不支持的语言类型"
+global lang_yd_errorKeyInvalid:="无效的key"
+global lang_yd_errorSpendingLimit:="已达到今日消费上限，或者请求长度超过今日可消费字符数"
+global lang_yd_errorNoFunds:="帐户余额不足"
+global lang_yd_trans:="------------------------------------有道翻译------------------------------------"
+global lang_yd_dict:="------------------------------------有道词典------------------------------------"
+global lang_yd_phrase:="--------------------------------------短语--------------------------------------"
+
+global lang_settingsUserInit:=""
 lang_settingsUserInit=
 (
 ;------------ Encoding: UTF-16 ------------
@@ -27,6 +54,7 @@ loadScript=scriptDemo.js
 [Keys]
 
 )
+global lang_settingsIniInit:=""
 lang_settingsIniInit=
 (
 ;------------ Encoding: UTF-16 ------------
@@ -162,7 +190,7 @@ cldocs=http://cjkis.me/capslock+
 ; - 这里的优先级高于CapsLock+Tab的计算功能，例如：
 ;        这里设置了1+1=3，那么输入1+1后CapsLock+Tab，1+1会被替换成3而不是2
 
-; - 可以通过 Qbar 的 " -> " 指令快速添加一项设置，例如：在 Qbar 输入 "bitch -> a kind-hearted beautiful girl" ，确认后将会在这里添加一项 "bitch=a kind-hearted beautiful girl"
+; - 可以通过 Qbar 的 " -> " 指令快速添加一项设置，例如：在 Qbar 输入 "tel -> 15012345678" ，确认后将会在这里添加一项 "tel=15012345678"
 
 ; - 如果作为键值的字符串是类似网址或文件（夹）路径的格式，例如："ccc -> com.com.com"， " -> " 指令很可能会将它判定为网址或文件（夹）而把设置记录到了[QRun]或[QWeb]，可以使用 " ->str " 来强制记录到[TabHotString]
 
@@ -262,7 +290,7 @@ apiKey=0123456789
 caps_a=keyFunc_moveWordLeft
 
 ;Capslock+B -> 光标向下移动 5 行
-caps_b=keyFunc_down5
+caps_b=keyFunc_moveDown(5)
 
 ;独立剪贴板 1 的复制
 caps_c=keyFunc_copy_1
@@ -273,7 +301,7 @@ caps_d=keyFunc_moveDown
 ;光标向上移动
 caps_e=keyFunc_moveUp
 
-;光标向左移动
+;光标向右移动
 caps_f=keyFunc_moveRight
 
 ;光标向右移动一个单词
@@ -295,7 +323,7 @@ caps_k=keyFunc_selectDown
 caps_l=keyFunc_selectRight
 
 ;向下选中 5 行
-caps_m=keyFunc_selectDown5
+caps_m=keyFunc_selectDown(5)
 
 ;向右选中一个单词
 caps_n=keyFunc_selectWordRight
@@ -331,13 +359,13 @@ caps_w=keyFunc_backspace
 caps_x=keyFunc_cut_1
 
 ;光标向上移动 5 行
-caps_y=keyFunc_up5
+caps_y=keyFunc_moveUp(5)
 
 ;重复执行撤销以及重做
 caps_z=keyFunc_undoRedo
 
-;Capslock+`（反引号） -> 输出双反引号
-caps_backquote=keyFunc_doubleChar(`)
+;Capslock+`（反引号） -> 激活绑定窗口 9 （最多到 20）
+caps_backquote=keyFunc_winbind_activate(9)
 
 ;Capslock+1~8 -> 激活绑定窗口 1~8
 caps_1=keyFunc_winbind_activate(1)
@@ -360,7 +388,7 @@ caps_8=keyFunc_winbind_activate(8)
 caps_9=keyFunc_doubleChar((,))
 
 ;向上选中 5 行
-caps_0=keyFunc_selectUp5
+caps_0=keyFunc_selectUp(5)
 
 ;Capslock+-（减号） -> 向上翻页
 caps_minus=keyFunc_pageUp
@@ -375,10 +403,10 @@ caps_backspace=keyFunc_deleteLine
 caps_tab=keyFunc_tabScript
 
 ;左右大括号
-caps_left_square_bracket=keyFunc_doubleChar({,})
+caps_leftSquareBracket=keyFunc_doubleChar({,})
 
 ;左右中括号
-caps_right_square_bracket=keyFunc_doubleChar([,])
+caps_rightSquareBracket=keyFunc_doubleChar([,])
 
 ;Capslock+\ -> 无
 caps_backslash=keyFunc_doNothing
@@ -394,13 +422,12 @@ caps_enter=keyFunc_enterWherever
 
 ;Capslock+, -> 左右尖括号
 ;Qbar 激活时 Capslock+, -> 上一层目录
-caps_comma=keyFunc_angleBrackets
+caps_comma=keyFunc_doubleAngle
 
 ;Capslock+. -> 输出 .
 ;Qbar 激活时 Capslock+. -> 前进一层回退后的目录
 caps_dot=keyFunc_send_dot
 
-;Capslock+\ -> 无
 caps_slash=keyFunc_doNothing
 
 ;Capslock+space -> enter
@@ -418,17 +445,18 @@ caps_f2=keyFunc_mathBoard
 ;下一首
 caps_f3=keyFunc_mediaNext
 
-;让某窗口固定在顶部
-caps_f4=keyFunc_winPin
+;窗口透明；这个功能不能换按键
+caps_f4=keyFunc_winTransparent
 
 ;重载 Capslock+
 caps_f5=keyFunc_reload
 
-caps_f6=keyFunc_doNothing
+;让某窗口固定在顶部
+caps_f6=keyFunc_winPin
 
 caps_f7=keyFunc_doNothing
 
-;获取由选中的一段文字转成过的，供 TabScript 的 JS 函数调试的字符串 
+;获取由选中的一段文字转换过的，供 TabScript 的 JS 函数调试的字符串 
 caps_f8=keyFunc_getJSEvalString
 
 caps_f9=keyFunc_doNothing
@@ -442,72 +470,73 @@ caps_f12=keyFunc_switchClipboard
 
 ;--------------------LAlt--------------------
 
-;Capslock+LAlt+A -> 光标移动到页首
-caps_lalt_a=keyFunc_jumpPageTop
+;Capslock+LAlt+A -> 激活位于当前窗口最左边的窗口
+caps_lalt_a=keyFunc_activateSideWin(fl)
 
-caps_lalt_b=keyFunc_doNothing
+caps_lalt_b=keyFunc_pageMoveLineDown(5)
 
 ;独立剪贴板 2 的复制
 caps_lalt_c=keyFunc_copy_2
 
-;页面向下移动 5 行，光标不动
-caps_lalt_d=keyFunc_pageMoveLineDown5
+;激活位于当前窗口下边的窗口
+caps_lalt_d=keyFunc_activateSideWin(d)
 
-;页面向上移动 5 行，光标不动
-caps_lalt_e=keyFunc_pageMoveLineUp5
+;激活位于当前窗口上边的窗口
+caps_lalt_e=keyFunc_activateSideWin(u)
 
-;切换到下一个标签
-caps_lalt_f=keyFunc_tabNext
+;激活位于当前窗口右边的窗口
+caps_lalt_f=keyFunc_activateSideWin(r)
 
-;光标移动到页尾
-caps_lalt_g=keyFunc_jumpPageBottom
+;激活位于当前窗口最右边的窗口
+caps_lalt_g=keyFunc_activateSideWin(fr)
 
 caps_lalt_h=keyFunc_doNothing
 
-;输出 8
-caps_lalt_i=keyFunc_send_8
+caps_lalt_i=keyFunc_doNothing
 
-;输出 4
-caps_lalt_j=keyFunc_send_4
+;将一个窗口推入窗口栈
+caps_lalt_j=keyFunc_pushWinMinimizeStack
 
-caps_lalt_k=keyFunc_send_5
+;将一个窗口推入窗口栈底部
+caps_lalt_k=keyFunc_unshiftWinMinimizeStack
 
-caps_lalt_l=keyFunc_send_6
+;窗口栈尾部的一个窗口出栈，并激活它
+caps_lalt_l=keyFunc_popWinMinimizeStack
 
-caps_lalt_m=keyFunc_send_1
+caps_lalt_m=keyFunc_doNothing
 
 caps_lalt_n=keyFunc_doNothing
 
-caps_lalt_o=keyFunc_send_9
+caps_lalt_o=keyFunc_doNothing
 
-;输出 *
-caps_lalt_p=keyFunc_send_times
+caps_lalt_p=keyFunc_doNothing
 
 caps_lalt_q=keyFunc_doNothing
 
-caps_lalt_r=keyFunc_doNothing
+caps_lalt_r=keyFunc_tabNext
 
-;切换到上一个标签
-caps_lalt_s=keyFunc_tabPrve
+;激活位于当前窗口左边的窗口
+caps_lalt_s=keyFunc_activateSideWin(l)
 
 caps_lalt_t=keyFunc_doNothing
 
-caps_lalt_u=keyFunc_send_7
+caps_lalt_u=keyFunc_doNothing
 
 caps_lalt_v=keyFunc_paste_2
 
-caps_lalt_w=keyFunc_doNothing
+caps_lalt_w=keyFunc_tabPrve
 
 ;独立剪贴板 2 的 剪切
 caps_lalt_x=keyFunc_cut_2
 
-caps_lalt_y=keyFunc_doNothing
+caps_lalt_y=keyFunc_pageMoveLineUp(5)
 
-caps_lalt_z=keyFunc_doNothing
+caps_lalt_z=keyFunc_putWinToBottom
 
-cpas_lalt_backquote=keyFunc_doNothing
+;Capslock+LAlt+1: 窗口绑定 9
+caps_lalt_backquote=keyFunc_winbind_binding(9)
 
-;Capslock+LAlt+1: 窗口绑定 1
+;Capslock+LAlt+1: 窗口绑定 1~8
 caps_lalt_1=keyFunc_winbind_binding(1)
 
 caps_lalt_2=keyFunc_winbind_binding(2)
@@ -528,48 +557,41 @@ caps_lalt_9=keyFunc_doNothing
 
 caps_lalt_0=keyFunc_doNothing
 
-;页面上移 1 页，光标不动
-caps_lalt_minus=keyFunc_pageMoveUp
+;光标移动到页首
+caps_lalt_minus=keyFunc_jumpPageTop
 
-;页面下移 1 页，光标不动
-caps_lalt_equal=keyFunc_pageMoveDown
+;光标移动到页尾
+caps_lalt_equal=keyFunc_jumpPageBottom
 
 ;backspace
 caps_lalt_backspace=keyFunc_backspace
 
 caps_lalt_tab=keyFunc_doNothing
 
-;Capslock+LAlt+[ -> 输出 /
-caps_lalt_left_square_bracket=keyFunc_send_devide
+caps_lalt_leftSquareBracket=keyFunc_doNothing
 
 ;Capslock+LAlt+]
-caps_lalt_right_square_bracket=keyFunc_doNothing
+caps_lalt_rightSquareBracket=keyFunc_doNothing
 
 ;Capslock+LAlt+\
 caps_lalt_backslash=keyFunc_doNothing
 
-;Capslock+LAlt+; -> 输出 +
-caps_lalt_semicolon=keyFunc_send_plus
+;清空窗口栈
+caps_lalt_semicolon=keyFunc_clearWinMinimizeStach
 
-;Capslock+LAlt+' -> 输出 -
-caps_lalt_quote=keyFunc_send_minus
+caps_lalt_quote=keyFunc_doNothing
 
 caps_lalt_enter=keyFunc_doNothing
 
-;Capslock+LAlt+, -> 输出 2
-caps_lalt_comma=keyFunc_send_2
+caps_lalt_comma=keyFunc_doNothing
 
-;Capslock+LAlt+. -> 输出 3
-caps_lalt_dot=keyFunc_send_3
+caps_lalt_dot=keyFunc_doNothing
 
-;Capslock+LAlt+/ -> 无
 caps_lalt_slash=keyFunc_doNothing
 
-;Capslock+LAlt+Space -> 输出 0
-caps_lalt_space=keyFunc_send_0
+caps_lalt_space=keyFunc_doNothing
 
-;Capslock+LAlt+RAlt -> 输出 .
-caps_lalt_right_alt=keyFunc_send_dot
+caps_lalt_ralt=keyFunc_doNothing
 
 caps_lalt_f1=keyFunc_doNothing
 
@@ -595,6 +617,9 @@ caps_lalt_f11=keyFunc_doNothing
 
 caps_lalt_f12=keyFunc_doNothing
 
+caps_lalt_wheelUp=keyFunc_mouseSpeedIncrease
+
+caps_lalt_wheelDown=keyFunc_mouseSpeedDecrease
 ;----------------其他功能----------------
 
 ;上一首
@@ -612,13 +637,9 @@ keyFunc_volumeDown
 ;静音
 keyFunc_volumeMute
 
-;单引号
-keyFunc_singlequote
-
-;反引号
-keyFunc_backquote
 
 )
+global lang_winsInfosRecorderIniInit:=""
 lang_winsInfosRecorderIniInit=
 (
 ;------------ Encoding: UTF-16 ------------
@@ -673,7 +694,9 @@ exe_0=
 id_0=
 )
 
-getDebugText=
+; keysFunction.ahk
+global lang_kf_getDebugText:=""
+lang_kf_getDebugText=
 (
 供 TabScript 调试用字符串
 点击"OK"将它复制到剪贴板
