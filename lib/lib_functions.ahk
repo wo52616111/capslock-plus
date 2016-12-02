@@ -30,7 +30,7 @@ getSelText()
     ClipboardOld:=ClipboardAll
     Clipboard:=""
     SendInput, ^{insert}
-    ClipWait, 0.05
+    ClipWait, 0.1
     if(!ErrorLevel)
     {
         selText:=Clipboard
