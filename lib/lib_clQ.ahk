@@ -1408,7 +1408,7 @@ qrunBy(_exe, _paramStr:="", ifAdmin:=false)
                 if(ifAdmin && !RegExMatch(t, "i)^\*RunAs\s"))
                     t:="*RunAs " . t
                 if(_paramStr)
-                    t:=t . " " . _paramStr
+                    t:=t . " """ . _paramStr . """"
                 run, % t
             }
             else
