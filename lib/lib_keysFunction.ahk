@@ -21,6 +21,11 @@ keyFunc_run(p){
     return
 }
 
+keyFunc_esc(){
+    SendInput, {Esc}
+    return
+}
+
 keyFunc_mouseSpeedIncrease(){
     global
     mouseSpeed+=1
