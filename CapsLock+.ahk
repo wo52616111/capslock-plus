@@ -109,21 +109,26 @@ if (allowRunOnClipboardChange && !CapsLock && CLsets.global.allowClipboard != "0
 allowRunOnClipboardChange:=true
 return
 
+; ctrl + t
 !t::
 SendInput,^{t}
 return
 
+; ctrl + w
 !w::
 SendInput,^{w}
 return
 
+; ctrl + shift + t
 !+t::
 SendInput, ^+{t}
 return
 
+; ctrl + tab
 CapsLock & Tab::^Tab
 return
 
+; ctrl + shift + tab
 Tab::
 If GetKeyState("Ctrl","Shift")
 Send ^+{Tab}
