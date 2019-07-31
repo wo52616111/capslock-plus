@@ -1,21 +1,34 @@
-;SetCapsLockState, AlwaysOff
-
+; alt + t
 !t::
 SendInput,^{t}
-return
+Capslock:=""
+SetCapsLockState Off
+Return
 
+; alt + w
 !w::
 SendInput,^{w}
-return
+Capslock:=""
+SetCapsLockState Off
+Return
 
+; alt + shift + t
 !+t::
 SendInput, ^+{t}
-return
+Capslock:=""
+SetCapsLockState Off
+Return
 
-CapsLock & Tab::^Tab
-return
+; ctrl + tab
+Capslock & Tab::^Tab
+Capslock:=""
+SetCapsLockState Off
+Return
 
+; ctrl + shift + tab
 Tab::
 If GetKeyState("Ctrl","Shift")
 Send ^+{Tab}
-return
+Capslock:=""
+SetCapsLockState Off
+Return
