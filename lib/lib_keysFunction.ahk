@@ -112,25 +112,27 @@ keyFunc_delete(){
 
 
 keyFunc_translate(){
-    global
-    selText:=getSelText()
-    if(selText)
-    { 
-        ydTranslate(selText)
-    }
-    else
-    { 
-        ClipboardOld:=ClipboardAll
-        Clipboard:=""
-        SendInput, ^{Left}^+{Right}^{insert}
-        ClipWait, 0.05
-        selText:=Clipboard
-        ydTranslate(selText)
-        Clipboard:=ClipboardOld
-    }
-    SetTimer, setTransGuiActive, -400
+    ;global
+    ;selText:=getSelText()
+    ;if(selText)
+    ;{ 
+    ;    ydTranslate(selText)
+    ;}
+    ;else
+    ;{ 
+    ;    ClipboardOld:=ClipboardAll
+    ;    Clipboard:=""
+    ;    SendInput, ^{Left}^+{Right}^{insert}
+    ;    ClipWait, 0.05
+    ;    selText:=Clipboard
+    ;    ydTranslate(selText)
+    ;    Clipboard:=ClipboardOld
+    ;}
+    ;SetTimer, setTransGuiActive, -400
+    SendInput,^{t}
     Return
 }
+
 
 
 keyFunc_end(){
