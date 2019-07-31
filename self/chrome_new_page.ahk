@@ -1,3 +1,5 @@
+;SetCapsLockState, AlwaysOff
+
 !t::
 SendInput,^{t}
 return
@@ -15,10 +17,5 @@ return
 
 Tab::
 If GetKeyState("Ctrl","Shift")
- Send ^+{Tab}
-;(CapsLock & +) & Tab::^+Tab
+Send ^+{Tab}
 return
-
-;+& CapsLock & Tab::
-;SendInput, ^+{Tab}
-;return
