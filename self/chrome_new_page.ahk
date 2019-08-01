@@ -5,6 +5,8 @@ Capslock:=""
 SetCapsLockState Off
 Return
 
+
+
 ; alt + w
 !w::
 Send ^{w}
