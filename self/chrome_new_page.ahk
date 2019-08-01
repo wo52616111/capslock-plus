@@ -54,6 +54,22 @@ Capslock:=""
 SetCapsLockState Off
 Return
 
+; command + n
+!n::
+Send ^{n}
+Capslock:=""
+SetCapsLockState Off
+Return
+
+
+; command + space
+!Space::
+Send #{s}
+Capslock:=""
+SetCapsLockState Off
+Return
+
+
 ; command + s simulates save
 !s::
 Send ^{s}
