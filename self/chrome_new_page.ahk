@@ -25,24 +25,28 @@ Send ^{c}
 Capslock:=""
 SetCapsLockState Off
 Return
+
 ; command + v
 !v::
 Send ^{v}
 Capslock:=""
 SetCapsLockState Off
 Return
+
 ; command + x
 !x::
 Send ^{x}
 Capslock:=""
 SetCapsLockState Off
 Return
+
 ; command + z
 !z::
 Send ^{z}
 Capslock:=""
 SetCapsLockState Off
 Return
+
 ; command + a
 !a::
 Send ^{a}
@@ -50,9 +54,7 @@ Capslock:=""
 SetCapsLockState Off
 Return
 
-
-
-; alt + s simulates save
+; command + s simulates save
 !s::
 Send ^{s}
 Capslock:=""
