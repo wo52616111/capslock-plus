@@ -1,3 +1,5 @@
+; self-use auto hotkey script.
+
 ; alt + t
 !t::
 Send ^{t}
