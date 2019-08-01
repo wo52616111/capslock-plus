@@ -28,7 +28,7 @@ Return
 
 ; alt + shift + t
 !+t::
-SendInput, ^+{t}
+Send, ^+{t}
 Capslock:=""
 SetCapsLockState Off
 Return
@@ -41,8 +41,9 @@ Return
 
 ; ctrl + shift + tab
 Tab::
-If (GetKeyState("Ctrl","Shift")){
+If (GetKeyState(Capslock,Shift)){
     Send ^+{Tab}
+  
 } else {
     Send {Tab}
 }
@@ -50,5 +51,11 @@ Capslock:=""
 SetCapsLockState Off
 Return
 
+; alt + shift + n
+!+n::
+Send, ^+{n}
+Capslock:=""
+SetCapsLockState Off
+Return
 
 
