@@ -47,14 +47,14 @@ keyFunc_mouseSpeedDecrease(){
 }
 
 
-keyFunc_moveLeft(){
-    SendInput,{left}
+keyFunc_moveLeft(i:=1){
+    SendInput, {left %i%}
     return
 }
 
 
-keyFunc_moveRight(){
-    SendInput,{right}
+keyFunc_moveRight(i:=1){
+    SendInput, {right %i%}
     Return
 }
 
@@ -87,14 +87,14 @@ keyFunc_moveDown(i:=1){
 }
 
 
-keyFunc_moveWordLeft(){
-    SendInput,^{Left}
+keyFunc_moveWordLeft(i:=1){
+    SendInput,^{Left %i%}
     Return
 }
 
 
-keyFunc_moveWordRight(){
-    SendInput,^{Right}
+keyFunc_moveWordRight(i:=1){
+    SendInput,^{Right %i%}
     Return
 }
 
@@ -109,6 +109,18 @@ keyFunc_delete(){
     SendInput,{delete}
     Return
 }
+
+keyFunc_deleteWord(){
+    SendInput, ^{backspace}
+    Return
+}
+
+
+keyFunc_forwardDeleteWord(){
+    SendInput, ^{delete}
+    Return
+}
+
 
 
 keyFunc_translate(){
@@ -145,11 +157,33 @@ keyFunc_home(){
 }
 
 
+keyFunc_moveToPageBeginning(){
+    SendInput, ^{Home}
+    Return
+}
+
+
+keyFunc_moveToPageEnd(){
+    SendInput, ^{End}
+    Return
+}
+
+
+
 keyFunc_deleteLine(){
     SendInput,{End}+{home}{bs}
     Return
 }
 
+keyFunc_deleteToLineBeginning(){
+    SendInput,+{Home}{bs}
+    Return
+}
+
+keyFunc_deleteToLineEnd(){
+    SendInput,+{End}{bs}
+    Return
+}
 
 keyFunc_enterWherever(){
     SendInput,{End}{Enter}
@@ -534,15 +568,26 @@ keyFunc_selectEnd(){
     return
 }
 
-
-keyFunc_selectWordLeft(){
-    SendInput, +^{Left}
+keyFunc_selectToPageBeginning(){
+    SendInput, +^{Home}
     return
 }
 
 
-keyFunc_selectWordRight(){
-    SendInput, +^{Right}
+keyFunc_selectToPageEnd(){
+    SendInput, +^{End}
+    return
+}
+
+
+keyFunc_selectWordLeft(i:=1){
+    SendInput, +^{Left %i%}
+    return
+}
+
+
+keyFunc_selectWordRight(i:=1){
+    SendInput, +^{Right %i%}
     return
 }
 

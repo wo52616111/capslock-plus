@@ -11,7 +11,7 @@ global keyset:=CLSets.Keys
 if(!keyset.caps_a)
     keyset.caps_a:="keyFunc_moveWordLeft"
 if(!keyset.caps_b)
-    keyset.caps_b:="keyFunc_moveDown(5)"
+    keyset.caps_b:="keyFunc_moveDown(10)"
 if(!keyset.caps_c)
     keyset.caps_c:="keyFunc_copy_1"
 if(!keyset.caps_d)
@@ -33,7 +33,7 @@ if(!keyset.caps_k)
 if(!keyset.caps_l)
     keyset.caps_l:="keyFunc_selectRight"
 if(!keyset.caps_m)
-    keyset.caps_m:="keyFunc_selectDown(5)"
+    keyset.caps_m:="keyFunc_selectDown(10)"
 if(!keyset.caps_n)
     keyset.caps_n:="keyFunc_selectWordRight"
 if(!keyset.caps_o)
@@ -41,13 +41,13 @@ if(!keyset.caps_o)
 if(!keyset.caps_p)
     keyset.caps_p:="keyFunc_home"
 if(!keyset.caps_q)
-    keyset.caps_q:="keyFunc_qbar"
+    keyset.caps_q:="keyFunc_doNothing"
 if(!keyset.caps_r)
     keyset.caps_r:="keyFunc_delete"
 if(!keyset.caps_s)
     keyset.caps_s:="keyFunc_moveLeft"
 if(!keyset.caps_t)
-    keyset.caps_t:="keyFunc_translate"
+    keyset.caps_t:="keyFunc_moveUp(10)"
 if(!keyset.caps_u)
     keyset.caps_u:="keyFunc_selectHome"
 if(!keyset.caps_v)
@@ -57,12 +57,12 @@ if(!keyset.caps_w)
 if(!keyset.caps_x)
     keyset.caps_x:="keyFunc_cut_1"
 if(!keyset.caps_y)
-    keyset.caps_y:="keyFunc_moveUp(5)"
+    keyset.caps_y:="keyFunc_selectUp(10)"
 if(!keyset.caps_z)
-    keyset.caps_z:="keyFunc_undoRedo"
+    keyset.caps_z:="keyFunc_doNothing"
 
 if(!keyset.caps_backquote)
-    keyset.caps_backquote:="keyFunc_winbind_activate(9)"
+    keyset.caps_backquote:="keyFunc_doNothing"
 if(!keyset.caps_1)
     keyset.caps_1:="keyFunc_winbind_activate(1)"
 if(!keyset.caps_2)
@@ -80,33 +80,33 @@ if(!keyset.caps_7)
 if(!keyset.caps_8)
     keyset.caps_8:="keyFunc_winbind_activate(8)"
 if(!keyset.caps_9)
-    keyset.caps_9:="keyFunc_doubleChar((,))"
+    keyset.caps_9:="keyFunc_winbind_activate(9)"
 if(!keyset.caps_0)
-    keyset.caps_0:="keyFunc_selectUp(5)"
+    keyset.caps_0:="keyFunc_winbind_activate(10)"
 if(!keyset.caps_minus)
-    keyset.caps_minus:="keyFunc_pageUp"
+    keyset.caps_minus:="keyFunc_doNothing"
 if(!keyset.caps_equal)
-    keyset.caps_equal:="keyFunc_pageDown"
+    keyset.caps_equal:="keyFunc_doNothing"
 if(!keyset.caps_backspace)
     keyset.caps_backspace:="keyFunc_deleteLine"
 if(!keyset.caps_tab)
     keyset.caps_tab:="keyFunc_tabScript"
 if(!keyset.caps_leftSquareBracket)
-    keyset.caps_leftSquareBracket:="keyFunc_doubleChar({,})"
+    keyset.caps_leftSquareBracket:="keyFunc_deleteToLineBeginning"
 if(!keyset.caps_rightSquareBracket)
-    keyset.caps_rightSquareBracket:="keyFunc_doubleChar([,])"
+    keyset.caps_rightSquareBracket:="keyFunc_doNothing"
 if(!keyset.caps_backslash)
     keyset.caps_backslash:="keyFunc_doNothing"
 if(!keyset.caps_semicolon)
     keyset.caps_semicolon:="keyFunc_end"
 if(!keyset.caps_quote)
-    keyset.caps_quote:="keyFunc_doubleChar("""""""","""""""")"
+    keyset.caps_quote:="keyFunc_deleteToLineEnd"
 if(!keyset.caps_enter)
     keyset.caps_enter:="keyFunc_enterWherever"
 if(!keyset.caps_comma)
-    keyset.caps_comma:="keyFunc_doubleAngle"
+    keyset.caps_comma:="keyFunc_doNothing"
 if(!keyset.caps_dot)
-    keyset.caps_dot:="keyFunc_send_dot"
+    keyset.caps_dot:="keyFunc_doNothing"
 if(!keyset.caps_slash)
     keyset.caps_slash:="keyFunc_doNothing"
 if(!keyset.caps_space)
@@ -117,19 +117,19 @@ if(!keyset.caps_ralt)
 if(!keyset.caps_f1)
     keyset.caps_f1:="keyFunc_openCpasDocs"
 if(!keyset.caps_f2)
-    keyset.caps_f2:="keyFunc_mathBoard"
+    keyset.caps_f2:="keyFunc_doNothing"
 if(!keyset.caps_f3)
-    keyset.caps_f3:="keyFunc_mediaNext"
+    keyset.caps_f3:="keyFunc_doNothing"
 if(!keyset.caps_f4)
-    keyset.caps_f4:="keyFunc_winTransparent"
+    keyset.caps_f4:="keyFunc_doNothing"
 if(!keyset.caps_f5)
     keyset.caps_f5:="keyFunc_reload"
 if(!keyset.caps_f6)
-    keyset.caps_f6:="keyFunc_winPin"
+    keyset.caps_f6:="keyFunc_doNothing"
 if(!keyset.caps_f7)
     keyset.caps_f7:="keyFunc_doNothing"
 if(!keyset.caps_f8)
-    keyset.caps_f8:="keyFunc_getJSEvalString"
+    keyset.caps_f8:="keyFunc_doNothing"
 if(!keyset.caps_f9)
     keyset.caps_f9:="keyFunc_doNothing"
 if(!keyset.caps_f10)
@@ -142,60 +142,60 @@ if(!keyset.caps_f12)
 ; LAlt--------------------------------------------
 
 if(!keyset.caps_lalt_a)
-    keyset.caps_lalt_a:="keyFunc_activateSideWin(fl)"
+    keyset.caps_lalt_a:="keyFunc_moveWordLeft(3)"
 if(!keyset.caps_lalt_b)
-    keyset.caps_lalt_b:="keyFunc_pageMoveLineDown(5)"
+    keyset.caps_lalt_b:="keyFunc_moveDown(30)"
 if(!keyset.caps_lalt_c)
     keyset.caps_lalt_c:="keyFunc_copy_2"
 if(!keyset.caps_lalt_d)
-    keyset.caps_lalt_d:="keyFunc_activateSideWin(d)"
+    keyset.caps_lalt_d:="keyFunc_moveDown(3)"
 if(!keyset.caps_lalt_e)
-    keyset.caps_lalt_e:="keyFunc_activateSideWin(u)"
+    keyset.caps_lalt_e:="keyFunc_moveUp(3)"
 if(!keyset.caps_lalt_f)
-    keyset.caps_lalt_f:="keyFunc_activateSideWin(r)"
+    keyset.caps_lalt_f:="keyFunc_moveRight(5)"
 if(!keyset.caps_lalt_g)
-    keyset.caps_lalt_g:="keyFunc_activateSideWin(fr)"
+    keyset.caps_lalt_g:="keyFunc_moveWordRight(3)"
 if(!keyset.caps_lalt_h)
-    keyset.caps_lalt_h:="keyFunc_clearWinMinimizeStach"
+    keyset.caps_lalt_h:="keyFunc_selectWordLeft(3)"
 if(!keyset.caps_lalt_i)
-    keyset.caps_lalt_i:="keyFunc_doNothing"
+    keyset.caps_lalt_i:="keyFunc_selectUp(3)"
 if(!keyset.caps_lalt_j)
-    keyset.caps_lalt_j:="keyFunc_pushWinMinimizeStack"
+    keyset.caps_lalt_j:="keyFunc_selectLeft(5)"
 if(!keyset.caps_lalt_k)
-    keyset.caps_lalt_k:="keyFunc_unshiftWinMinimizeStack"
+    keyset.caps_lalt_k:="keyFunc_selectDown(3)"
 if(!keyset.caps_lalt_l)
-    keyset.caps_lalt_l:="keyFunc_popWinMinimizeStack"
+    keyset.caps_lalt_l:="keyFunc_selectRight(5)"
 if(!keyset.caps_lalt_m)
-    keyset.caps_lalt_m:="keyFunc_doNothing"
+    keyset.caps_lalt_m:="keyFunc_selectDown(30)"
 if(!keyset.caps_lalt_n)
-    keyset.caps_lalt_n:="keyFunc_doNothing"
+    keyset.caps_lalt_n:="keyFunc_selectWordLeft(3)"
 if(!keyset.caps_lalt_o)
-    keyset.caps_lalt_o:="keyFunc_doNothing"
+    keyset.caps_lalt_o:="keyFunc_selectToPageEnd"
 if(!keyset.caps_lalt_p)
-    keyset.caps_lalt_p:="keyFunc_doNothing"
+    keyset.caps_lalt_p:="keyFunc_moveToPageBeginning"
 if(!keyset.caps_lalt_q)
-    keyset.caps_lalt_q:="keyFunc_activateSideWin(c)"
+    keyset.caps_lalt_q:="keyFunc_doNothing"
 if(!keyset.caps_lalt_r)
-    keyset.caps_lalt_r:="keyFunc_tabNext"
+    keyset.caps_lalt_r:="keyFunc_forwardDeleteWord"
 if(!keyset.caps_lalt_s)
-    keyset.caps_lalt_s:="keyFunc_activateSideWin(l)"
+    keyset.caps_lalt_s:="keyFunc_moveLeft(5)"
 if(!keyset.caps_lalt_t)
-    keyset.caps_lalt_t:="keyFunc_doNothing"
+    keyset.caps_lalt_t:="keyFunc_moveUp(30)"
 if(!keyset.caps_lalt_u)
-    keyset.caps_lalt_u:="keyFunc_doNothing"
+    keyset.caps_lalt_u:="keyFunc_selectToPageBeginning"
 if(!keyset.caps_lalt_v)
     keyset.caps_lalt_v:="keyFunc_paste_2"
 if(!keyset.caps_lalt_w)
-    keyset.caps_lalt_w:="keyFunc_tabPrve"
+    keyset.caps_lalt_w:="keyFunc_deleteWord"
 if(!keyset.caps_lalt_x)
     keyset.caps_lalt_x:="keyFunc_cut_2"
 if(!keyset.caps_lalt_y)
-    keyset.caps_lalt_y:="keyFunc_pageMoveLineUp(5)"
+    keyset.caps_lalt_y:="keyFunc_moveUp(10)"
 if(!keyset.caps_lalt_z)
-    keyset.caps_lalt_z:="keyFunc_putWinToBottom"
+    keyset.caps_lalt_z:="keyFunc_doNothing"
     
 if(!keyset.caps_lalt_backquote)
-    keyset.caps_lalt_backquote:="keyFunc_winbind_binding(9)"
+    keyset.caps_lalt_backquote:="keyFunc_doNothing"
 if(!keyset.caps_lalt_1)
     keyset.caps_lalt_1:="keyFunc_winbind_binding(1)"
 if(!keyset.caps_lalt_2)
@@ -213,9 +213,9 @@ if(!keyset.caps_lalt_7)
 if(!keyset.caps_lalt_8)
     keyset.caps_lalt_8:="keyFunc_winbind_binding(8)"
 if(!keyset.caps_lalt_9)
-    keyset.caps_lalt_9:="keyFunc_doNothing"
+    keyset.caps_lalt_9:="keyFunc_winbind_binding(9)"
 if(!keyset.caps_lalt_0)
-    keyset.caps_lalt_0:="keyFunc_doNothing"
+    keyset.caps_lalt_0:="keyFunc_winbind_binding(10)"
 if(!keyset.caps_lalt_minus)
     keyset.caps_lalt_minus:="keyFunc_jumpPageTop"
 if(!keyset.caps_lalt_equal)
