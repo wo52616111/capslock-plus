@@ -197,25 +197,25 @@ if(!keyset.caps_lalt_z)
 if(!keyset.caps_lalt_backquote)
     keyset.caps_lalt_backquote:="keyFunc_doNothing"
 if(!keyset.caps_lalt_1)
-    keyset.caps_lalt_1:="keyFunc_winbind_binding(1)"
+    keyset.caps_lalt_1:="keyFunc_doNothing"
 if(!keyset.caps_lalt_2)
-    keyset.caps_lalt_2:="keyFunc_winbind_binding(2)"
+    keyset.caps_lalt_2:="keyFunc_doNothing"
 if(!keyset.caps_lalt_3)
-    keyset.caps_lalt_3:="keyFunc_winbind_binding(3)"
+    keyset.caps_lalt_3:="keyFunc_doNothing"
 if(!keyset.caps_lalt_4)
-    keyset.caps_lalt_4:="keyFunc_winbind_binding(4)"
+    keyset.caps_lalt_4:="keyFunc_doNothing"
 if(!keyset.caps_lalt_5)
-    keyset.caps_lalt_5:="keyFunc_winbind_binding(5)"
+    keyset.caps_lalt_5:="keyFunc_doNothing"
 if(!keyset.caps_lalt_6)
-    keyset.caps_lalt_6:="keyFunc_winbind_binding(6)"
+    keyset.caps_lalt_6:="keyFunc_doNothing"
 if(!keyset.caps_lalt_7)
-    keyset.caps_lalt_7:="keyFunc_winbind_binding(7)"
+    keyset.caps_lalt_7:="keyFunc_doNothing"
 if(!keyset.caps_lalt_8)
-    keyset.caps_lalt_8:="keyFunc_winbind_binding(8)"
+    keyset.caps_lalt_8:="keyFunc_doNothing"
 if(!keyset.caps_lalt_9)
-    keyset.caps_lalt_9:="keyFunc_winbind_binding(9)"
+    keyset.caps_lalt_9:="keyFunc_doNothing"
 if(!keyset.caps_lalt_0)
-    keyset.caps_lalt_0:="keyFunc_winbind_binding(10)"
+    keyset.caps_lalt_0:="keyFunc_doNothing"
 if(!keyset.caps_lalt_minus)
     keyset.caps_lalt_minus:="keyFunc_doNothing"
 if(!keyset.caps_lalt_equal)
@@ -231,9 +231,9 @@ if(!keyset.caps_lalt_rightSquareBracket)
 if(!keyset.caps_lalt_backslash)
     keyset.caps_lalt_backslash:="keyFunc_doNothing"
 if(!keyset.caps_lalt_semicolon)
-    keyset.caps_lalt_semicolon:="keyFunc_deleteToPageEnd"
+    keyset.caps_lalt_semicolon:="keyFunc_moveToPageEnd"
 if(!keyset.caps_lalt_quote)
-    keyset.caps_lalt_quote:="keyFunc_doNothing"
+    keyset.caps_lalt_quote:="keyFunc_deleteToPageEnd"
 if(!keyset.caps_lalt_enter)
     keyset.caps_lalt_enter:="keyFunc_doNothing"
 if(!keyset.caps_lalt_comma)
@@ -247,7 +247,27 @@ if(!keyset.caps_lalt_space)
 if(!keyset.caps_lalt_ralt)
     keyset.caps_lalt_ralt:="keyFunc_doNothing"
     
-
+;--------------------window-------------------
+if(!keyset.caps_win_1)
+    keyset.caps_win_1:="keyFunc_winbind_binding(1)"
+if(!keyset.caps_win_2)
+    keyset.caps_win_2:="keyFunc_winbind_binding(2)"
+if(!keyset.caps_win_3)
+    keyset.caps_win_3:="keyFunc_winbind_binding(3)"
+if(!keyset.caps_win_4)
+    keyset.caps_win_4:="keyFunc_winbind_binding(4)"
+if(!keyset.caps_win_5)
+    keyset.caps_win_5:="keyFunc_winbind_binding(5)"
+if(!keyset.caps_win_6)
+    keyset.caps_win_6:="keyFunc_winbind_binding(6)"
+if(!keyset.caps_win_7)
+    keyset.caps_win_7:="keyFunc_winbind_binding(7)"
+if(!keyset.caps_win_8)
+    keyset.caps_win_8:="keyFunc_winbind_binding(8)"
+if(!keyset.caps_win_9)
+    keyset.caps_win_9:="keyFunc_winbind_binding(9)"
+if(!keyset.caps_win_0)
+    keyset.caps_win_0:="keyFunc_winbind_binding(10)"
     
 ;--------------------other--------------------
     

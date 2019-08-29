@@ -672,7 +672,65 @@ try
 Capslock2:=""
 return
 
+#1::
+try
+    runFunc(keyset.caps_win_1)
+Capslock2:=""
+return
 
+#2::
+try
+    runFunc(keyset.caps_win_2)
+Capslock2:=""
+return
+
+#3::
+try
+    runFunc(keyset.caps_win_3)
+Capslock2:=""
+return
+
+#4::
+try
+    runFunc(keyset.caps_win_4)
+Capslock2:=""
+return
+
+#5::
+try
+    runFunc(keyset.caps_win_5)
+Capslock2:=""
+return
+
+#6::
+try
+    runFunc(keyset.caps_win_6)
+Capslock2:=""
+return
+
+#7::
+try
+    runFunc(keyset.caps_win_7)
+Capslock2:=""
+return
+
+#8::
+try
+    runFunc(keyset.caps_win_8)
+Capslock2:=""
+return
+
+#9::
+try
+    runFunc(keyset.caps_win_9)
+Capslock2:=""
+return
+
+#0::
+try
+    runFunc(keyset.caps_win_0)
+Capslock2:=""
+return
 ;  #s::
 ;      keyFunc_activateSideWin("l")
 ;  Capslock2:=""

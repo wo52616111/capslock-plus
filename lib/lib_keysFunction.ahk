@@ -111,7 +111,7 @@ keyFunc_delete(){
 }
 
 keyFunc_deleteAll(){
-    SendInput, ^{A}{delete}
+    SendInput, ^{a}{delete}
     Return
 }
 
@@ -558,14 +558,14 @@ keyFunc_selectDown(i:=1){
 }
 
 
-keyFunc_selectLeft(){
-    SendInput, +{Left}
+keyFunc_selectLeft(i:=1){
+    SendInput, +{Left %i%}
     return
 }
 
 
-keyFunc_selectRight(){
-    SendInput, +{Right}
+keyFunc_selectRight(i:=1){
+    SendInput, +{Right %i%}
     return
 }
 
