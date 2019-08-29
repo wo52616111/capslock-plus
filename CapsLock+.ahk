@@ -12,7 +12,7 @@ menu, TRAY, Icon, capslock+icon.ico, , 1
 }
 Menu, Tray, Icon,,, 1
 
-
+SetStoreCapslockMode, Off
 
 global CLversion:="Version: 2.7.0.0 | 2016-11-30`n`nCopyright 2016 Chen JunKai" 
 
@@ -82,7 +82,8 @@ KeyWait, Capslock
 CapsLock:="" ;Capslock最优先置空，来关闭 Capslock+ 功能的触发
 if CapsLock2
 {
-    SetCapsLockState, % GetKeyState("CapsLock","T") ? "Off" : "On"
+    ; SetCapsLockState, % GetKeyState("CapsLock","T") ? "Off" : "On"
+    sendinput, {esc}
 }
 CapsLock2:=""
 

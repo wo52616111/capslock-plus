@@ -110,6 +110,11 @@ keyFunc_delete(){
     Return
 }
 
+keyFunc_deleteAll(){
+    SendInput, ^{A}{delete}
+    Return
+}
+
 keyFunc_deleteWord(){
     SendInput, ^{backspace}
     Return
@@ -168,8 +173,6 @@ keyFunc_moveToPageEnd(){
     Return
 }
 
-
-
 keyFunc_deleteLine(){
     SendInput,{End}+{home}{bs}
     Return
@@ -182,6 +185,16 @@ keyFunc_deleteToLineBeginning(){
 
 keyFunc_deleteToLineEnd(){
     SendInput,+{End}{bs}
+    Return
+}
+
+keyFunc_deleteToPageBeginning(){
+    SendInput,+^{Home}{bs}
+    Return
+}
+
+keyFunc_deleteToPageEnd(){
+    SendInput,+^{End}{bs}
     Return
 }
 

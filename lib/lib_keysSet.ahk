@@ -168,7 +168,7 @@ if(!keyset.caps_lalt_l)
 if(!keyset.caps_lalt_m)
     keyset.caps_lalt_m:="keyFunc_selectDown(30)"
 if(!keyset.caps_lalt_n)
-    keyset.caps_lalt_n:="keyFunc_selectWordLeft(3)"
+    keyset.caps_lalt_n:="keyFunc_selectWordRight(3)"
 if(!keyset.caps_lalt_o)
     keyset.caps_lalt_o:="keyFunc_selectToPageEnd"
 if(!keyset.caps_lalt_p)
@@ -190,7 +190,7 @@ if(!keyset.caps_lalt_w)
 if(!keyset.caps_lalt_x)
     keyset.caps_lalt_x:="keyFunc_cut_2"
 if(!keyset.caps_lalt_y)
-    keyset.caps_lalt_y:="keyFunc_moveUp(10)"
+    keyset.caps_lalt_y:="keyFunc_selectUp(30)"
 if(!keyset.caps_lalt_z)
     keyset.caps_lalt_z:="keyFunc_doNothing"
     
@@ -217,21 +217,21 @@ if(!keyset.caps_lalt_9)
 if(!keyset.caps_lalt_0)
     keyset.caps_lalt_0:="keyFunc_winbind_binding(10)"
 if(!keyset.caps_lalt_minus)
-    keyset.caps_lalt_minus:="keyFunc_jumpPageTop"
+    keyset.caps_lalt_minus:="keyFunc_doNothing"
 if(!keyset.caps_lalt_equal)
-    keyset.caps_lalt_equal:="keyFunc_jumpPageBottom"
+    keyset.caps_lalt_equal:="keyFunc_doNothing"
 if(!keyset.caps_lalt_backspace)
-    keyset.caps_lalt_backspace:="keyFunc_backspace"
+    keyset.caps_lalt_backspace:="keyFunc_deleteAll"
 if(!keyset.caps_lalt_tab)
     keyset.caps_lalt_tab:="keyFunc_doNothing"
 if(!keyset.caps_lalt_leftSquareBracket)
-    keyset.caps_lalt_leftSquareBracket:="keyFunc_doNothing"
+    keyset.caps_lalt_leftSquareBracket:="keyFunc_deleteToPageBeginning"
 if(!keyset.caps_lalt_rightSquareBracket)
     keyset.caps_lalt_rightSquareBracket:="keyFunc_doNothing"
 if(!keyset.caps_lalt_backslash)
     keyset.caps_lalt_backslash:="keyFunc_doNothing"
 if(!keyset.caps_lalt_semicolon)
-    keyset.caps_lalt_semicolon:="keyFunc_doNothing"
+    keyset.caps_lalt_semicolon:="keyFunc_deleteToPageEnd"
 if(!keyset.caps_lalt_quote)
     keyset.caps_lalt_quote:="keyFunc_doNothing"
 if(!keyset.caps_lalt_enter)
@@ -252,9 +252,9 @@ if(!keyset.caps_lalt_ralt)
 ;--------------------other--------------------
     
 if(!keyset.caps_lalt_wheelUp)
-    keyset.caps_lalt_wheelUp:="keyFunc_mouseSpeedIncrease"
+    keyset.caps_lalt_wheelUp:="keyFunc_doNothing"
 if(!keyset.caps_lalt_wheelDown)
-    keyset.caps_lalt_wheelDown:="keyFunc_mouseSpeedDecrease"
+    keyset.caps_lalt_wheelDown:="keyFunc_doNothing"
 
 
 
