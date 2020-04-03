@@ -77,6 +77,11 @@ lang_settingsIniInit=
 ;是否开机自启动，1为是，0为否（默认）。
 autostart=0
 
+;热键布局方案，可选值：
+;- capslock_plus  Capslock+ 3.0 之前的布局
+;- capslox（默认）  Capslock+ 3.0 之后的布局
+default_hotkey_scheme=capslock_plus
+
 ;需要加载的 JavaScript 文件，以逗号分隔，文件应放在与 Capslock+ 程序同文件夹下的 loadScript 文件夹。
 ;Capslock+ 将会按照顺序加载，加载完后 +Tab 可以使用里面的函数
 ;在本设置不为空时，启动 Capslock+ 时将自动创建 loadScript 文件夹，以及位于文件夹中的 debug.html 和 scriptDemo.js 文件
@@ -285,6 +290,11 @@ apiKey=0123456789
 ; - 以下设置键名是按键组合名，键值是对应功能，所有支持的功能都在下面
 
 [Keys]
+;短按 Caps Lock -> 发送 Esc
+;tap_caps=keyFunc_esc
+
+;短按 Caps Lock -> 切换大小写
+tap_caps=keyFunc_toggleCapsLock
 
 ;Capslock+A -> 光标向左移动一个单词
 caps_a=keyFunc_moveWordLeft
@@ -409,11 +419,11 @@ caps_quote=keyFunc_doNothing
 ;换行——无论光标是否在行末
 caps_enter=keyFunc_enterWherever
 
-caps_comma=keyFunc_doNothing
+caps_comma=keyFunc_selectCurrentWord
 
-caps_dot=keyFunc_doNothing
+caps_dot=keyFunc_selectWordRight
 
-caps_slash=keyFunc_doNothing
+caps_slash=keyFunc_deleteToLineEnd
 
 ;Capslock+space -> enter
 caps_space=keyFunc_enter
@@ -424,20 +434,20 @@ caps_right_alt=keyFunc_doNothing
 ;打开 Capslock+ 首页
 caps_f1=keyFunc_openCpasDocs
 
-caps_f2=keyFunc_doNothing
+caps_f2=keyFunc_mathBoard
 
-caps_f3=keyFunc_doNothing
+caps_f3=keyFunc_translate
 
-caps_f4=keyFunc_doNothing
+caps_f4=keyFunc_winTransparent
 
 ;重载 Capslock+
 caps_f5=keyFunc_reload
 
-caps_f6=keyFunc_doNothing
+caps_f6=keyFunc_winPin
 
 caps_f7=keyFunc_doNothing
 
-caps_f8=keyFunc_doNothing
+caps_f8=keyFunc_getJSEvalString
 
 caps_f9=keyFunc_doNothing
 
@@ -527,26 +537,25 @@ caps_lalt_z=keyFunc_doNothing
 
 caps_lalt_backquote=keyFunc_doNothing
 
-;Capslock + LAlt + 1~0: 窗口绑定 1~10
-caps_lalt_1=keyFunc_winbind_binding(1)
+caps_lalt_1=keyFunc_doNothing
 
-caps_lalt_2=keyFunc_winbind_binding(2)
+caps_lalt_2=keyFunc_doNothing
 
-caps_lalt_3=keyFunc_winbind_binding(3)
+caps_lalt_3=keyFunc_doNothing
 
-caps_lalt_4=keyFunc_winbind_binding(4)
+caps_lalt_4=keyFunc_doNothing
 
-caps_lalt_5=keyFunc_winbind_binding(5)
+caps_lalt_5=keyFunc_doNothing
 
-caps_lalt_6=keyFunc_winbind_binding(6)
+caps_lalt_6=keyFunc_doNothing
 
-caps_lalt_7=keyFunc_winbind_binding(7)
+caps_lalt_7=keyFunc_doNothing
 
-caps_lalt_8=keyFunc_winbind_binding(8)
+caps_lalt_8=keyFunc_doNothing
 
-caps_lalt_9=keyFunc_winbind_binding(9)
+caps_lalt_9=keyFunc_doNothing
 
-caps_lalt_0=keyFunc_winbind_binding(10)
+caps_lalt_0=keyFunc_doNothing
 
 caps_lalt_minus=keyFunc_doNothing
 
@@ -566,8 +575,8 @@ caps_lalt_rightSquareBracket=keyFunc_doNothing
 ;Capslock+LAlt+\
 caps_lalt_backslash=keyFunc_doNothing
 
-;删除至页尾
-caps_lalt_semicolon=keyFunc_deleteToPageEnd
+;移动至页尾
+caps_lalt_semicolon=keyFunc_moveToPageEnd
 
 caps_lalt_quote=keyFunc_doNothing
 
@@ -575,9 +584,9 @@ caps_lalt_enter=keyFunc_doNothing
 
 caps_lalt_comma=keyFunc_doNothing
 
-caps_lalt_dot=keyFunc_doNothing
+caps_lalt_dot=keyFunc_selectWordRight(3)
 
-caps_lalt_slash=keyFunc_doNothing
+caps_lalt_slash=keyFunc_deleteToPageEnd
 
 caps_lalt_space=keyFunc_doNothing
 
@@ -610,7 +619,33 @@ caps_lalt_f12=keyFunc_doNothing
 caps_lalt_wheelUp=keyFunc_doNothing
 
 caps_lalt_wheelDown=keyFunc_doNothing
+
+; CapsLock + Windows + 1~0 -> 绑定窗口 1~10
+caps_win_1=keyFunc_winbind_binding(1)
+
+caps_win_2=keyFunc_winbind_binding(2)
+
+caps_win_3=keyFunc_winbind_binding(3)
+
+caps_win_4=keyFunc_winbind_binding(4)
+
+caps_win_5=keyFunc_winbind_binding(5)
+
+caps_win_6=keyFunc_winbind_binding(6)
+
+caps_win_7=keyFunc_winbind_binding(7)
+
+caps_win_8=keyFunc_winbind_binding(8)
+
+caps_win_9=keyFunc_winbind_binding(9)
+
+caps_win_0=keyFunc_winbind_binding(10)
+
+
 ;----------------其他功能----------------
+
+;选中当前单词
+keyFunc_selectCurrentWord
 
 ;上一首
 keyFunc_mediaPrev

@@ -82,8 +82,16 @@ KeyWait, Capslock
 CapsLock:="" ;Capslock最优先置空，来关闭 Capslock+ 功能的触发
 if CapsLock2
 {
-    ; SetCapsLockState, % GetKeyState("CapsLock","T") ? "Off" : "On"
-    sendinput, {esc}
+    if keyset.tap_caps
+    {
+        try
+            runFunc(keyset.tap_caps)
+    }
+    else
+    {
+        SetCapsLockState, % GetKeyState("CapsLock","T") ? "Off" : "On"
+    }
+    ; sendinput, {esc}
 }
 CapsLock2:=""
 

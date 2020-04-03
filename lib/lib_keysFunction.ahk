@@ -21,6 +21,11 @@ keyFunc_run(p){
     return
 }
 
+keyFunc_toggleCapsLock(){
+    SetCapsLockState, % GetKeyState("CapsLock","T") ? "Off" : "On"
+    return
+}
+
 keyFunc_mouseSpeedIncrease(){
     global
     mouseSpeed+=1
@@ -203,10 +208,14 @@ keyFunc_enterWherever(){
     Return
 }
 
+keyFunc_esc(){
+    SendInput, {Esc}
+    Return
+}
 
 keyFunc_enter(){
-SendInput, {Enter}
-Return
+    SendInput, {Enter}
+    Return
 }
 
 ;双字符
@@ -593,6 +602,13 @@ keyFunc_selectToPageEnd(){
 }
 
 
+keyFunc_selectCurrentWord(){
+    SendInput, ^{Left}
+    SendInput, +^{Right}
+    return
+}
+
+
 keyFunc_selectWordLeft(i:=1){
     SendInput, +^{Left %i%}
     return
@@ -648,7 +664,7 @@ keyFunc_tabScript(){
 
 
 keyFunc_openCpasDocs(){
-    Run, http://cjkis.me/capslock+
+    Run, https://capslox.com/capslock-plus
     return
 }
 
