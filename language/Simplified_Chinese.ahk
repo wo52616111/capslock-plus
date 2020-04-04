@@ -78,9 +78,9 @@ lang_settingsIniInit=
 autostart=0
 
 ;热键布局方案，可选值：
-;- capslock_plus  Capslock+ 3.0 之前的布局
-;- capslox（默认）  Capslock+ 3.0 之后的布局
-default_hotkey_scheme=capslox
+;- capslock_plus（默认）  Capslock+ 3.0 之前的布局
+;- capslox              Capslock+ 3.0 之后的布局
+default_hotkey_scheme=capslock_plus
 
 ;需要加载的 JavaScript 文件，以逗号分隔，文件应放在与 Capslock+ 程序同文件夹下的 loadScript 文件夹。
 ;Capslock+ 将会按照顺序加载，加载完后 +Tab 可以使用里面的函数
@@ -286,21 +286,22 @@ apiKey=0123456789
 ;   Capslock + LALt + a~z
 ;   Capslock + LALt + `-=[]\;',./ 
 ;   Capslock + LALt + Backspace, Tab, Enter, Space, RAlt
+;   Capslock + Win + 0~9
 
 ; - 以下设置键名是按键组合名，键值是对应功能，所有支持的功能都在下面
 
 [Keys]
 ;短按 Caps Lock -> 发送 Esc
-tap_caps=keyFunc_esc
+;tap_caps=keyFunc_esc
 
 ;短按 Caps Lock -> 切换大小写
-;tap_caps=keyFunc_toggleCapsLock
+tap_caps=keyFunc_toggleCapsLock
 
 ;Capslock+A -> 光标向左移动一个单词
 caps_a=keyFunc_moveWordLeft
 
-;Capslock+B -> 光标向下移动 10 行
-caps_b=keyFunc_moveDown(10)
+;Capslock+B -> 光标向下移动 5 行
+caps_b=keyFunc_moveDown(5)
 
 ;独立剪贴板 1 的复制
 caps_c=keyFunc_copy_1
@@ -332,8 +333,8 @@ caps_k=keyFunc_selectDown
 ;向右选中
 caps_l=keyFunc_selectRight
 
-;向下选中 10 行
-caps_m=keyFunc_selectDown(10)
+;向下选中 5 行
+caps_m=keyFunc_selectDown(5)
 
 ;向右选中一个单词
 caps_n=keyFunc_selectWordRight
@@ -344,7 +345,8 @@ caps_o=keyFunc_selectEnd
 ;光标移动到行首
 caps_p=keyFunc_home
 
-caps_q=keyFunc_doNothing
+;打开 Qbar
+caps_q=keyFunc_qbar
 
 ;delete
 caps_r=keyFunc_delete
@@ -352,7 +354,8 @@ caps_r=keyFunc_delete
 ;光标向左移动
 caps_s=keyFunc_moveLeft
 
-caps_t=keyFunc_doNothing
+;有道翻译
+caps_t=keyFunc_translate
 
 ;选中至行首
 caps_u=keyFunc_selectHome
@@ -366,14 +369,16 @@ caps_w=keyFunc_backspace
 ;独立剪贴板 1 的剪切
 caps_x=keyFunc_cut_1
 
-;向上选中 10 行
-caps_y=keyFunc_selectUp(10)
+;光标向上移动 5 行
+caps_y=keyFunc_moveUp(5)
 
-caps_z=keyFunc_doNothing
+;重复执行撤销以及重做
+caps_z=keyFunc_undoRedo
 
-caps_backquote=keyFunc_doNothing
+;Capslock+`（反引号） -> 激活绑定窗口 9 （最多到 20）
+caps_backquote=keyFunc_winbind_activate(9)
 
-;Capslock+1~9、0 -> 激活绑定窗口 1~9、10
+;Capslock+1~8 -> 激活绑定窗口 1~8
 caps_1=keyFunc_winbind_activate(1)
 
 caps_2=keyFunc_winbind_activate(2)
@@ -390,13 +395,17 @@ caps_7=keyFunc_winbind_activate(7)
 
 caps_8=keyFunc_winbind_activate(8)
 
-caps_9=keyFunc_winbind_activate(9)
+;左右小括号
+caps_9=keyFunc_doubleChar((,))
 
-caps_0=keyFunc_winbind_activate(10)
+;向上选中 5 行
+caps_0=keyFunc_selectUp(5)
 
-caps_minus=keyFunc_doNothing
+;Capslock+-（减号） -> 向上翻页
+caps_minus=keyFunc_pageUp
 
-caps_equal=keyFunc_doNothing
+;Capslock+=（等号） -> 向下翻页
+caps_equal=keyFunc_pageDown
 
 ;删除光标所在一行
 caps_backspace=keyFunc_deleteLine
@@ -404,26 +413,33 @@ caps_backspace=keyFunc_deleteLine
 ;TabScript
 caps_tab=keyFunc_tabScript
 
-;删除至行首
-caps_leftSquareBracket=keyFunc_deleteToLineBeginning
+;左右大括号
+caps_leftSquareBracket=keyFunc_doubleChar({,})
 
-caps_rightSquareBracket=keyFunc_doNothing
+;左右中括号
+caps_rightSquareBracket=keyFunc_doubleChar([,])
 
+;Capslock+\ -> 无
 caps_backslash=keyFunc_doNothing
 
 ;Capslock+; -> end
 caps_semicolon=keyFunc_end
 
-caps_quote=keyFunc_doNothing
+;Capslock+' -> 左右双引号
+caps_quote=keyFunc_keyFunc_doubleChar("""","""")
 
 ;换行——无论光标是否在行末
 caps_enter=keyFunc_enterWherever
 
-caps_comma=keyFunc_selectCurrentWord
+;Capslock+, -> 左右尖括号
+;Qbar 激活时 Capslock+, -> 上一层目录
+caps_comma=keyFunc_doubleAngle
 
-caps_dot=keyFunc_selectWordRight
+;Capslock+. -> 输出 .
+;Qbar 激活时 Capslock+. -> 前进一层回退后的目录
+caps_dot=keyFunc_send_dot
 
-caps_slash=keyFunc_deleteToLineEnd
+caps_slash=keyFunc_doNothing
 
 ;Capslock+space -> enter
 caps_space=keyFunc_enter
@@ -434,19 +450,24 @@ caps_right_alt=keyFunc_doNothing
 ;打开 Capslock+ 首页
 caps_f1=keyFunc_openCpasDocs
 
+;打开 mathBoard
 caps_f2=keyFunc_mathBoard
 
-caps_f3=keyFunc_translate
+;下一首
+caps_f3=keyFunc_mediaNext
 
+;窗口透明；这个功能不能换按键
 caps_f4=keyFunc_winTransparent
 
 ;重载 Capslock+
 caps_f5=keyFunc_reload
 
+;让某窗口固定在顶部
 caps_f6=keyFunc_winPin
 
 caps_f7=keyFunc_doNothing
 
+;获取由选中的一段文字转换过的，供 TabScript 的 JS 函数调试的字符串 
 caps_f8=keyFunc_getJSEvalString
 
 caps_f9=keyFunc_doNothing
@@ -460,114 +481,105 @@ caps_f12=keyFunc_switchClipboard
 
 ;--------------------LAlt--------------------
 
-;Capslock+LAlt+A -> 向左移 3 个单词
-caps_lalt_a=keyFunc_moveWordLeft(3)
+;Capslock+LAlt+A -> 激活位于当前窗口最左边的窗口
+caps_lalt_a=keyFunc_activateSideWin(fl)
 
-caps_lalt_b=keyFunc_moveDown(30)
+caps_lalt_b=keyFunc_pageMoveLineDown(5)
 
 ;独立剪贴板 2 的复制
 caps_lalt_c=keyFunc_copy_2
 
-;下移 3 行
-caps_lalt_d=keyFunc_moveDown(3)
+;激活位于当前窗口下边的窗口
+caps_lalt_d=keyFunc_activateSideWin(d)
 
-;上移 3 行
-caps_lalt_e=keyFunc_moveUp(3)
+;激活位于当前窗口上边的窗口
+caps_lalt_e=keyFunc_activateSideWin(u)
 
-;右移 5 次
-caps_lalt_f=keyFunc_moveRight(5)
+;激活位于当前窗口右边的窗口
+caps_lalt_f=keyFunc_activateSideWin(r)
 
-;右移 3 个单词
-caps_lalt_g=keyFunc_moveWordRight(3)
+;激活位于当前窗口最右边的窗口
+caps_lalt_g=keyFunc_activateSideWin(fr)
 
-;向左选中 3 个单词
-caps_lalt_h=keyFunc_selectWordLeft(3)
+caps_lalt_h=keyFunc_doNothing
 
-;向上选中 3 行
-caps_lalt_i=keyFunc_selectUp(3)
+caps_lalt_i=keyFunc_doNothing
 
-;向左选中 5 个字符
-caps_lalt_j=keyFunc_selectLeft(5)
+;将一个窗口推入窗口栈
+caps_lalt_j=keyFunc_pushWinMinimizeStack
 
-;向下选中 3 行
-caps_lalt_k=keyFunc_selectDown(3)
+;将一个窗口推入窗口栈底部
+caps_lalt_k=keyFunc_unshiftWinMinimizeStack
 
-;向右选中 5 个字符
-caps_lalt_l=keyFunc_selectRight(5)
+;窗口栈尾部的一个窗口出栈，并激活它
+caps_lalt_l=keyFunc_popWinMinimizeStack
 
-;向下选中 30 行
-caps_lalt_m=keyFunc_selectDown(30)
+caps_lalt_m=keyFunc_doNothing
 
-;向右选中 3 个单词
-caps_lalt_n=keyFunc_selectWordRight(3)
+caps_lalt_n=keyFunc_doNothing
 
-;选中至页尾
-caps_lalt_o=keyFunc_selectToPageEnd
+caps_lalt_o=keyFunc_doNothing
 
-; 选中至页首
-caps_lalt_p=keyFunc_moveToPageBeginning
+caps_lalt_p=keyFunc_doNothing
 
 caps_lalt_q=keyFunc_doNothing
 
-;向前删除单词
-caps_lalt_r=keyFunc_forwardDeleteWord
+caps_lalt_r=keyFunc_tabNext
 
-;左移 5 次
-caps_lalt_s=keyFunc_moveLeft(5)
+;激活位于当前窗口左边的窗口
+caps_lalt_s=keyFunc_activateSideWin(l)
 
-;上移 30 次
-caps_lalt_t=keyFunc_moveUp(30)
+caps_lalt_t=keyFunc_doNothing
 
-;移动至页首
-caps_lalt_u=keyFunc_selectToPageBeginning
+caps_lalt_u=keyFunc_doNothing
 
-;独立剪贴板 2 的粘贴
 caps_lalt_v=keyFunc_paste_2
 
-;删除单词
-caps_lalt_w=keyFunc_deleteWord
+caps_lalt_w=keyFunc_tabPrve
 
 ;独立剪贴板 2 的 剪切
 caps_lalt_x=keyFunc_cut_2
 
-;向上选中 30 行
-caps_lalt_y=keyFunc_selectUp(30)
+caps_lalt_y=keyFunc_pageMoveLineUp(5)
 
-caps_lalt_z=keyFunc_doNothing
+caps_lalt_z=keyFunc_putWinToBottom
 
-caps_lalt_backquote=keyFunc_doNothing
+;Capslock+LAlt+1: 窗口绑定 9
+caps_lalt_backquote=keyFunc_winbind_binding(9)
 
-caps_lalt_1=keyFunc_doNothing
+;Capslock+LAlt+1: 窗口绑定 1~8
+caps_lalt_1=keyFunc_winbind_binding(1)
 
-caps_lalt_2=keyFunc_doNothing
+caps_lalt_2=keyFunc_winbind_binding(2)
 
-caps_lalt_3=keyFunc_doNothing
+caps_lalt_3=keyFunc_winbind_binding(3)
 
-caps_lalt_4=keyFunc_doNothing
+caps_lalt_4=keyFunc_winbind_binding(4)
 
-caps_lalt_5=keyFunc_doNothing
+caps_lalt_5=keyFunc_winbind_binding(5)
 
-caps_lalt_6=keyFunc_doNothing
+caps_lalt_6=keyFunc_winbind_binding(6)
 
-caps_lalt_7=keyFunc_doNothing
+caps_lalt_7=keyFunc_winbind_binding(7)
 
-caps_lalt_8=keyFunc_doNothing
+caps_lalt_8=keyFunc_winbind_binding(8)
 
 caps_lalt_9=keyFunc_doNothing
 
 caps_lalt_0=keyFunc_doNothing
 
-caps_lalt_minus=keyFunc_doNothing
+;光标移动到页首
+caps_lalt_minus=keyFunc_jumpPageTop
 
-caps_lalt_equal=keyFunc_doNothing
+;光标移动到页尾
+caps_lalt_equal=keyFunc_jumpPageBottom
 
-;删除全部
-caps_lalt_backspace=keyFunc_deleteAll
+;backspace
+caps_lalt_backspace=keyFunc_backspace
 
 caps_lalt_tab=keyFunc_doNothing
 
-;删除至页首
-caps_lalt_leftSquareBracket=keyFunc_deleteToPageBeginning
+caps_lalt_leftSquareBracket=keyFunc_doNothing
 
 ;Capslock+LAlt+]
 caps_lalt_rightSquareBracket=keyFunc_doNothing
@@ -575,8 +587,8 @@ caps_lalt_rightSquareBracket=keyFunc_doNothing
 ;Capslock+LAlt+\
 caps_lalt_backslash=keyFunc_doNothing
 
-;移动至页尾
-caps_lalt_semicolon=keyFunc_moveToPageEnd
+;清空窗口栈
+caps_lalt_semicolon=keyFunc_clearWinMinimizeStach
 
 caps_lalt_quote=keyFunc_doNothing
 
@@ -584,9 +596,9 @@ caps_lalt_enter=keyFunc_doNothing
 
 caps_lalt_comma=keyFunc_doNothing
 
-caps_lalt_dot=keyFunc_selectWordRight(3)
+caps_lalt_dot=keyFunc_doNothing
 
-caps_lalt_slash=keyFunc_deleteToPageEnd
+caps_lalt_slash=keyFunc_doNothing
 
 caps_lalt_space=keyFunc_doNothing
 
@@ -616,36 +628,48 @@ caps_lalt_f11=keyFunc_doNothing
 
 caps_lalt_f12=keyFunc_doNothing
 
-caps_lalt_wheelUp=keyFunc_doNothing
+caps_lalt_wheelUp=keyFunc_mouseSpeedIncrease
 
-caps_lalt_wheelDown=keyFunc_doNothing
-
-; CapsLock + Windows + 1~0 -> 绑定窗口 1~10
-caps_win_1=keyFunc_winbind_binding(1)
-
-caps_win_2=keyFunc_winbind_binding(2)
-
-caps_win_3=keyFunc_winbind_binding(3)
-
-caps_win_4=keyFunc_winbind_binding(4)
-
-caps_win_5=keyFunc_winbind_binding(5)
-
-caps_win_6=keyFunc_winbind_binding(6)
-
-caps_win_7=keyFunc_winbind_binding(7)
-
-caps_win_8=keyFunc_winbind_binding(8)
-
-caps_win_9=keyFunc_winbind_binding(9)
-
-caps_win_0=keyFunc_winbind_binding(10)
-
-
+caps_lalt_wheelDown=keyFunc_mouseSpeedDecrease
 ;----------------其他功能----------------
+;发送 Esc
+keyFunc_esc
+
+;移动到页首
+keyFunc_moveToPageBeginning
+
+;移动到页尾
+keyFunc_moveToPageEnd
 
 ;选中当前单词
 keyFunc_selectCurrentWord
+
+;选中到页首
+keyFunc_selectToPageBeginning
+
+;选中到页尾
+keyFunc_selectToPageEnd
+
+;删除一个单词
+keyFunc_deleteWord
+
+;向前删除一个单词
+keyFunc_forwardDeleteWord
+
+;删除到行首
+keyFunc_deleteToLineBeginning
+
+;删除到行尾
+keyFunc_deleteToLineEnd
+
+;删除到页首
+keyFunc_deleteToPageBeginning
+
+;删除到页尾
+keyFunc_deleteToPageEnd
+
+;删除所有
+keyFunc_deleteAll
 
 ;上一首
 keyFunc_mediaPrev

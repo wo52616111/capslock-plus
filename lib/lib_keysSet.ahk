@@ -5,12 +5,12 @@ global keyset:=CLSets.Keys
 
 if(!CLSets.global.default_hotkey_scheme)
     ; "capslox" | “capslock-plus”
-    CLSets.global.default_hotkey_scheme:="capslox"
+    CLSets.global.default_hotkey_scheme:="capslock_plus"
 
-if(CLSets.global.default_hotkey_scheme == "capslock_plus") {
-    keySchemeInit_capslockPlus()
-} else {
+if(CLSets.global.default_hotkey_scheme == "capslox") {
     keySchemeInit_capslox()
+} else {
+    keySchemeInit_capslockPlus()
 }
 
 return

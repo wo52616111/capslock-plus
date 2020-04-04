@@ -14,7 +14,7 @@ Menu, Tray, Icon,,, 1
 
 SetStoreCapslockMode, Off
 
-global CLversion:="Version: 3.0.0.0 | 2019-08-30`n`nCopyright Junkai Chen" 
+global CLversion:="Version: 2.8.0.0 | 2020-04-05`n`nCopyright Junkai Chen" 
 
 global cClipboardAll ;capslock+ clipboard
 global caClipboardAll ;capslock+alt clipboard
