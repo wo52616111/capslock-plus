@@ -286,6 +286,7 @@ apiKey=0123456789
 ;   Capslock + LALt + a~z
 ;   Capslock + LALt + `-=[]\;',./ 
 ;   Capslock + LALt + Backspace, Tab, Enter, Space, RAlt
+;   Capslock + Win + 0~9
 
 ; - 以下设置键名是按键组合名，键值是对应功能，所有支持的功能都在下面
 
