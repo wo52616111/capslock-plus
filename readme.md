@@ -2,7 +2,7 @@ master 分支：v3.0+
 
 v2 分支：v2.0+
 
-[官网（说明文档）](https://capslox.com/capslock-plus/)
+[官网（说明文档）](https://capslox.com/capslock-plus-v2/)
 
 
 ## 1.怎么运行Capslock+的源码？

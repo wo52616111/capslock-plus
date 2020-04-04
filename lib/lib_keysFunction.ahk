@@ -664,7 +664,7 @@ keyFunc_tabScript(){
 
 
 keyFunc_openCpasDocs(){
-    Run, https://capslox.com/capslock-plus
+    Run, https://capslox.com/capslock-plus-v2
     return
 }
 
