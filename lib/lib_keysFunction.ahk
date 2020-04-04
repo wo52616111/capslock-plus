@@ -7,7 +7,7 @@ keyFunc_doNothing(){
 }
 
 keyFunc_test(){
-    MsgBox, , , testing, 0.3
+    MsgBox, , , testing, 1
     return
 }
 

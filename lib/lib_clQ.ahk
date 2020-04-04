@@ -1,4 +1,29 @@
-﻿;  #Include lib_functions.ahk ;引入函数库
+﻿global LastHw:=0x000000
+global LostFocusHw2Handlers:=Object()
+; For catching unfocus events
+HandleWindowMessage( p_w, p_l, p_m, p_hw )
+{
+    global
+    local control
+    msgbox, % p_l
+    setformat, integerfast, h
+    if(LastHw==0x000000)
+    {
+        LastHw:=p_l
+        return
+    }
+    if(LastHw!=p_l)
+    {
+        aLabel=% LostFocusHw2Handlers[LastHw]
+        if (IsLabel(aLabel))
+            gosub %aLabel%
+        LastHw:=p_l
+    }
+    return
+}
+
+
+;  #Include lib_functions.ahk ;引入函数库
 isFolder(str)
 {
     if(InStr(FileExist(str),"D"))
@@ -377,9 +402,10 @@ CLq()
 
     IfWinExist, ahk_id %GuiHwnd%
     {
-        ControlSetText, , %selText%, ahk_id %editHwnd%
+        ControlSetText, , %selText%, ahk_id %GuiHwnd%
         WinActivate, ahk_id %GuiHwnd%
         CapsLock2:=""
+
         return
     }
 
@@ -409,8 +435,13 @@ CLq()
         
         WinSetTitle, ahk_id %GuiHwnd%, , Qbar ;上面show出窗口后会把窗口标题改成ahk_id xxxx，改回来
 
-        
         CapsLock2:=""
+
+        WinWaitNotActive, ahk_id %GuiHwnd%
+        {
+            GoSub, QGuiClose
+        }
+
         Return
         
     }
@@ -535,6 +566,7 @@ CLq()
     ;---edit---end
 
     
+    
     { ;---ListView---start
 
     ;  Gui, Font, c%listColor% s10, Microsoft YaHei UI ;设置字体
@@ -570,6 +602,7 @@ CLq()
 
     Gui, Add, Button, Default  w0 h0, Submit
     OnMessage(0x201, "MoveWin") ;光标在gui非控件地方可以拖动窗口
+
     ;原本gui在第一次打开要显示，但是现在在第一次运行不显示，并且运行程序自己先运行一遍，相当于开启即运行一遍，但是第一遍运行不显示，这样就可以做到提前缓存图标，提高用户第一次(其实实际是第二次了)打开的感受
     Gui, Show, Hide Center w%guiW% h%guiH%, Qbar ;--cjk1
     
@@ -1340,9 +1373,8 @@ MoveCaret: ;edit光标到开头
 
 QGuiClose:
 QGuiEscape:
-listHide1:={}
-
-Gui, Cancel
+    listHide1:={}
+    Gui, Cancel
 return
 
 appendSet(sec,key,val)
@@ -1423,6 +1455,8 @@ qrunBy(_exe, _paramStr:="", ifAdmin:=false)
             return true
         }
     }
+
+
     return false
 }
 
@@ -1613,6 +1647,30 @@ ButtonSubmit:
             paramStr:=UTF8encode(paramStr)
             run https://developer.mozilla.org/zh-CN/search?q=%paramStr%
             return 
+        }
+    }
+
+    ; 如果当前下拉列表有选中项的话，运行
+    Gui, ListView, LV_show ;目标切换到LV_show
+    if % LV_GetCount()  ;当LV_show里有数据（即有匹配的文件）
+    {
+        gosub, tabAction
+        ControlGetText, editText, , ahk_id %editHwnd%
+        ;运行开始菜单
+        for key, value in starMenuObj
+        {
+            if(editText=key)
+            {
+                try
+                {
+                    run, % value.lnkPath
+                }
+                catch
+                {
+                    run, % value.exePath
+                }
+                return
+            }
         }
     }
 
