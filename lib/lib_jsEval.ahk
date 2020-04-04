@@ -4,7 +4,7 @@ gosub, scriptDemoInit
 ; 使用ie11引擎实现计算功能，经测试，如果自带引擎低于11，会自动使用自带的最新引擎
 FixIE(11)
 
-obj:=ComObjCreate("HTMLfile")
+global obj:=ComObjCreate("HTMLfile")
 
 ;---load javascript---
 

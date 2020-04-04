@@ -12,9 +12,9 @@ menu, TRAY, Icon, capslock+icon.ico, , 1
 }
 Menu, Tray, Icon,,, 1
 
+SetStoreCapslockMode, Off
 
-
-global CLversion:="Version: 2.7.0.0 | 2016-11-30`n`nCopyright 2016 Chen JunKai" 
+global CLversion:="Version: 3.0.0.0 | 2019-08-30`n`nCopyright JunKai Chen" 
 
 global cClipboardAll ;capslock+ clipboard
 global caClipboardAll ;capslock+alt clipboard
@@ -82,7 +82,16 @@ KeyWait, Capslock
 CapsLock:="" ;Capslock最优先置空，来关闭 Capslock+ 功能的触发
 if CapsLock2
 {
-    SetCapsLockState, % GetKeyState("CapsLock","T") ? "Off" : "On"
+    if keyset.tap_caps
+    {
+        try
+            runFunc(keyset.tap_caps)
+    }
+    else
+    {
+        SetCapsLockState, % GetKeyState("CapsLock","T") ? "Off" : "On"
+    }
+    ; sendinput, {esc}
 }
 CapsLock2:=""
 
@@ -671,7 +680,65 @@ try
 Capslock2:=""
 return
 
+#1::
+try
+    runFunc(keyset.caps_win_1)
+Capslock2:=""
+return
 
+#2::
+try
+    runFunc(keyset.caps_win_2)
+Capslock2:=""
+return
+
+#3::
+try
+    runFunc(keyset.caps_win_3)
+Capslock2:=""
+return
+
+#4::
+try
+    runFunc(keyset.caps_win_4)
+Capslock2:=""
+return
+
+#5::
+try
+    runFunc(keyset.caps_win_5)
+Capslock2:=""
+return
+
+#6::
+try
+    runFunc(keyset.caps_win_6)
+Capslock2:=""
+return
+
+#7::
+try
+    runFunc(keyset.caps_win_7)
+Capslock2:=""
+return
+
+#8::
+try
+    runFunc(keyset.caps_win_8)
+Capslock2:=""
+return
+
+#9::
+try
+    runFunc(keyset.caps_win_9)
+Capslock2:=""
+return
+
+#0::
+try
+    runFunc(keyset.caps_win_0)
+Capslock2:=""
+return
 ;  #s::
 ;      keyFunc_activateSideWin("l")
 ;  Capslock2:=""
