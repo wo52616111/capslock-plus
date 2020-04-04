@@ -1,8 +1,11 @@
+master 分支：v3.0+
+v2 分支：v2.0+
+
 [功能说明文档](https://capslox.com/capslock-plus/)
 
 
 ## 1.怎么运行Capslock+的源码？
-1. 下载 [AutoHotkey (v1.1+)](http://www.ahkscript.org/)，并安装。
+1. 下载 [AutoHotkey (v1.1.+)](http://www.ahkscript.org/)，并安装。
 2. 从 GitHub 下载 Capslock+ 源码。
 3. 运行`Capslock+.ahk`。
 

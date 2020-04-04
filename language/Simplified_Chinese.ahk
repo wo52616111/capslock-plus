@@ -80,7 +80,7 @@ autostart=0
 ;热键布局方案，可选值：
 ;- capslock_plus  Capslock+ 3.0 之前的布局
 ;- capslox（默认）  Capslock+ 3.0 之后的布局
-default_hotkey_scheme=capslock_plus
+default_hotkey_scheme=capslox
 
 ;需要加载的 JavaScript 文件，以逗号分隔，文件应放在与 Capslock+ 程序同文件夹下的 loadScript 文件夹。
 ;Capslock+ 将会按照顺序加载，加载完后 +Tab 可以使用里面的函数
@@ -291,10 +291,10 @@ apiKey=0123456789
 
 [Keys]
 ;短按 Caps Lock -> 发送 Esc
-;tap_caps=keyFunc_esc
+tap_caps=keyFunc_esc
 
 ;短按 Caps Lock -> 切换大小写
-tap_caps=keyFunc_toggleCapsLock
+;tap_caps=keyFunc_toggleCapsLock
 
 ;Capslock+A -> 光标向左移动一个单词
 caps_a=keyFunc_moveWordLeft
