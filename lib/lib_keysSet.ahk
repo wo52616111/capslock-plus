@@ -99,9 +99,9 @@ keySchemeInit_capslox(){
     if(!keyset.caps_0)
         keyset.caps_0:="keyFunc_winbind_activate(10)"
     if(!keyset.caps_minus)
-        keyset.caps_minus:="keyFunc_doNothing"
+        keyset.caps_minus:="keyFunc_qbar_upperFolderPath"
     if(!keyset.caps_equal)
-        keyset.caps_equal:="keyFunc_doNothing"
+        keyset.caps_equal:="keyFunc_qbar_lowerFolderPath"
     if(!keyset.caps_backspace)
         keyset.caps_backspace:="keyFunc_deleteLine"
     if(!keyset.caps_tab)
@@ -252,7 +252,7 @@ keySchemeInit_capslox(){
     if(!keyset.caps_lalt_enter)
         keyset.caps_lalt_enter:="keyFunc_doNothing"
     if(!keyset.caps_lalt_comma)
-        keyset.caps_lalt_comma:="keyFunc_doNothing"
+        keyset.caps_lalt_comma:="keyFunc_selectCurrentLine"
     if(!keyset.caps_lalt_dot)
         keyset.caps_lalt_dot:="keyFunc_selectWordRight(3)"
     if(!keyset.caps_lalt_slash)
