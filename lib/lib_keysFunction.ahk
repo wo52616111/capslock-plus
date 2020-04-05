@@ -121,13 +121,15 @@ keyFunc_deleteAll(){
 }
 
 keyFunc_deleteWord(){
-    SendInput, ^{backspace}
+    SendInput, +^{left}
+    SendInput, {delete}
     Return
 }
 
 
 keyFunc_forwardDeleteWord(){
-    SendInput, ^{delete}
+    SendInput, +^{right}
+    SendInput, {delete}
     Return
 }
 
