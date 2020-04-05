@@ -609,6 +609,13 @@ keyFunc_selectCurrentWord(){
 }
 
 
+keyFunc_selectCurrentLine(){
+    SendInput, {Home}
+    SendInput, +{End}
+    return
+}
+
+
 keyFunc_selectWordLeft(i:=1){
     SendInput, +^{Left %i%}
     return

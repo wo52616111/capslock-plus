@@ -437,14 +437,21 @@ CLq()
 
         CapsLock2:=""
 
-        WinWaitNotActive, ahk_id %GuiHwnd%
-        {
-            GoSub, QGuiClose
-        }
 
-        Return
-        
+        SetTimer, closeWhenUnfocus, 50
+
+        return
+
+        closeWhenUnfocus:
+        IfWinNotActive, ahk_id %GuiHwnd%
+        {
+            SetTimer, ,Off
+            listHide1:={}
+            WinHide, ahk_id %GuiHwnd%
+        }
+        return
     }
+
 
     guiStart:
     ;guiStart---start

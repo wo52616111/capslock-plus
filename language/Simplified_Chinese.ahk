@@ -583,7 +583,7 @@ caps_lalt_quote=keyFunc_doNothing
 
 caps_lalt_enter=keyFunc_doNothing
 
-caps_lalt_comma=keyFunc_doNothing
+caps_lalt_comma=caps_comma=keyFunc_selectCurrentLine
 
 caps_lalt_dot=keyFunc_selectWordRight(3)
 
@@ -644,9 +644,6 @@ caps_win_0=keyFunc_winbind_binding(10)
 
 
 ;----------------其他功能----------------
-
-;选中当前单词
-keyFunc_selectCurrentWord
 
 ;上一首
 keyFunc_mediaPrev
