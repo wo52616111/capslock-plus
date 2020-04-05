@@ -1286,7 +1286,7 @@ listType1Init(folderPath)
         }
         if(loopFilesCount = 0) ;if is a empty folder
         {
-            LV_Add("Icon999999", 0, "<空文件夹>")
+            LV_Add("Icon999999", 0, lang_clq_emptyFolder)
         }
         SetTimer, loopFolderTimeLimit, Off
     ;  }

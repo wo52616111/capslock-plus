@@ -1,16 +1,13 @@
-﻿/*
-提出字符串放在这里(还有很多还嵌在代码中= =)
-*/
-language_Simplified_Chinese:
+﻿language_Simplified_Chinese:
 ; lib\lib_bindWins.ahk
 global lang_bw_noWIRini:="CapsLock+winsInfosRecorder.ini 不存在"
 
-; clq.ahk
+; lib_clq.ahk
 global lang_clq_addIni:="确定将以下字符串简写成 {replace0}，并记录到 {replace1}？"
 global lang_clq_existing:="{replace0}`n已存在于 {replace1}，确定用以下设置覆盖？"
 global lang_clq_qrunFileNotExist:="QRun中存在以下记录，而对应文件（文件夹）不存在，是否删除该设置？"
 global lang_clq_noCmd:="没有该命令"
-
+global lang_clq_emptyFolder:="<空文件夹>"
 
 ; ydTrans.ahk
 global lang_yd_translating:="翻译中...  （如果网络太差，翻译请求会暂时阻塞程序，稍等就好）"

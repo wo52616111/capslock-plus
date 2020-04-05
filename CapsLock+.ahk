@@ -30,8 +30,8 @@ allowRunOnClipboardChange:=true
 ; language
 #include ..\language\lang_func.ahk
 #include ..\language\Simplified_Chinese.ahk
+#include ..\language\English.ahk
 ;  #include ..\language\Traditional_Chinese.ahk
-;  #include ..\language\English.ahk
 ; /language
 
 #include lib_keysFunction.ahk

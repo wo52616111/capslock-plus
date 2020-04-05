@@ -24,7 +24,16 @@ if(loadingAnimation != "0")
 ;  	gosub, language_Traditional_Chinese
 ;  else
 ;  	gosub, language_English
-gosub, language_Simplified_Chinese
+
+; msgbox, % getSystemLanguage()
+if InStr(getSystemLanguage(), "Chinese")
+{
+	; msgbox, chinese
+	gosub, language_Simplified_Chinese
+} else {
+	; msgbox, notChinese
+	gosub, language_English
+}
 ;------------  /language -----------
 
 gosub, settingsInit ;初始化设置
