@@ -1770,8 +1770,13 @@ ButtonSubmit:
             run % strRun
             return
         }
-        
-        run https://www.baidu.com/s?wd=%inputStr%
+
+        if(getSystemLanguage() == "Chinese_PRC")
+        {
+            run https://www.baidu.com/s?wd=%inputStr%
+        } else {
+            run https://www.google.com/search?q=%inputStr%
+        }
 
         return
     }

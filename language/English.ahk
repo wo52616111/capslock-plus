@@ -1,37 +1,37 @@
 ﻿language_English:
 ; lib\lib_bindWins.ahk
-global lang_bw_noWIRini:="CapsLock+winsInfosRecorder.ini 不存在"
+global lang_bw_noWIRini:="CapsLock+winsInfosRecorder.ini does not exist"
 
 ; clq.ahk
-global lang_clq_addIni:="确定将以下字符串简写成 {replace0}，并记录到 {replace1}？"
-global lang_clq_existing:="{replace0}`n已存在于 {replace1}，确定用以下设置覆盖？"
-global lang_clq_qrunFileNotExist:="QRun中存在以下记录，而对应文件（文件夹）不存在，是否删除该设置？"
-global lang_clq_noCmd:="没有该命令"
-global lang_clq_emptyFolder:="<空文件夹>"
+global lang_clq_addIni:="Are you sure to abbreviate the following string to {replace0} and record to {replace1}?"
+global lang_clq_existing:="{replace0} `n already exists in {replace1}. Are you sure to overwrite with the following settings?"
+global lang_clq_qrunFileNotExist:="The following records exist in QRun, but the corresponding file (folder) does not exist. Do you want to delete this setting?"
+global lang_clq_noCmd:="No such command"
+global lang_clq_emptyFolder:="<Empty folder>"
 
 ; ydTrans.ahk
-global lang_yd_translating:="翻译中...  （如果网络太差，翻译请求会暂时阻塞程序，稍等就好）"
-global lang_yd_name:="有道翻译"
-global lang_yd_needKey:="缺少有道翻译API的key，有道翻译无法使用"
-global lang_yd_fileNotExist:="文件（文件夹）不存在"
-global lang_yd_errorNoNet:="发送异常，可能是网络已断开"
-global lang_yd_errorTooLong:="部分句子过长"
-global lang_yd_errorNoResults:="无词典结果"
-global lang_yd_errorTextTooLong:="要翻译的文本过长"
-global lang_yd_errorCantTrans:="无法进行有效的翻译"
-global lang_yd_errorLangType:="不支持的语言类型"
-global lang_yd_errorKeyInvalid:="无效的key"
-global lang_yd_errorSpendingLimit:="已达到今日消费上限，或者请求长度超过今日可消费字符数"
-global lang_yd_errorNoFunds:="帐户余额不足"
-global lang_yd_trans:="------------------------------------有道翻译------------------------------------"
-global lang_yd_dict:="------------------------------------有道词典------------------------------------"
-global lang_yd_phrase:="--------------------------------------短语--------------------------------------"
+global lang_yd_translating:="Translating... (If the network is too bad, the translation request will temporarily block the program, just wait a moment)"
+global lang_yd_name:="Youdao Translation"
+global lang_yd_needKey:="Youdao translator cannot be used without the key of Youdao translation API"
+global lang_yd_fileNotExist:="File (folder) does not exist"
+global lang_yd_errorNoNet:="Failed to send, maybe the network is disconnected"
+global lang_yd_errorTooLong:="Some sentences are too long"
+global lang_yd_errorNoResults:="No result"
+global lang_yd_errorTextTooLong:="The text to be translated is too long"
+global lang_yd_errorCantTrans:="Unable to translate"
+global lang_yd_errorLangType:="Unsupported language type"
+global lang_yd_errorKeyInvalid:="Invalid key"
+global lang_yd_errorSpendingLimit:="Reached today's consumption limit, or the length of the request exceeds the number of characters that can be consumed today"
+global lang_yd_errorNoFunds:="Insufficient account balance"
+global lang_yd_trans:=  "------------------------------ Youdao Translation -----------------------------"
+global lang_yd_dict:=   "------------------------------ Youdao dictionary ------------------------------"
+global lang_yd_phrase:= "----------------------------------- Phrase ------------------------------------"
 
 global lang_settingsUserInit:=""
 lang_settingsUserInit=
 (
 ;------------ Encoding: UTF-16 ------------
-;请对照 CapsLock+settingsDemo.ini 来配置相关设置
+; Please refer to CapsLock+settingsDemo.ini to configure settings
 [Global]
 
 loadScript=scriptDemo.js
@@ -55,68 +55,76 @@ global lang_settingsIniInit:=""
 lang_settingsIniInit=
 (
 ;------------ Encoding: UTF-16 ------------
-; #CapsLock+ 设置样本
-; - ******请务必阅读以下说明：******
+; # CapsLock+ settings demo
+; ****** PLEASE READ THE FOLLOWING INSTRUCTIONS: ******
 
-; - **这里的设置是只读的，仅作说明参考，不要修改这里的设置（修改了也无效），需要自定义设置请在 CapsLock+settings.ini 中的对应段名中作添加修改
-;     例如，需要开启开机自启动，请在 CapsLock+settings.ini 的 [Global] 下添加：autostart=1，并保存
+; - The settings here are read-only, just for demonstration, don't modify the settings here, please write settings in CapsLock+settings.ini
+;   For example, if you need to turn on the auto start, please insert a line: autostart=1 under [Global] in CapsLock+settings.ini, and save.
 
-; - "[]"里面是段名，不能修改
-; - 各段下所有设置的格式都为：键名=键值，每行一个
-; - 虽然 QSearch,QRun 和 QWeb 是不同的段，理论上它们的键名可以重复，但请不要这样设置，否则 +Q 的快速启动功能会无法区分
-; - 分号开头的是注释行，注释行不影响设置，就像这几行
-; - 以下把 Capslock+Q 弹出的输入框称为 "Qbar"
+; - "[xxx]" is the section name, which cannot be modified.
+; - The format of settings under each section is: key=value, one setting per line.
+; - Although QSearch,QRun and QWeb are different sections, in theory, their key names can be repeated, but please keep them unique,
+;   otherwise, the quick start function of +Q will not work properly.
+; - The line beginning with a semicolon is a comment line. Comment lines do not affect the settings, just like these lines.
+; - The input box popped up by Capslock+Q is called "Qbar" below.
 
 
 ;----------------------------------------------------------------
-; ##全局设置
+; ## Global Settings
 [Global]
-;是否开机自启动，1为是，0为否（默认）。
+; Whether to start automatically after booting, 1 is yes, 0 is no (default).
 autostart=0
 
-;热键布局方案，可选值：
-;- capslock_plus  Capslock+ 3.0 之前的布局
-;- capslox（默认）  Capslock+ 3.0 之后的布局
+; Hotkey layout scheme, optional values:
+;- capslock_plus        Scheme before Capslock+ 3.0
+;- capslox (default)
 default_hotkey_scheme=capslox
 
-;需要加载的 JavaScript 文件，以逗号分隔，文件应放在与 Capslock+ 程序同文件夹下的 loadScript 文件夹。
-;Capslock+ 将会按照顺序加载，加载完后 +Tab 可以使用里面的函数
-;在本设置不为空时，启动 Capslock+ 时将自动创建 loadScript 文件夹，以及位于文件夹中的 debug.html 和 scriptDemo.js 文件
+; The JavaScript files that need to be loaded, separated by commas,
+; and the files should be placed in the "loadScript" folder under the same folder as the Capslock+ program.
+; They will be loaded in order, after loading, +Tab can use the functions inside.
+; When this setting is not empty, the "loadScript" folder and the "debug.html" and "scriptDemo.js" files
+; located in the folder will be automatically created when Capslock+ is launched.
 loadScript=myScript1.js,myScript2.js, myScript3.js , myScript4.js
 
-;按下 Capslock+LAlt 键时，临时改变鼠标速度，范围是1~20。不设置的话默认3
-;可以用 Capslock+LAlt+鼠标滚轮上 / 下快速设置这个值
+; When the Capslock + LAlt key is pressed, the mouse speed will temporarily change,
+; the range is 1 ~ 20. The default is 3.
+; You can use Capslock + LAlt + mouse wheel up / down to quickly set this value.
 mouseSpeed=3
 
-;是否允许独立剪贴板功能，1为是（默认），0为否
+; Whether to allow independent clipboard, 1 is yes (default), 0 is no
 allowClipboard=1
 
-;是否开启程序加载动画，1是（默认），0否
+; Whether to show the startup loading animation, 1 is yes (default), 0 is no
 loadingAnimation=1
 
 ;----------------------------------------------------------------
-; ##Qbar搜索指令设置
+; ## Qbar searching command settings
 
-; - 除default外的键名为搜索指令，该指令会按对应的搜索链接搜索关键词，例如：
-;        这里设置了"bd=https://www.baidu.com/s?wd={q}"，可以在 Qbar 输入"bd capslock+"来百度搜索关键词"capslock+"
-;   （不过bd这个指令已经自带，不需要设置，但可以通过将bd设置成别的链接来替换成别的搜索）
+; - Except the key "default", each key of settings is a seaching command, for example:
+;   If you insert a line:
+;   g=https://www.google.com/search?q={q}
+;   then you can input "g capslock+" in QBar to google the keyword "capslock+".
+;   (But this command has been built in, no need to set again.)
 
-; - default为不输入任何指令时将使用的搜索
+; - "default" is the search engine that will be used when no commands are entered.
 
-; - 键名可以自定义，如果下列例子中键名对应的键值没有被修改，Capslock+将保留相应的搜索指令
+; - The search link (the value of a setting here) of each search engine is different,
+;   you can try to get it like this (not guaranteed to be accurate):
+;    1. Open the website where you need to get the search link
+;    2. Enter any character in the search bar, such as "capslockplus", search (it doesn't matter whether the search results)
+;    3. After the search results appear, find the character you just entered in the address bar and replace it with "{q}"
+;       to get the search link (all characters in the address bar after replacement)
 
-; - 每个网站的搜索链接（这里的键值）都不一样，可以尝试这样获取（不保证准确）：
-;    1. 打开需要获取搜索链接的网站
-;    2. 在搜索栏输入任意字符，例如"capslockplus"，搜索（有没有搜索出结果无所谓）
-;    3. 在跳转后的地址栏中找到刚刚输入的字符，找到刚才搜索的字符并替换成"{q}"（不包括引号），得到搜索链接（替换后地址栏上的所有字符）
+; - You can use " ->search " to add a setting to [QSearch], like "g ->search https://www.google.com/search?q={q}"
 
-; - 可以使用 " ->search " 来添加一条设置到[QSearch]
+; - You can add (0~n spaces)<xxx> to the right of the key name as a reminder
 
-; - 可以在键名的右边加上 （0~n个空格）<xxx> 来作为备注提示
+; - The following examples are built-in search commands.
 
 [QSearch]
 
-default=https://www.baidu.com/s?wd={q}
+default=https://www.google.com/search?q={q}
 bd=https://www.baidu.com/s?wd={q}
 g   <google>=https://www.google.com/search?q={q}
 tb  <taobao>=http://s.taobao.com/search?q={q}
@@ -125,10 +133,11 @@ m=https://developer.mozilla.org/zh-CN/search?q={q}
 
 
 ;----------------------------------------------------------------
-; ##Qbar 快速打开文件（文件夹）设置
+; ## Qbar quickly opening files (folders) settings
 
-; - 在这里添加一条设置后，就可以在 Qbar 用键名快速打开对应键值设置的文件或文件夹，例如：
-;        这里设置了"exp=E:\expFolder\example.exe"，在 Qbar 输入"exp"，回车后会打开"E:\expFolder\example.exe"这个文件
+; - After adding a setting here, you can quickly open a file or folder in Qbar, for example:
+;   Insert a line "exp=E:\expFolder\example.exe" here,
+;   then you can type "exp" in Qbar to open "E:\expFolder\example.exe"
 
 ; - 可以通过 Qbar 的 " -> " 指令快速添加一项设置，例如：在 Qbar 输入"exp2 -> E:\expFolder2\example2.exe"（" -> "两边各有一个空格），确认后将会在这里添加一项"exp2=E:\expFolder2\example2.exe"
 
