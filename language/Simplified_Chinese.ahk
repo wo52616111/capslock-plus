@@ -644,6 +644,9 @@ keyFunc_moveToPageEnd
 ;选中当前单词
 keyFunc_selectCurrentWord
 
+;选中当前行
+keyFunc_selectCurrentLine
+
 ;选中到页首
 keyFunc_selectToPageBeginning
 
