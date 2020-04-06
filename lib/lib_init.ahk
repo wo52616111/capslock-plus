@@ -25,12 +25,12 @@ if(loadingAnimation != "0")
 ;  else
 ;  	gosub, language_English
 
-; msgbox, % getSystemLanguage()
+
 if(isLangChinese())
 {
-	gosub, language_Simplified_Chinese
+    gosub, language_Simplified_Chinese
 } else {
-	gosub, language_English
+    gosub, language_English
 }
 ;------------  /language -----------
 

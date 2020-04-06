@@ -129,11 +129,30 @@ getSystemLanguage(){
     languageCode_0843 = Uzbek_Cyrillic
     languageCode_042a = Vietnamese
 
-    return languageCode_%A_Language%
+    ; https://www.autohotkey.com/boards/viewtopic.php?t=43376
+    RegRead, systemLocale,HKEY_CURRENT_USER,Control Panel\International, Locale
+
+    if(systemLocale)
+    {
+        systemLocale := SubStr(systemLocale, -3)
+    }
+
+    lang := languageCode_%systemLocale%
+    ; msgbox, lang: %lang%
+
+    if(lang)
+    {
+        return lang
+    } else {
+        return languageCode_%A_Language%
+    }
+
 }
 
 isLangChinese()
 {
+    ; msgbox, % getSystemLanguage()
+    ; MsgBox, The system language key is %A_Language%, the locale key is %system_locale%
     return InStr(getSystemLanguage(), "Chinese")
 }
 
