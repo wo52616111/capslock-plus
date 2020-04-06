@@ -676,9 +676,7 @@ global lang_winsInfosRecorderIniInit:=""
 lang_winsInfosRecorderIniInit=
 (
 ;------------ Encoding: UTF-16 ------------
-;我负责记录CapsLock+``和1~8绑定的窗口信息，不要手动修改我，无视我就次了，麻烦帮我点下右上角的"X"，谢谢。
-;我要工作了，麻烦点下右上角的"X"。
-;我不想再说第三遍了。
+;这里记录着窗口的数据，不要手动修改本文件内容，点下右上角的"X"就好。
 
 [0]
 bindType=
