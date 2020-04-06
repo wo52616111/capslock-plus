@@ -27,8 +27,8 @@ global lang_yd_trans:="------------------------------------有道翻译---------
 global lang_yd_dict:="------------------------------------有道词典------------------------------------"
 global lang_yd_phrase:="--------------------------------------短语--------------------------------------"
 
-global lang_settingsUserInit:=""
-lang_settingsUserInit=
+global lang_settingsFileContent:=""
+lang_settingsFileContent=
 (
 ;------------ Encoding: UTF-16 ------------
 ;请对照 CapsLock+settingsDemo.ini 来配置相关设置
@@ -51,8 +51,9 @@ loadScript=scriptDemo.js
 [Keys]
 
 )
-global lang_settingsIniInit:=""
-lang_settingsIniInit=
+global lang_settingsDemoFileContent_1:=""
+global lang_settingsDemoFileContent_2:=""
+lang_settingsDemoFileContent_1=
 (
 ;------------ Encoding: UTF-16 ------------
 ; # CapsLock+ 设置样本
@@ -271,6 +272,11 @@ keyFrom=xxx
 
 
 ;----------------------------------------------------------------;
+
+)
+
+lang_settingsDemoFileContent_2=
+(
 ; ## 按键功能设置
 
 ; - 可设置的按键组合有：

@@ -27,8 +27,8 @@ global lang_yd_trans:=  "------------------------------ Youdao Translation -----
 global lang_yd_dict:=   "------------------------------ Youdao dictionary ------------------------------"
 global lang_yd_phrase:= "----------------------------------- Phrase ------------------------------------"
 
-global lang_settingsUserInit:=""
-lang_settingsUserInit=
+global lang_settingsFileContent:=""
+lang_settingsFileContent=
 (
 ;------------ Encoding: UTF-16 ------------
 ; Please refer to CapsLock+settingsDemo.ini to configure settings
@@ -51,8 +51,9 @@ loadScript=scriptDemo.js
 [Keys]
 
 )
-global lang_settingsIniInit:=""
-lang_settingsIniInit=
+global lang_settingsDemoFileContent_1:=""
+global lang_settingsDemoFileContent_2:=""
+lang_settingsDemoFileContent_1=
 (
 ;------------ Encoding: UTF-16 ------------
 ; # CapsLock+ settings demo
@@ -297,6 +298,11 @@ keyFrom=xxx
 
 
 ;----------------------------------------------------------------;
+
+)
+
+lang_settingsDemoFileContent_2=
+(
 ; ## Hotkey settings
 
 ; - Available hotkeys:

@@ -25,7 +25,8 @@ FileGetTime, settingsModifyTime, CapsLock+settings.ini
 ;init CapsLock+settingsDemo.ini and CapsLock+settings.ini
 IfNotExist, CapsLock+settingsDemo.ini
 {       
-    FileAppend, %lang_settingsIniInit%, CapsLock+settingsDemo.ini, UTF-16
+    FileAppend, %lang_settingsDemoFileContent_1%, CapsLock+settingsDemo.ini, UTF-16
+    FileAppend, %lang_settingsDemoFileContent_2%, CapsLock+settingsDemo.ini, UTF-16
     FileSetAttrib, +R, CapsLock+settingsDemo.ini
 }
 else
@@ -45,16 +46,18 @@ else
     {
         FileSetAttrib, -R, CapsLock+settingsDemo.ini
         FileDelete, CapsLock+settingsDemo.ini
-        FileAppend, %lang_settingsIniInit%, CapsLock+settingsDemo.ini, UTF-16
+        FileAppend, %lang_settingsDemoFileContent_1%, CapsLock+settingsDemo.ini, UTF-16
+        FileAppend, %lang_settingsDemoFileContent_2%, CapsLock+settingsDemo.ini, UTF-16
         FileSetAttrib, +R, CapsLock+settingsDemo.ini
     }
 }
 IfNotExist, CapsLock+settings.ini
 {   
-    FileAppend, %lang_settingsUserInit%, CapsLock+settings.ini, UTF-16
+    FileAppend, %lang_settingsFileContent%, CapsLock+settings.ini, UTF-16
 }
-lang_settingsIniInit:=""
-lang_settingsUserInit:=""
+lang_settingsDemoFileContent_1:=""
+lang_settingsDemoFileContent_2:=""
+lang_settingsFileContent:=""
 ;  IniRead, settingsSections, CapsLock+settings.ini, , , %A_Space%
 ;  sectionArr:=StrSplit(settingsSections,"`n")
 for key,sectionValue in iniSections
