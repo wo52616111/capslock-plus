@@ -66,12 +66,29 @@ RAlt::sendinput, {U+002e}
 `;::sendinput, {U+002b}
 '::sendinput, {U+002d}
 p::sendinput, {U+002a}
-/::
-[::
-sendinput, {U+002f}
+/::sendinput, {U+002f}
+[::sendinput, {U+002f}
 return
 
 #IF WinActive("Math Board")
++u::sendinput, {7}
++i::sendinput, {8}
++o::sendinput, {9}
++j::sendinput, {4}
++k::sendinput, {5}
++l::sendinput, {6}
++m::sendinput, {1}
++,::sendinput, {2}
++.::sendinput, {3}
++space::sendinput, {0}
++RAlt::sendinput, {U+002e}
++`;::sendinput, {U+002b}
++'::sendinput, {U+002d}
++p::sendinput, {U+002a}
++/::sendinput, {U+002f}
++[::sendinput, {U+002f}
+
+
 NumpadEnter::
 enter::
 ClipboardOld:=ClipboardAll
