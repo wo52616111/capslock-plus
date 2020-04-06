@@ -1625,16 +1625,29 @@ ButtonSubmit:
         ; --LEVEL 2 END--
         
         ; --FINALLY--
-        if (cmd1="s"||cmd1="bd") 
+        if (cmd1="s")
         {
             paramStr:=UTF8encode(paramStr)
-            run  https://www.baidu.com/s?wd=%paramStr%
+            if(isLangChinaChinese())
+            {
+                run https://www.baidu.com/s?wd=%paramStr%
+            }
+            else
+            {
+                run https://www.google.com/search?q=%paramStr%
+            }
+            return
+        }
+        if (cmd1="bd")
+        {
+            paramStr:=UTF8encode(paramStr)
+            run https://www.baidu.com/s?wd=%paramStr%
             return
         }
         if (cmd1="g"||cmd1="gg") ;google
         {
             paramStr:=UTF8encode(paramStr)
-            run  https://www.google.com/search?q=%paramStr%
+            run https://www.google.com/search?q=%paramStr%
             return
         }
         if (cmd1="tb") ;淘宝
@@ -1771,7 +1784,7 @@ ButtonSubmit:
             return
         }
 
-        if(getSystemLanguage() == "Chinese_PRC")
+        if(isLangChinaChinese())
         {
             run https://www.baidu.com/s?wd=%inputStr%
         } else {

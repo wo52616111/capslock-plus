@@ -55,7 +55,7 @@ global lang_settingsIniInit:=""
 lang_settingsIniInit=
 (
 ;------------ Encoding: UTF-16 ------------
-; #CapsLock+ 设置样本
+; # CapsLock+ 设置样本
 ; - ******请务必阅读以下说明：******
 
 ; - **这里的设置是只读的，仅作说明参考，不要修改这里的设置（修改了也无效），需要自定义设置请在 CapsLock+settings.ini 中的对应段名中作添加修改
@@ -69,7 +69,7 @@ lang_settingsIniInit=
 
 
 ;----------------------------------------------------------------
-; ##全局设置
+; ## 全局设置
 [Global]
 ;是否开机自启动，1为是，0为否（默认）。
 autostart=0
@@ -95,7 +95,7 @@ allowClipboard=1
 loadingAnimation=1
 
 ;----------------------------------------------------------------
-; ##Qbar搜索指令设置
+; ## Qbar搜索指令设置
 
 ; - 除default外的键名为搜索指令，该指令会按对应的搜索链接搜索关键词，例如：
 ;        这里设置了"bd=https://www.baidu.com/s?wd={q}"，可以在 Qbar 输入"bd capslock+"来百度搜索关键词"capslock+"
@@ -125,7 +125,7 @@ m=https://developer.mozilla.org/zh-CN/search?q={q}
 
 
 ;----------------------------------------------------------------
-; ##Qbar 快速打开文件（文件夹）设置
+; ## Qbar 快速打开文件（文件夹）设置
 
 ; - 在这里添加一条设置后，就可以在 Qbar 用键名快速打开对应键值设置的文件或文件夹，例如：
 ;        这里设置了"exp=E:\expFolder\example.exe"，在 Qbar 输入"exp"，回车后会打开"E:\expFolder\example.exe"这个文件
@@ -161,12 +161,12 @@ ie4=*runas "C:\Program Files\Internet Explorer\iexplore.exe" -k
 
 
 ;----------------------------------------------------------------
-; #Qbar 快速打开网页设置
+; ## Qbar 快速打开网页设置
 
 ; - 在这里添加一条设置后，可以在 Qbar 用键名快速打开对应键值设置的链接，例如：
-;        这里设置了"cldocs=http://cjkis.me/capslock+"，在 Qbar 输入"cldocs"，回车后会用默认浏览器打开"http://cjkis.me/capslock+"
+;        这里设置了"cldocs=https://capslox.com/capslock-plus"，在 Qbar 输入"cldocs"，回车后会用默认浏览器打开"https://capslox.com/capslock-plus"
 
-; - 可以通过 Qbar 的 " -> " 指令快速添加一项设置，例如：在 Qbar 输入"cl+ -> http://cjkis.me/capslock+"（" -> "两边各有一个空格），确认后将会在这里添加一项"cl+=http://cjkis.me/capslock+"
+; - 可以通过 Qbar 的 " -> " 指令快速添加一项设置，例如：在 Qbar 输入"cl+ -> https://capslox.com/capslock-plus"（" -> "两边各有一个空格），确认后将会在这里添加一项"cl+=https://capslox.com/capslock-plus"
 
 ; - 如果 " -> " 无法正确识别网址而把设置记录到了[QRun]或[TabHotString]，可以使用 " ->web " 来强制记录到[QWeb]
 
@@ -179,12 +179,12 @@ ie4=*runas "C:\Program Files\Internet Explorer\iexplore.exe" -k
 ; - 可以在键名的右边加上 （0~n个空格）<xxx> 来作为备注提示
 
 [QWeb]
-cldocs=http://cjkis.me/capslock+
+cldocs=https://capslox.com/capslock-plus
 
 
 
 ;----------------------------------------------------------------;
-; ##TabScript 的字符替换设置
+; ## TabScript 的字符替换设置
 
 ; - Capslock+Tab会将紧靠光标左边的匹配某键名的字符替换成对应键值的字符，例如：
 ;        这里设置了"@=capslock-plus@cjkis.me"，在任意地方输入"@"，然后按下"Capslock+Tab"，"@"将替换成"capslock-plus@cjkis.me"
@@ -206,7 +206,7 @@ cldocs=http://cjkis.me/capslock+
 clp=capslockplus
 
 ;----------------------------------------------------------------
-; ##Qbar 的样式设置
+; ## Qbar 的样式设置
 
 [QStyle]
 ;边框颜色
@@ -251,7 +251,7 @@ lineHeight=19
 progressColor=0x00cc99
 
 ;----------------------------------------------------------------;
-; ##+T翻译设置
+; ## +T翻译设置
 
 [TTranslate]
 ;有道api接口
@@ -259,18 +259,19 @@ progressColor=0x00cc99
 ;接口的请求频率限制为每小时1000次，超过限制会被封禁。也就是说所有使用Capslock+翻译的人一小时内翻译的次数加起来不能超过1000次。
 ;有道api网址：http://fanyi.youdao.com/openapi
 
+;有道api的key，如果自己申请到key，可以填入，这样就不用和其他人共用api接口，留空则使用自带的key，所有人共用
+;注意如果是免费版的key，apiType也要相应设置为0，收费版的填写1
+apiKey=0123456789
+
 ;接口类型，0为免费版，1为收费版。通过上面的网址申请的是免费版的，收费版是需要 email 他们来申请的。
 apiType=0
 
 ;免费版的有道 api key 的 keyfrom 参数，申请 api 时要求填写的。收费版的不需要填写。
 keyFrom=xxx
 
-;有道api的key，如果自己申请到key，可以填入，这样就不用和其他人共用api接口，留空则使用自带的key，所有人共用
-;注意如果是免费版的key，apiType也要相应设置为0，收费版的填写1
-apiKey=0123456789
 
 ;----------------------------------------------------------------;
-; ##按键功能设置
+; ## 按键功能设置
 
 ; - 可设置的按键组合有：
 ;   Capslock + F1~F12
@@ -342,7 +343,8 @@ caps_o=keyFunc_selectEnd
 ;光标移动到行首
 caps_p=keyFunc_home
 
-caps_q=keyFunc_doNothing
+; QBar
+caps_q=keyFunc_qbar
 
 ;delete
 caps_r=keyFunc_delete
@@ -371,7 +373,7 @@ caps_z=keyFunc_doNothing
 
 caps_backquote=keyFunc_doNothing
 
-;Capslock+1~9、0 -> 激活绑定窗口 1~9、10
+;Capslock+0~9 -> 激活绑定窗口 0~9
 caps_1=keyFunc_winbind_activate(1)
 
 caps_2=keyFunc_winbind_activate(2)
@@ -392,9 +394,9 @@ caps_9=keyFunc_winbind_activate(9)
 
 caps_0=keyFunc_winbind_activate(10)
 
-caps_minus=keyFunc_doNothing
+caps_minus=keyFunc_qbar_upperFolderPath
 
-caps_equal=keyFunc_doNothing
+caps_equal=keyFunc_qbar_lowerFolderPath
 
 ;删除光标所在一行
 caps_backspace=keyFunc_deleteLine
@@ -417,13 +419,16 @@ caps_quote=keyFunc_doNothing
 ;换行——无论光标是否在行末
 caps_enter=keyFunc_enterWherever
 
+;选中当前单词
 caps_comma=keyFunc_selectCurrentWord
 
+;向右选中单词
 caps_dot=keyFunc_selectWordRight
 
+;删除至行尾
 caps_slash=keyFunc_deleteToLineEnd
 
-;Capslock+space -> enter
+;Capslock+Space -> enter
 caps_space=keyFunc_enter
 
 ;Capslock+RAlt -> 无
@@ -432,15 +437,19 @@ caps_right_alt=keyFunc_doNothing
 ;打开 Capslock+ 首页
 caps_f1=keyFunc_openCpasDocs
 
+;Math Board
 caps_f2=keyFunc_mathBoard
 
+;有道翻译
 caps_f3=keyFunc_translate
 
+;窗口透明
 caps_f4=keyFunc_winTransparent
 
 ;重载 Capslock+
 caps_f5=keyFunc_reload
 
+;窗口置顶
 caps_f6=keyFunc_winPin
 
 caps_f7=keyFunc_doNothing
@@ -461,15 +470,16 @@ caps_f12=keyFunc_switchClipboard
 ;Capslock+LAlt+A -> 向左移 3 个单词
 caps_lalt_a=keyFunc_moveWordLeft(3)
 
+;下移 30 次
 caps_lalt_b=keyFunc_moveDown(30)
 
 ;独立剪贴板 2 的复制
 caps_lalt_c=keyFunc_copy_2
 
-;下移 3 行
+;下移 3 次
 caps_lalt_d=keyFunc_moveDown(3)
 
-;上移 3 行
+;上移 3 次
 caps_lalt_e=keyFunc_moveUp(3)
 
 ;右移 5 次
@@ -481,19 +491,19 @@ caps_lalt_g=keyFunc_moveWordRight(3)
 ;向左选中 3 个单词
 caps_lalt_h=keyFunc_selectWordLeft(3)
 
-;向上选中 3 行
+;向上选中 3 次
 caps_lalt_i=keyFunc_selectUp(3)
 
 ;向左选中 5 个字符
 caps_lalt_j=keyFunc_selectLeft(5)
 
-;向下选中 3 行
+;向下选中 3 次
 caps_lalt_k=keyFunc_selectDown(3)
 
 ;向右选中 5 个字符
 caps_lalt_l=keyFunc_selectRight(5)
 
-;向下选中 30 行
+;向下选中 30 次
 caps_lalt_m=keyFunc_selectDown(30)
 
 ;向右选中 3 个单词
@@ -528,7 +538,7 @@ caps_lalt_w=keyFunc_deleteWord
 ;独立剪贴板 2 的 剪切
 caps_lalt_x=keyFunc_cut_2
 
-;向上选中 30 行
+;向上选中 30 次
 caps_lalt_y=keyFunc_selectUp(30)
 
 caps_lalt_z=keyFunc_doNothing
@@ -580,10 +590,13 @@ caps_lalt_quote=keyFunc_doNothing
 
 caps_lalt_enter=keyFunc_doNothing
 
+;选中当前行
 caps_lalt_comma=caps_comma=keyFunc_selectCurrentLine
 
+;向右选中 3 个单词
 caps_lalt_dot=keyFunc_selectWordRight(3)
 
+;删除至页尾
 caps_lalt_slash=keyFunc_deleteToPageEnd
 
 caps_lalt_space=keyFunc_doNothing
@@ -618,7 +631,7 @@ caps_lalt_wheelUp=keyFunc_doNothing
 
 caps_lalt_wheelDown=keyFunc_doNothing
 
-; CapsLock + Windows + 1~0 -> 绑定窗口 1~10
+; CapsLock + Windows + 0~9 -> 绑定窗口 0~9
 caps_win_1=keyFunc_winbind_binding(1)
 
 caps_win_2=keyFunc_winbind_binding(2)
@@ -663,7 +676,7 @@ global lang_winsInfosRecorderIniInit:=""
 lang_winsInfosRecorderIniInit=
 (
 ;------------ Encoding: UTF-16 ------------
-;我负责记录CapsLock+``和1~8绑定的窗口信息，不要手动修改我，无视我就行了，麻烦帮我点下右上角的"X"，谢谢。
+;我负责记录CapsLock+``和1~8绑定的窗口信息，不要手动修改我，无视我就次了，麻烦帮我点下右上角的"X"，谢谢。
 ;我要工作了，麻烦点下右上角的"X"。
 ;我不想再说第三遍了。
 

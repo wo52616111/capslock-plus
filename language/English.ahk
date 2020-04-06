@@ -58,14 +58,16 @@ lang_settingsIniInit=
 ; # CapsLock+ settings demo
 ; ****** PLEASE READ THE FOLLOWING INSTRUCTIONS: ******
 
-; - The settings here are read-only, just for demonstration, don't modify the settings here, please write settings in CapsLock+settings.ini
-;   For example, if you need to turn on the auto start, please insert a line: autostart=1 under [Global] in CapsLock+settings.ini, and save.
+; - The settings here are read-only, just for demonstration, don't modify the settings here, please write settings in
+;   CapsLock+settings.ini. For example, if you need to turn on the auto start, please insert a line: autostart=1 under
+;   [Global] in CapsLock+settings.ini, and save.
 
 ; - "[xxx]" is the section name, which cannot be modified.
 ; - The format of settings under each section is: key=value, one setting per line.
-; - Although QSearch,QRun and QWeb are different sections, in theory, their key names can be repeated, but please keep them unique,
-;   otherwise, the quick start function of +Q will not work properly.
-; - The line beginning with a semicolon is a comment line. Comment lines do not affect the settings, just like these lines.
+; - Although QSearch,QRun and QWeb are different sections, in theory, their key names can be repeated, but please keep
+;   them unique, otherwise, the quick start function of +Q will not work properly.
+; - The line beginning with a semicolon is a comment line. Comment lines do not affect the settings, just like these
+;   lines.
 ; - The input box popped up by Capslock+Q is called "Qbar" below.
 
 
@@ -116,11 +118,12 @@ loadingAnimation=1
 ;    3. After the search results appear, find the character you just entered in the address bar and replace it with "{q}"
 ;       to get the search link (all characters in the address bar after replacement)
 
-; - You can use " ->search " to add a setting to [QSearch], like "g ->search https://www.google.com/search?q={q}"
+; - You can use " ->search " to add a setting to [QSearch], like "g ->search https://www.google.com/search?q={q}",
+;   will insert a line "g=https://www.google.com/search?q={q}" under the [QSearch] section.
 
 ; - You can add (0~n spaces)<xxx> to the right of the key name as a reminder
 
-; - The following examples are built-in search commands.
+; - The following examples are also built-in search commands.
 
 [QSearch]
 
@@ -139,153 +142,168 @@ m=https://developer.mozilla.org/zh-CN/search?q={q}
 ;   Insert a line "exp=E:\expFolder\example.exe" here,
 ;   then you can type "exp" in Qbar to open "E:\expFolder\example.exe"
 
-; - 可以通过 Qbar 的 " -> " 指令快速添加一项设置，例如：在 Qbar 输入"exp2 -> E:\expFolder2\example2.exe"（" -> "两边各有一个空格），确认后将会在这里添加一项"exp2=E:\expFolder2\example2.exe"
+; - You can quickly add a setting through Qbar's " -> " command, for example: enter "exp2 -> E:\expFolder2\example2.exe"
+;   in Qbar (each side a space), after confirmation, an item "exp2=E:\expFolder2\example2.exe" will be inserted.
 
-; - 如果 " -> " 无法正确识别文件路径而把设置记录到了[QWeb]或[TabHotString]，可以使用 " ->run " 来强制记录到[QRun]
+; - If " -> " cannot correctly identify the file path and record the setting to [QWeb] or [TabHotString], you can use
+;   " ->run " to force the recording to [QRun]
 
-; - 选中文件（文件夹）后，按 +Q ，可以将路径填入 Qbar ，那么，你想记录一个文件来快速打开，就可以这么操作：
-;       1. 选中该文件
-;       2. 按下 Capslock+Q，弹出的输入框内自动填入了该文件的路径
-;       3. 在路径的最前面加上"xxx -> "
-;       4. 按下 Enter 键，确认记录
+; - After you selecting a file (folder) and press +Q, the path will be filled in Qbar, so if you want to record a file to
+;   open it quickly, you can do this:
+;       1. Select the file
+;       2. Press Capslock+Q, the path of the file will be filled in
+;       3. Add "xxx -> " before the path
+;       4. Press Enter, and confirm to record
 
-; - 可以在键名的右边加上 （0~n个空格）<xxx> 来作为备注提示
+; - You can add "(0~n spaces)<xxx>" after the key name as a reminder
 
-; - 可以设置以管理员启动程序，以及启动程序的参数，
-;   需要设置的话程序路径需要用 " （引号）引起来，左边加上 *RunAs 将用管理员权限启动，右边带上启动参数
+; - You can set to run a program as administrator, or (and) with startup parameters. See the examples below.
 
 [QRun]
-;一般状态
+; Normal
 ie1=C:\Program Files\Internet Explorer\iexplore.exe
 
-;管理员权限打开
+; Run as administrator
 ie2=*runas "C:\Program Files\Internet Explorer\iexplore.exe"
 
-;全屏打开
+; Run in full screen
 ie3 <full screen>="C:\Program Files\Internet Explorer\iexplore.exe" -k
 
-;管理员权限，全屏打开
+; Run as administrator, in full screen
 ie4=*runas "C:\Program Files\Internet Explorer\iexplore.exe" -k
 
 
 
 ;----------------------------------------------------------------
-; #Qbar 快速打开网页设置
+; ## Qbar quickly open website settings
 
-; - 在这里添加一条设置后，可以在 Qbar 用键名快速打开对应键值设置的链接，例如：
-;        这里设置了"cldocs=http://cjkis.me/capslock+"，在 Qbar 输入"cldocs"，回车后会用默认浏览器打开"http://cjkis.me/capslock+"
+; - After adding a setting here, you can quickly open a link using the corresponding key name, for example:
+;   There is a setting here: "cldocs=https://capslox.com/capslock-plus", then you can type "cldocs" in Qbar to open
+;   "https://capslox.com/capslock-plus"
 
-; - 可以通过 Qbar 的 " -> " 指令快速添加一项设置，例如：在 Qbar 输入"cl+ -> http://cjkis.me/capslock+"（" -> "两边各有一个空格），确认后将会在这里添加一项"cl+=http://cjkis.me/capslock+"
+; - You can quickly add a setting through Qbar's " -> " command, for example:
+;   Input "cl+ -> https://capslox.com/capslock-plus" in Qbar, a settting "cl+=https://capslox.com/capslock-plus"
+;   will be inserted after confirmation.
 
-; - 如果 " -> " 无法正确识别网址而把设置记录到了[QRun]或[TabHotString]，可以使用 " ->web " 来强制记录到[QWeb]
+; - If " -> " cannot correctly identify the URL and record the setting to [QRun] or [TabHotString], you can use
+;   " ->web " to force the recording to [QWeb]
 
-; - 选中网址后，按 +Q ，可以将网址填入 Qbar ，那么，你想记录一个网址来快速打开，就可以这么操作：
-;       1. 选中该网址
-;       2. 按下 Capslock+Q，弹出的输入框内自动填入了该网址
-;       3. 在路径的最前面加上"xxx -> "
-;       4. 按下 Enter 键，确认记录
+; - After you selecting an URL and press +Q, it will be filled in Qbar, so if you want to record an URL to open it
+;   quickly, you can do this:
+;       1. Select the URL
+;       2. Press Capslock+Q, the URL will be filled in
+;       3. Add "xxx -> " before the URL
+;       4. Press Enter, and confirm to record
 
-; - 可以在键名的右边加上 （0~n个空格）<xxx> 来作为备注提示
+; - You can add "(0~n spaces)<xxx>" after the key name as a reminder
 
 [QWeb]
-cldocs=http://cjkis.me/capslock+
-
+cldocs=https://capslox.com/capslock-plus
 
 
 ;----------------------------------------------------------------;
-; ##TabScript 的字符替换设置
+; ## The hotstring settings of TabScript
 
-; - Capslock+Tab会将紧靠光标左边的匹配某键名的字符替换成对应键值的字符，例如：
-;        这里设置了"@=capslock-plus@cjkis.me"，在任意地方输入"@"，然后按下"Capslock+Tab"，"@"将替换成"capslock-plus@cjkis.me"
+; - Capslock + Tab will replace the string matching a key name on the left of the cursor with the corresponding value, 
+;   for example:
+;   There is "@=capslock-plus@cjkis.me" here, then you can type "@" anywhere, and press "Capslock+Tab", the "@" will be
+;   replaced with "capslock-plus@cjkis.me"
 
-; - 这里的优先级高于CapsLock+Tab的计算功能，例如：
-;        这里设置了1+1=3，那么输入1+1后CapsLock+Tab，1+1会被替换成3而不是2
+; - The priority of settings here is higher than the calculation function of CapsLock+Tab, for example:
+;   If "1+1=3" is set here, then after typing "1+1", "CapsLock+Tab", "1+1" will be replaced by "3" instead of "2".
 
-; - 可以通过 Qbar 的 " -> " 指令快速添加一项设置，例如：在 Qbar 输入 "tel -> 15012345678" ，确认后将会在这里添加一项 "tel=15012345678"
+; - You can quickly add a setting through Qbar's " -> " command, for example:
+;   Input "tel -> 1234567890" in Qbar, a setting "tel=1234567890" will be inserted after confirmation.
 
-; - 如果作为键值的字符串是类似网址或文件（夹）路径的格式，例如："ccc -> com.com.com"， " -> " 指令很可能会将它判定为网址或文件（夹）而把设置记录到了[QRun]或[QWeb]，可以使用 " ->str " 来强制记录到[TabHotString]
+; - If the value of a setting is a string that looks like an URL, the " -> " command will probably determine it as a URL
+;   or file (folder) path and record the setting in [QWeb] or [QRun], you can use " ->str " to force the recording to
+;   [TabHotString]
 
-; - 选中文字后，按 +Q ，可以将文字填入 Qbar ，那么，你想记录一段文字，就可以这么操作：
-;       1. 选中该文字
-;       2. 按下 Capslock+Q，弹出的输入框内自动填入了该文字
-;       3. 在路径的最前面加上"xxx -> "
-;       4. 按下 Enter 键，确认记录
+; - After you selecting some text and press +Q, they will be filled in Qbar, so if you want to record some text:
+;       1. Select some text
+;       2. Press Capslock+Q, they will be filled in
+;       3. Add "xxx -> " before the text
+;       4. Press Enter, and confirm to record
 
 [TabHotString]
 clp=capslockplus
 
 ;----------------------------------------------------------------
-; ##Qbar 的样式设置
+; ## Qbar's style settings
 
 [QStyle]
-;边框颜色
-;指定16种HTML基础颜色之一或6位的RGB颜色值(0x前缀可以省略)。例如：red、ffffaa、FFFFAA、0xFFFFAA。下面的颜色设置也一样。
+; Border color
+; Specify one of 16 HTML basic colors or 6-bit RGB color values (the 0x prefix can be omitted). For example:
+; red, ffffaa, FFFFAA, 0xFFFFAA. The color settings below are the same.
+
 borderBackgroundColor=red
 
-;边框四角的圆角程度，0为直角
+; Rounded corners, 0 means right angle
 borderRadius=9
 
-;文字输入框背景颜色
+; The background color of the input box
 textBackgroundColor=green
 
-;输入文字颜色
+; The color of the input text
 textColor=ffffff
 
-;输入文字字体
+; The font name of the input text
 ;editFontName=Consolas bold
 editFontName=Hiragino Sans GB W6
 
-;输入文字大小
+; The font size of the input text
 editFontSize=12
 
-;提示列表字体
+; The font name of the drop-down list
 listFontName=consolas
 
-;提示列表字体大小
+; The font size of the drop-down list
 listFontSize=10
 
-;提示列表背景颜色
+; The background color of the drop-down list
 listBackgroundColor=blue
 
-;提示列表文字颜色
+; The text color of the drop-down list
 listColor=0x000000
 
-;提示列表行数
+; The number of rows in the drop-down list
 listCount=5
 
-;提示列表每行高度
+; The height of each row in the drop-down list
 lineHeight=19
 
-;进度条颜色
+; Progress bar color
 progressColor=0x00cc99
 
 ;----------------------------------------------------------------;
-; ##+T翻译设置
+; ## +T Translation settings (Chinese <-> English)
 
 [TTranslate]
-;有道api接口
-;翻译功能通过调用有道的api实现。
-;接口的请求频率限制为每小时1000次，超过限制会被封禁。也就是说所有使用Capslock+翻译的人一小时内翻译的次数加起来不能超过1000次。
-;有道api网址：http://fanyi.youdao.com/openapi
+; About Youdao API
+; The translation function is implemented by calling the Youdao API.
+; The request frequency of the API is limited to 1000 times per hour, In other words, all the people who are using
+; Capslock+ translation can not translate more than 1000 times in one hour.
+; Youdao API website: http://fanyi.youdao.com/openapi
 
-;接口类型，0为免费版，1为收费版。通过上面的网址申请的是免费版的，收费版是需要 email 他们来申请的。
-apiType=0
-
-;免费版的有道 api key 的 keyfrom 参数，申请 api 时要求填写的。收费版的不需要填写。
-keyFrom=xxx
-
-;有道api的key，如果自己申请到key，可以填入，这样就不用和其他人共用api接口，留空则使用自带的key，所有人共用
-;注意如果是免费版的key，apiType也要相应设置为0，收费版的填写1
+; The key of Youdao API. Leave blank to use the built-in key, shared by all users.
 apiKey=0123456789
 
-;----------------------------------------------------------------;
-; ##按键功能设置
+; API key type, 0 is the free version, 1 is the paid version. The free version of the key can be applied through the
+; above URL.
+apiType=0
 
-; - 可设置的按键组合有：
+; The "keyfrom" parameter of the API key
+keyFrom=xxx
+
+
+;----------------------------------------------------------------;
+; ## Hotkey settings
+
+; - Available hotkeys:
 ;   Capslock + F1~F12
 ;   Capslock + 0~9
 ;   Capslock + a~z
-;   Capslock + `-=[]\;',./ 
+;   Capslock + `-=[]\;',./
 ;   Capslock + Backspace, Tab, Enter, Space, RAlt
 ;   Capslock + LALt + F1~F12
 ;   Capslock + LALt + 0~9
@@ -294,93 +312,96 @@ apiKey=0123456789
 ;   Capslock + LALt + Backspace, Tab, Enter, Space, RAlt
 ;   Capslock + Win + 0~9
 
-; - 以下设置键名是按键组合名，键值是对应功能，所有支持的功能都在下面
+; - The following setting key name is the hotkey name, the key value is the corresponding function,
+;   all supported actions are below.
 
 [Keys]
-;短按 Caps Lock -> 发送 Esc
+; Tap Caps Lock -> Send input: Esc
 tap_caps=keyFunc_esc
 
-;短按 Caps Lock -> 切换大小写
+; Tap Caps Lock -> Switch case
 ;tap_caps=keyFunc_toggleCapsLock
 
-;Capslock+A -> 光标向左移动一个单词
+; Capslock+A -> Move Left a Word
 caps_a=keyFunc_moveWordLeft
 
-;Capslock+B -> 光标向下移动 10 行
+; Capslock+B -> Move Down 10 Times
 caps_b=keyFunc_moveDown(10)
 
-;独立剪贴板 1 的复制
+; The Extra Clipboard 1 - Copy
 caps_c=keyFunc_copy_1
 
-;光标向下移动
+; Move Down
 caps_d=keyFunc_moveDown
 
-;光标向上移动
+; Move Up
 caps_e=keyFunc_moveUp
 
-;光标向右移动
+; Move Right
 caps_f=keyFunc_moveRight
 
-;光标向右移动一个单词
+; Move Right a Word
 caps_g=keyFunc_moveWordRight
 
-;向左选中一个单词
+; Select Left Word
 caps_h=keyFunc_selectWordLeft
 
-;向上选中
+; Select Up
 caps_i=keyFunc_selectUp
 
-;向左选中
+; Select Left
 caps_j=keyFunc_selectLeft
 
-;向下选中
+; Select Down
 caps_k=keyFunc_selectDown
 
-;向右选中
+; Select Right
 caps_l=keyFunc_selectRight
 
-;向下选中 10 行
+; Select Down 10 Times
 caps_m=keyFunc_selectDown(10)
 
-;向右选中一个单词
+; Select Right a Word
 caps_n=keyFunc_selectWordRight
 
-;选中至行末
+; Select to the End of the Line
 caps_o=keyFunc_selectEnd
 
-;光标移动到行首
+; Move to the beginning of the Line
 caps_p=keyFunc_home
 
-caps_q=keyFunc_doNothing
+; QBar
+caps_q=keyFunc_qbar
 
-;delete
+; Delete
 caps_r=keyFunc_delete
 
-;光标向左移动
+; Move Left
 caps_s=keyFunc_moveLeft
 
+; Do Nothing
 caps_t=keyFunc_doNothing
 
-;选中至行首
+; Select to the beginning of the Line
 caps_u=keyFunc_selectHome
 
-;独立剪贴板 1 的粘贴 
+; The Extra Clipboard 1 - Paste
 caps_v=keyFunc_paste_1
 
-;backspace
+; Backspace
 caps_w=keyFunc_backspace
 
-;独立剪贴板 1 的剪切
+; The Extra Clipboard 1 - Cut
 caps_x=keyFunc_cut_1
 
-;向上选中 10 行
+; Select Up 10 Times
 caps_y=keyFunc_selectUp(10)
 
 caps_z=keyFunc_doNothing
 
 caps_backquote=keyFunc_doNothing
 
-;Capslock+1~9、0 -> 激活绑定窗口 1~9、10
+; Capslock+0~9 -> Activate the Binding Windows 0~9
 caps_1=keyFunc_winbind_activate(1)
 
 caps_2=keyFunc_winbind_activate(2)
@@ -401,55 +422,62 @@ caps_9=keyFunc_winbind_activate(9)
 
 caps_0=keyFunc_winbind_activate(10)
 
-caps_minus=keyFunc_doNothing
+caps_minus=keyFunc_qbar_upperFolderPath
 
-caps_equal=keyFunc_doNothing
+caps_equal=keyFunc_qbar_lowerFolderPath
 
-;删除光标所在一行
+; Delete Line
 caps_backspace=keyFunc_deleteLine
 
-;TabScript
+; TabScript
 caps_tab=keyFunc_tabScript
 
-;删除至行首
+; Delete to the Beginning of the Line
 caps_leftSquareBracket=keyFunc_deleteToLineBeginning
 
 caps_rightSquareBracket=keyFunc_doNothing
 
 caps_backslash=keyFunc_doNothing
 
-;Capslock+; -> end
+; Capslock+; -> Move to the End of the Line
 caps_semicolon=keyFunc_end
 
 caps_quote=keyFunc_doNothing
 
-;换行——无论光标是否在行末
+; Insert Line Below
 caps_enter=keyFunc_enterWherever
 
+; Select the Current Word
 caps_comma=keyFunc_selectCurrentWord
 
+; Select Right a Word
 caps_dot=keyFunc_selectWordRight
 
+; Delete to the End of the Line
 caps_slash=keyFunc_deleteToLineEnd
 
-;Capslock+space -> enter
+; Capslock+Space -> enter
 caps_space=keyFunc_enter
 
-;Capslock+RAlt -> 无
+; Capslock+RAlt -> Nothing
 caps_right_alt=keyFunc_doNothing
 
-;打开 Capslock+ 首页
+; Open the Docs of Capslock+
 caps_f1=keyFunc_openCpasDocs
 
+; Math Board
 caps_f2=keyFunc_mathBoard
 
+; Youdao Translation
 caps_f3=keyFunc_translate
 
+; Make the active window transparent
 caps_f4=keyFunc_winTransparent
 
-;重载 Capslock+
+; Reload Capslock+
 caps_f5=keyFunc_reload
 
+; Pin the active window
 caps_f6=keyFunc_winPin
 
 caps_f7=keyFunc_doNothing
@@ -462,82 +490,83 @@ caps_f10=keyFunc_doNothing
 
 caps_f11=keyFunc_doNothing
 
-;打开 / 关闭独立剪贴板
+; Turn On / Off Extra Clipboards
 caps_f12=keyFunc_switchClipboard
 
 ;--------------------LAlt--------------------
 
-;Capslock+LAlt+A -> 向左移 3 个单词
+; Capslock+LAlt+A -> Move Left 3 Words
 caps_lalt_a=keyFunc_moveWordLeft(3)
 
+; Move Down 30 Times
 caps_lalt_b=keyFunc_moveDown(30)
 
-;独立剪贴板 2 的复制
+; The Extra Clipboard 2 - Copy
 caps_lalt_c=keyFunc_copy_2
 
-;下移 3 行
+; Move Down 3 Times
 caps_lalt_d=keyFunc_moveDown(3)
 
-;上移 3 行
+; Move Up 3 Times
 caps_lalt_e=keyFunc_moveUp(3)
 
-;右移 5 次
+; Move Right 5 Times
 caps_lalt_f=keyFunc_moveRight(5)
 
-;右移 3 个单词
+; Move Right 3 Words
 caps_lalt_g=keyFunc_moveWordRight(3)
 
-;向左选中 3 个单词
+; Select Left 3 Words
 caps_lalt_h=keyFunc_selectWordLeft(3)
 
-;向上选中 3 行
+; Move Up 3 Times
 caps_lalt_i=keyFunc_selectUp(3)
 
-;向左选中 5 个字符
+; Select Left 5 Times
 caps_lalt_j=keyFunc_selectLeft(5)
 
-;向下选中 3 行
+; Select Down 3 Times
 caps_lalt_k=keyFunc_selectDown(3)
 
-;向右选中 5 个字符
+; Select Right 5 Times
 caps_lalt_l=keyFunc_selectRight(5)
 
-;向下选中 30 行
+; Select Down 30 Times
 caps_lalt_m=keyFunc_selectDown(30)
 
-;向右选中 3 个单词
+; Select Right 3 Words
 caps_lalt_n=keyFunc_selectWordRight(3)
 
-;选中至页尾
+; Select to the End of the Page
 caps_lalt_o=keyFunc_selectToPageEnd
 
-; 选中至页首
+; Select to the Beginning of the Page
 caps_lalt_p=keyFunc_moveToPageBeginning
 
 caps_lalt_q=keyFunc_doNothing
 
-;向前删除单词
+; Forward Delete Word
 caps_lalt_r=keyFunc_forwardDeleteWord
 
-;左移 5 次
+; Move Left 5 Times
 caps_lalt_s=keyFunc_moveLeft(5)
 
-;上移 30 次
+; Move Up 30 Times
 caps_lalt_t=keyFunc_moveUp(30)
 
-;移动至页首
+; Move to the Beginning of the Page
 caps_lalt_u=keyFunc_selectToPageBeginning
 
-;独立剪贴板 2 的粘贴
+; The Extra Clipboard 2 - Paste
 caps_lalt_v=keyFunc_paste_2
 
-;删除单词
+; Delete Word
 caps_lalt_w=keyFunc_deleteWord
 
-;独立剪贴板 2 的 剪切
+; The Extra Clipboard 2 - Cut
 caps_lalt_x=keyFunc_cut_2
 
-;向上选中 30 行
+; Select Up 30 Times
 caps_lalt_y=keyFunc_selectUp(30)
 
 caps_lalt_z=keyFunc_doNothing
@@ -568,31 +597,34 @@ caps_lalt_minus=keyFunc_doNothing
 
 caps_lalt_equal=keyFunc_doNothing
 
-;删除全部
+; Delete All
 caps_lalt_backspace=keyFunc_deleteAll
 
 caps_lalt_tab=keyFunc_doNothing
 
-;删除至页首
+; Delete to the Beginning of the Page
 caps_lalt_leftSquareBracket=keyFunc_deleteToPageBeginning
 
-;Capslock+LAlt+]
+; Capslock+LAlt+]
 caps_lalt_rightSquareBracket=keyFunc_doNothing
 
-;Capslock+LAlt+\
+; Capslock+LAlt+\
 caps_lalt_backslash=keyFunc_doNothing
 
-;移动至页尾
+; Move to the End of the Page
 caps_lalt_semicolon=keyFunc_moveToPageEnd
 
 caps_lalt_quote=keyFunc_doNothing
 
 caps_lalt_enter=keyFunc_doNothing
 
+; Select the Current Line
 caps_lalt_comma=caps_comma=keyFunc_selectCurrentLine
 
+; Select Right 3 Words
 caps_lalt_dot=keyFunc_selectWordRight(3)
 
+; Delete to the End of the Page
 caps_lalt_slash=keyFunc_deleteToPageEnd
 
 caps_lalt_space=keyFunc_doNothing
@@ -627,7 +659,7 @@ caps_lalt_wheelUp=keyFunc_doNothing
 
 caps_lalt_wheelDown=keyFunc_doNothing
 
-; CapsLock + Windows + 1~0 -> 绑定窗口 1~10
+; CapsLock + Windows + 0~9 -> Bind window 0~9
 caps_win_1=keyFunc_winbind_binding(1)
 
 caps_win_2=keyFunc_winbind_binding(2)
@@ -649,21 +681,21 @@ caps_win_9=keyFunc_winbind_binding(9)
 caps_win_0=keyFunc_winbind_binding(10)
 
 
-;----------------其他功能----------------
+;----------------Other Functions----------------
 
-;上一首
+; Previous media
 keyFunc_mediaPrev
 
-;暂停 / 播放
+; Play / Pause
 keyFunc_mediaPlayPause
 
-;音量增大
+; Volume Up
 keyFunc_volumeUp
 
-;音量减小
+; Volume Down
 keyFunc_volumeDown
 
-;静音
+; Mute
 keyFunc_volumeMute
 
 
@@ -672,9 +704,8 @@ global lang_winsInfosRecorderIniInit:=""
 lang_winsInfosRecorderIniInit=
 (
 ;------------ Encoding: UTF-16 ------------
-;我负责记录CapsLock+``和1~8绑定的窗口信息，不要手动修改我，无视我就行了，麻烦帮我点下右上角的"X"，谢谢。
-;我要工作了，麻烦点下右上角的"X"。
-;我不想再说第三遍了。
+; The data for Window Binding, DO NOT modify the content of this file!
+; Just click the "X" in the upper right.
 
 [0]
 bindType=
@@ -727,7 +758,7 @@ id_0=
 global lang_kf_getDebugText:=""
 lang_kf_getDebugText=
 (
-供 TabScript 调试用字符串
-点击"OK"将它复制到剪贴板
+The string for debug TabScript
+Click "OK" to copy it to the clipboard.
 )
 return
