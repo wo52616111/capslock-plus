@@ -1,3 +1,3 @@
-keyfunc_aa(){
-  msgbox, aa
+keyFunc_example2(){
+  msgbox, example2
 }

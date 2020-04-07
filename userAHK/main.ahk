@@ -1,16 +1,18 @@
+; 1. Include the .ahk file(s) containing custom key functions here,
+;   or just put the functions here.
+;   * A key function must start with "keyFunc_" (case insensitive)
+
+; 2. Add a setting under the [Keys] section in `CapsLock+settings.ini`
+
+; Example:
+; 1. There is a key function `keyFunc_example2` in demo.ahk.
+; 2. Add below setting under the [Keys] section in `CapsLock+settings.ini`:
+;   caps_f7=keyFunc_example2
+; 3. Save, reload Capslock+ (CapsLock+F5)
+; 4. Press `CapsLock+F7` to invoke the function
+
 #include demo.ahk
 
-/*
-不打算修改程序本身，只想为某个按键实现功能的话，可以在这里：
-1. 添加 keyfunc_xxxx() 的函数，
-2. 在 Capslock+settings.ini [keys]下添加设置，
-例如按下面这样写，然后添加设置：caps_f7=keyFunc_test2(apple)
-3. 保存，重载 capslock+ (capslock+F5)
-4. 按下 capslock+F7 试试
-************************************************/
-
-
-keyfunc_test2(str){
-  msgbox, % str
-  return
+keyFunc_example1(){
+  msgbox, example1
 }
