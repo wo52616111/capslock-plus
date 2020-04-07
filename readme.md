@@ -47,7 +47,7 @@ keyfunc_listary(){
 
     ; If there is any selected text
     if(selText){
-        ; Add "gg " before the selected text
+        ; Add "gg " before the selected text to google
         selText:="gg " . selText
 
         ; Fill the text, and press `home` key to move the cursor to the beginning,
@@ -55,6 +55,7 @@ keyfunc_listary(){
         sendinput, %selText%{home}
     }
 }
+```
 
 2. Add a setting `caps_q=keyfunc_listary()` under `[Keys]` section in `CapsLock+settings.ini`, save, press `CapsLock+F5` to reload, done.
 
