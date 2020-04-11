@@ -179,11 +179,11 @@ ie4=*runas "C:\Program Files\Internet Explorer\iexplore.exe" -k
 ; ## Qbar quickly open website settings
 
 ; - After adding a setting here, you can quickly open a link using the corresponding key name, for example:
-;   There is a setting here: "cldocs=https://capslox.com/capslock-plus", then you can type "cldocs" in Qbar to open
-;   "https://capslox.com/capslock-plus"
+;   There is a setting here: "cldocs=https://capslox.com/capslock-plus/en.html", then you can type "cldocs" in Qbar to open
+;   "https://capslox.com/capslock-plus/en.html"
 
 ; - You can quickly add a setting through Qbar's " -> " command, for example:
-;   Input "cl+ -> https://capslox.com/capslock-plus" in Qbar, a settting "cl+=https://capslox.com/capslock-plus"
+;   Input "cl+ -> https://capslox.com/capslock-plus/en.html" in Qbar, a settting "cl+=https://capslox.com/capslock-plus/en.html"
 ;   will be inserted after confirmation.
 
 ; - If " -> " cannot correctly identify the URL and record the setting to [QRun] or [TabHotString], you can use
@@ -199,7 +199,7 @@ ie4=*runas "C:\Program Files\Internet Explorer\iexplore.exe" -k
 ; - You can add "(0~n spaces)<xxx>" after the key name as a reminder
 
 [QWeb]
-cldocs=https://capslox.com/capslock-plus
+cldocs=https://capslox.com/capslock-plus/en.html
 
 
 ;----------------------------------------------------------------;
@@ -281,7 +281,7 @@ progressColor=0x00cc99
 
 [TTranslate]
 ; About Youdao API
-; The translation function is implemented by calling the Youdao API.
+; The translation function is implemented by calling Youdao API.
 ; The request frequency of the API is limited to 1000 times per hour, In other words, all the people who are using
 ; Capslock+ translation can not translate more than 1000 times in one hour.
 ; Youdao API website: http://fanyi.youdao.com/openapi

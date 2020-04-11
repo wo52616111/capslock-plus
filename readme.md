@@ -6,7 +6,7 @@ master branch: v3.0+
 
 v2 branch: v2.x
 
-[Docs](https://capslox.com/capslock-plus/)
+[Docs](https://capslox.com/capslock-plus/en.html)
 
 
 ## How to run the source code?
@@ -59,7 +59,7 @@ keyfunc_listary(){
 
 2. Add a setting `caps_q=keyfunc_listary()` under `[Keys]` section in `CapsLock+settings.ini`, save, press `CapsLock+F5` to reload, done.
 
-## How to modify the original function?
+## How to modify the original functions?
 `CapsLock+.ahk` is the entry file, library files are in the `/lib` folder,
 the function of each file is as follows:
 

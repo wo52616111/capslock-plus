@@ -672,7 +672,12 @@ keyFunc_tabScript(){
 
 
 keyFunc_openCpasDocs(){
-    Run, https://capslox.com/capslock-plus
+    if(isLangChinese())
+    {
+        Run, https://capslox.com/capslock-plus
+    } else {
+        Run, https://capslox.com/capslock-plus/en.html
+    }
     return
 }
 
