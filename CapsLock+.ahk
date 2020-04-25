@@ -14,7 +14,7 @@ Menu, Tray, Icon,,, 1
 
 SetStoreCapslockMode, Off
 
-global CLversion:="Version: 3.0.0.0 | 2020-04-05`n`nCopyright Junkai Chen" 
+global CLversion:="Version: 3.1.0.0 | 2020-04-25`n`nCopyright Junkai Chen" 
 
 global cClipboardAll ;capslock+ clipboard
 global caClipboardAll ;capslock+alt clipboard
@@ -82,10 +82,10 @@ KeyWait, Capslock
 CapsLock:="" ;Capslock最优先置空，来关闭 Capslock+ 功能的触发
 if CapsLock2
 {
-    if keyset.tap_caps
+    if keyset.press_caps
     {
         try
-            runFunc(keyset.tap_caps)
+            runFunc(keyset.press_caps)
     }
     else
     {

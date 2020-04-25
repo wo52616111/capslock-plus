@@ -402,9 +402,11 @@ CLq()
 
     IfWinExist, ahk_id %GuiHwnd%
     {
-        ControlSetText, , %selText%, ahk_id %GuiHwnd%
-        WinActivate, ahk_id %GuiHwnd%
-        CapsLock2:=""
+        ; ControlSetText, , %selText%, ahk_id %GuiHwnd%
+        ; WinActivate, ahk_id %GuiHwnd%
+        ; CapsLock2:=""
+        Gui, %GuiHwnd%:Default
+        gosub, QGuiClose
 
         return
     }
@@ -446,8 +448,8 @@ CLq()
         IfWinNotActive, ahk_id %GuiHwnd%
         {
             SetTimer, ,Off
-            listHide1:={}
-            WinHide, ahk_id %GuiHwnd%
+            Gui, %GuiHwnd%:Default
+            gosub, QGuiClose
         }
         return
     }
@@ -1471,7 +1473,9 @@ ButtonSubmit:
 ;---ButtonSubmit---start
 {
     ctrlDn:=GetKeyState("ctrl","P")
-        
+
+    ControlGet, isLVShowIsVisibleWhenSubmit, Visible, , , ahk_id %LV_show_Hwnd%
+
     Gui, Submit
 
     uselessStr:=""
@@ -1672,26 +1676,19 @@ ButtonSubmit:
 
     ; 如果当前下拉列表有选中项的话，运行
     Gui, ListView, LV_show ;目标切换到LV_show
-    if % LV_GetCount()  ;当LV_show里有数据（即有匹配的文件）
+    if(isLVShowIsVisibleWhenSubmit && LV_GetCount())  ;当LV_show在回车时是显示状态，并且有数据（即有匹配的文件）
     {
-        gosub, tabAction
-        ControlGetText, editText, , ahk_id %editHwnd%
-        ;运行开始菜单
-        for key, value in starMenuObj
+        ; gosub, tabAction
+        ; ControlGetText, editText, , ahk_id %editHwnd%
+        ControlGet, listSelected, List, Selected Col2, , ahk_id %LV_show_Hwnd%
+        listSelected:=getShortSetKey(listSelected)
+        ; 如果是文件路径，拼接上输入框的和选中的
+        if(LVlistsType == 1)
         {
-            if(editText=key)
-            {
-                try
-                {
-                    run, % value.lnkPath
-                }
-                catch
-                {
-                    run, % value.exePath
-                }
-                return
-            }
+            ControlGetText, editText, , ahk_id %editHwnd%
+            listSelected := RegExReplace(editText, "i)(?<=\\)[^\\]*$", listSelected) 
         }
+        inputStr:=listSelected
     }
 
     if (inputStr) ;如果不是以上的结果，而又非空

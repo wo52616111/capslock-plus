@@ -323,10 +323,10 @@ lang_settingsDemoFileContent_2=
 
 [Keys]
 ; Tap Caps Lock -> Send input: Esc
-tap_caps=keyFunc_esc
+; press_caps=keyFunc_esc
 
 ; Tap Caps Lock -> Switch case
-;tap_caps=keyFunc_toggleCapsLock
+press_caps=keyFunc_toggleCapsLock
 
 ; Capslock+A -> Move Left a Word
 caps_a=keyFunc_moveWordLeft

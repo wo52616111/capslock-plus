@@ -296,10 +296,10 @@ lang_settingsDemoFileContent_2=
 
 [Keys]
 ;短按 Caps Lock -> 发送 Esc
-tap_caps=keyFunc_esc
+;press_caps=keyFunc_esc
 
 ;短按 Caps Lock -> 切换大小写
-;tap_caps=keyFunc_toggleCapsLock
+press_caps=keyFunc_toggleCapsLock
 
 ;Capslock+A -> 光标向左移动一个单词
 caps_a=keyFunc_moveWordLeft

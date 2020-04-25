@@ -19,9 +19,9 @@ return
 keySchemeInit_capslox(){
     global
 
-    if(!keyset.tap_caps)
-        ; keyset.tap_caps:="keyFunc_toggleCapsLock"
-        keyset.tap_caps:="keyFunc_esc"
+    if(!keyset.press_caps)
+        keyset.press_caps:="keyFunc_toggleCapsLock"
+        ; keyset.press_caps:="keyFunc_esc"
 
     if(!keyset.caps_a)
         keyset.caps_a:="keyFunc_moveWordLeft"
@@ -300,8 +300,8 @@ keySchemeInit_capslox(){
 keySchemeInit_capslockPlus(){
     global
 
-    if(!keyset.tap_caps)
-        keyset.tap_caps:="keyFunc_toggleCapsLock"
+    if(!keyset.press_caps)
+        keyset.press_caps:="keyFunc_toggleCapsLock"
 
     if(!keyset.caps_a)
         keyset.caps_a:="keyFunc_moveWordLeft"
