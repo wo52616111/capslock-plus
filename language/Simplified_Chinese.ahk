@@ -518,7 +518,7 @@ caps_lalt_n=keyFunc_selectWordRight(3)
 ;选中至页尾
 caps_lalt_o=keyFunc_selectToPageEnd
 
-; 选中至页首
+;移动至页首
 caps_lalt_p=keyFunc_moveToPageBeginning
 
 caps_lalt_q=keyFunc_doNothing
@@ -532,7 +532,7 @@ caps_lalt_s=keyFunc_moveLeft(5)
 ;上移 30 次
 caps_lalt_t=keyFunc_moveUp(30)
 
-;移动至页首
+;选中至页首
 caps_lalt_u=keyFunc_selectToPageBeginning
 
 ;独立剪贴板 2 的粘贴

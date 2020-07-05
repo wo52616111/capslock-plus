@@ -546,7 +546,7 @@ caps_lalt_n=keyFunc_selectWordRight(3)
 ; Select to the End of the Page
 caps_lalt_o=keyFunc_selectToPageEnd
 
-; Select to the Beginning of the Page
+; Move to the Beginning of the Page
 caps_lalt_p=keyFunc_moveToPageBeginning
 
 caps_lalt_q=keyFunc_doNothing
@@ -560,7 +560,7 @@ caps_lalt_s=keyFunc_moveLeft(5)
 ; Move Up 30 Times
 caps_lalt_t=keyFunc_moveUp(30)
 
-; Move to the Beginning of the Page
+; Select to the Beginning of the Page
 caps_lalt_u=keyFunc_selectToPageBeginning
 
 ; The Extra Clipboard 2 - Paste
