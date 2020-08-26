@@ -250,10 +250,10 @@ textColor=ffffff
 
 ; The font name of the input text
 ;editFontName=Consolas bold
-editFontName=Hiragino Sans GB W6
+textFontName=Hiragino Sans GB W6
 
 ; The font size of the input text
-editFontSize=12
+textFontSize=12
 
 ; The font name of the drop-down list
 listFontName=consolas

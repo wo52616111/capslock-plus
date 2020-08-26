@@ -461,7 +461,6 @@ CLq()
     ;1: lists in listView from loop folder
     LVlistsType:=0
     guiW:=380
-    editH:=26
     _t:=CLSets["QStyle"]["borderRadius"]
     guiRadius:=_t!=""?_t:2
     editW:=354
@@ -496,6 +495,10 @@ CLq()
     prgrsX := listX-1
     prgrsY := editY-2
     prgrsW := listW+2
+    editFontSizePx := editFontSize * 4 / 3
+    editH := editFontSizePx + 15
+    _t:=CLSets["QStyle"]["textHeight"]
+    editH:=_t!=""?_t:26
     ;~ guiH:=editH+listX*2  ;gui的高度，放到下面去了，需要每次都重置这个高度，不能在这里定义死
     ;以上各个数据排列顺序不要动，有依赖关系
     ;--------------------------------------------------------------------------这里是样式区，改样子只动这里！----------------------------start
