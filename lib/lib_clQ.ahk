@@ -476,15 +476,19 @@ CLq()
     _t:=CLSets["QStyle"]["listBackgroundColor"]
     listBGColor:=_t!=""?_t:0x333333 ;list背景颜色
     _t:=CLSets["QStyle"]["progressColor"]
-    progressColor:=_t!=""?_t:0x11ddaa
-    listX:=(guiW-listW)/2 ;list位置坐标X
-    listY:=listX+editH-2 ;list位置坐标Y
-    editX:=listX-1 ;edit位置坐标X
-    editY:=editX ;edit位置坐标Y
     editFontName:=CLSets["QStyle"]["textFontName"]
     _t:=CLSets["QStyle"]["textFontSize"]
     editFontSize:=_t!=""?_t:12
     listFontName:=CLSets["QStyle"]["listFontName"]
+    progressColor:=_t!=""?_t:0x11ddaa
+    editFontSizePx := editFontSize * 4 / 3
+    editH := editFontSizePx + 15
+    _t:=CLSets["QStyle"]["textHeight"]
+    editH:=_t!=""?_t:26
+    listX:=(guiW-listW)/2 ;list位置坐标X
+    listY:=listX+editH-2 ;list位置坐标Y
+    editX:=listX-1 ;edit位置坐标X
+    editY:=editX ;edit位置坐标Y
     _t:=CLSets["QStyle"]["listFontSize"]
     listFontSize:=_t!=""?_t:10
     _t:=CLSets["QStyle"]["listCount"]
@@ -495,10 +499,6 @@ CLq()
     prgrsX := listX-1
     prgrsY := editY-2
     prgrsW := listW+2
-    editFontSizePx := editFontSize * 4 / 3
-    editH := editFontSizePx + 15
-    _t:=CLSets["QStyle"]["textHeight"]
-    editH:=_t!=""?_t:26
     ;~ guiH:=editH+listX*2  ;gui的高度，放到下面去了，需要每次都重置这个高度，不能在这里定义死
     ;以上各个数据排列顺序不要动，有依赖关系
     ;--------------------------------------------------------------------------这里是样式区，改样子只动这里！----------------------------start
