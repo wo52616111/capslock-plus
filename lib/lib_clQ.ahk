@@ -484,7 +484,7 @@ CLq()
     editFontSizePx := editFontSize * 4 / 3
     editH := editFontSizePx + 15
     _t:=CLSets["QStyle"]["textHeight"]
-    editH:=_t!=""?_t:26
+    editH:=_t!=""?_t:editH
     listX:=(guiW-listW)/2 ;list位置坐标X
     listY:=listX+editH-2 ;list位置坐标Y
     editX:=listX-1 ;edit位置坐标X
@@ -495,6 +495,7 @@ CLq()
     listCount:=_t!=""?_t:10 ;list的条目数量，这个改了的话listH也要手动更改
     _t:=CLSets["QStyle"]["lineHeight"]
     lineH:=_t!=""?_t:19 ;list的行高，默认字体consolas的话是19px
+    lineH:=max(lineH, listFontSize * 4 / 3 + 10)
     listH:=lineH*listCount+4 ;每行19px，padding上下各1px，border上下各1px，一共4px
     prgrsX := listX-1
     prgrsY := editY-2
