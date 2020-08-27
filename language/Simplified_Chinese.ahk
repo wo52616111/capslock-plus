@@ -225,10 +225,10 @@ textColor=ffffff
 
 ;输入文字字体
 ;editFontName=Consolas bold
-editFontName=Hiragino Sans GB W6
+textFontName=Hiragino Sans GB W6
 
 ;输入文字大小
-editFontSize=12
+textFontSize=12
 
 ;提示列表字体
 listFontName=consolas
