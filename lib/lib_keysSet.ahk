@@ -212,25 +212,25 @@ keySchemeInit_capslox(){
     if(!keyset.caps_lalt_backquote)
         keyset.caps_lalt_backquote:="keyFunc_doNothing"
     if(!keyset.caps_lalt_1)
-        keyset.caps_lalt_1:="keyFunc_doNothing"
+        keyset.caps_lalt_1:="keyFunc_winbind_binding(1)"
     if(!keyset.caps_lalt_2)
-        keyset.caps_lalt_2:="keyFunc_doNothing"
+        keyset.caps_lalt_2:="keyFunc_winbind_binding(2)"
     if(!keyset.caps_lalt_3)
-        keyset.caps_lalt_3:="keyFunc_doNothing"
+        keyset.caps_lalt_3:="keyFunc_winbind_binding(3)"
     if(!keyset.caps_lalt_4)
-        keyset.caps_lalt_4:="keyFunc_doNothing"
+        keyset.caps_lalt_4:="keyFunc_winbind_binding(4)"
     if(!keyset.caps_lalt_5)
-        keyset.caps_lalt_5:="keyFunc_doNothing"
+        keyset.caps_lalt_5:="keyFunc_winbind_binding(5)"
     if(!keyset.caps_lalt_6)
-        keyset.caps_lalt_6:="keyFunc_doNothing"
+        keyset.caps_lalt_6:="keyFunc_winbind_binding(6)"
     if(!keyset.caps_lalt_7)
-        keyset.caps_lalt_7:="keyFunc_doNothing"
+        keyset.caps_lalt_7:="keyFunc_winbind_binding(7)"
     if(!keyset.caps_lalt_8)
-        keyset.caps_lalt_8:="keyFunc_doNothing"
+        keyset.caps_lalt_8:="keyFunc_winbind_binding(8)"
     if(!keyset.caps_lalt_9)
-        keyset.caps_lalt_9:="keyFunc_doNothing"
+        keyset.caps_lalt_9:="keyFunc_winbind_binding(9)"
     if(!keyset.caps_lalt_0)
-        keyset.caps_lalt_0:="keyFunc_doNothing"
+        keyset.caps_lalt_0:="keyFunc_winbind_binding(10)"
     if(!keyset.caps_lalt_minus)
         keyset.caps_lalt_minus:="keyFunc_doNothing"
     if(!keyset.caps_lalt_equal)

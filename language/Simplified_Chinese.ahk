@@ -551,25 +551,25 @@ caps_lalt_z=keyFunc_doNothing
 
 caps_lalt_backquote=keyFunc_doNothing
 
-caps_lalt_1=keyFunc_doNothing
+caps_lalt_1=keyFunc_winbind_binding(1)
 
-caps_lalt_2=keyFunc_doNothing
+caps_lalt_2=keyFunc_winbind_binding(2)
 
-caps_lalt_3=keyFunc_doNothing
+caps_lalt_3=keyFunc_winbind_binding(3)
 
-caps_lalt_4=keyFunc_doNothing
+caps_lalt_4=keyFunc_winbind_binding(4)
 
-caps_lalt_5=keyFunc_doNothing
+caps_lalt_5=keyFunc_winbind_binding(5)
 
-caps_lalt_6=keyFunc_doNothing
+caps_lalt_6=keyFunc_winbind_binding(6)
 
-caps_lalt_7=keyFunc_doNothing
+caps_lalt_7=keyFunc_winbind_binding(7)
 
-caps_lalt_8=keyFunc_doNothing
+caps_lalt_8=keyFunc_winbind_binding(8)
 
-caps_lalt_9=keyFunc_doNothing
+caps_lalt_9=keyFunc_winbind_binding(9)
 
-caps_lalt_0=keyFunc_doNothing
+caps_lalt_0=keyFunc_winbind_binding(10)
 
 caps_lalt_minus=keyFunc_doNothing
 
