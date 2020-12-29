@@ -1,6 +1,7 @@
 ; CapsLock Mouse Controller
+; modified from Feng Ruohang's AHK Script 
 
-;-----------------------------------o---------------------------------o
+
 
 ; CapsLock + Up | Mouse Up
 
