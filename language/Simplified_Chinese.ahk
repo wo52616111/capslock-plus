@@ -257,19 +257,11 @@ progressColor=0x00cc99
 [TTranslate]
 ;有道api接口
 ;翻译功能通过调用有道的api实现。
-;接口的请求频率限制为每小时1000次，超过限制会被封禁。也就是说所有使用Capslock+翻译的人一小时内翻译的次数加起来不能超过1000次。
-;有道api网址：http://fanyi.youdao.com/openapi
+;有道api网址：https://ai.youdao.com/console/#/
 
-;有道api的key，如果自己申请到key，可以填入，这样就不用和其他人共用api接口，留空则使用自带的key，所有人共用
-;注意如果是免费版的key，apiType也要相应设置为0，收费版的填写1
-apiKey=0123456789
-
-;接口类型，0为免费版，1为收费版。通过上面的网址申请的是免费版的，收费版是需要 email 他们来申请的。
-apiType=0
-
-;免费版的有道 api key 的 keyfrom 参数，申请 api 时要求填写的。收费版的不需要填写。
-keyFrom=xxx
-
+;有道api的key，如果自己申请到key，可以填入
+appID=0123456789
+appKey=0123456789
 
 ;----------------------------------------------------------------;
 

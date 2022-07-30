@@ -282,20 +282,11 @@ progressColor=0x00cc99
 [TTranslate]
 ; About Youdao API
 ; The translation function is implemented by calling Youdao API.
-; The request frequency of the API is limited to 1000 times per hour, In other words, all the people who are using
-; Capslock+ translation can not translate more than 1000 times in one hour.
-; Youdao API website: http://fanyi.youdao.com/openapi
+; Youdao API website: https://ai.youdao.com/console/#/
 
-; The key of Youdao API. Leave blank to use the built-in key, shared by all users.
-apiKey=0123456789
-
-; API key type, 0 is the free version, 1 is the paid version. The free version of the key can be applied through the
-; above URL.
-apiType=0
-
-; The "keyfrom" parameter of the API key
-keyFrom=xxx
-
+; The key of Youdao API
+appID=0123456789
+appKey=0123456789
 
 ;----------------------------------------------------------------;
 
