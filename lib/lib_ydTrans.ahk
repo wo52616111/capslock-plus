@@ -11,18 +11,35 @@ youdaoApiInit:
 global youdaoApiString:=""
 
 ;  #Include *i youdaoApiKey.ahk
-; 这里填写默认的id和key
+global youdaoApiKey0, youdaoApiKey1
+youdaoApiKey0=12763084
 global appID=""
 global appKey=""
 
-; 这里不需要判断是否是收费还是免费的了, 翻译api改版了
+; 收费版改版
 ; free key
-if (CLSets.TTranslate.appID != "" && CLSets.TTranslate.appKey != "")
+if(CLSets.TTranslate.apiType=1)
 {
-	appID:=CLSets.TTranslate.appID
-	appKey:=CLSets.TTranslate.appKey
+	if (CLSets.TTranslate.appPaidID != "" && CLSets.TTranslate.appPaidID != "")
+	{
+		appID:=CLSets.TTranslate.appPaidID
+		appKey:=CLSets.TTranslate.appPaidKey
+	}
+	youdaoApiString=http://openapi.youdao.com/api?signType=v3&from=auto&to=auto&appKey=%appID%
 }
-youdaoApiString=http://openapi.youdao.com/api?signType=v3&from=auto&to=auto&appKey=%appID%
+else
+{
+	if(CLSets.TTranslate.apiKey!="")
+	{
+		key:=CLSets.TTranslate.apiKey
+		keyFrom:=ClSets.TTranslate.keyFrom
+		youdaoApiString=http://fanyi.youdao.com/openapi.do?keyfrom=%keyFrom%&key=%key%&type=data&doctype=json&version=1.1&q=
+	}
+	else if(youdaoApiKey0)
+	{
+		youdaoApiString=http://fanyi.youdao.com/openapi.do?keyfrom=CapsLock&key=%youdaoApiKey0%&type=data&doctype=json&version=1.1&q=
+	}
+}
 return
 
 setTransGuiActive:
@@ -85,7 +102,6 @@ if(NativeString) ;如果传入的字符串非空则翻译
 
 Return
 
-
 ydApi:
 UTF8Codes:="" ;重置要发送的代码
 SetFormat, integer, H
@@ -96,24 +112,31 @@ if(youdaoApiString="")
 	goto, setTransText
 }
 
-; salt sign curtime
-; sign=sha256(应用ID+input+salt+curtime+应用密钥)
-myNow := A_NowUTC
-myNow -= 19700101000000, Seconds
-salt := CreateUUID()
-myNow := Format("{:d}", myNow)
-if (StrLen(NativeString) > 20) {
-	NativeStringF := SubStr(NativeString, 1, 10)
-	NativeStringE := SubStr(NativeString, -9, 10)
-	signString := appID . NativeStringF . Format("{:d}", StrLen(NativeString)) . NativeStringE . salt . myNow . appKey
-} else {
-	signString := appID . NativeString . salt . myNow . appKey
-}
-sign:=bcrypt.hash(signString, "SHA256")
-sendStr:=youdaoApiString . "&salt=" . salt . "&curtime=" . myNow . "&sign=" . sign . "&q=" . UTF8encode(NativeString)
-whr := ComObjCreate("Msxml2.XMLHTTP")
+if (CLSets.TTranslate.apiType=1) {
+	; salt sign curtime
+	; sign=sha256(应用ID+input+salt+curtime+应用密钥)
+	myNow := A_NowUTC
+	myNow -= 19700101000000, Seconds
+	salt := CreateUUID()
+	myNow := Format("{:d}", myNow)
+	if (StrLen(NativeString) > 20) {
+		NativeStringF := SubStr(NativeString, 1, 10)
+		NativeStringE := SubStr(NativeString, -9, 10)
+		signString := appID . NativeStringF . Format("{:d}", StrLen(NativeString)) . NativeStringE . salt . myNow . appKey
+	} else {
+		signString := appID . NativeString . salt . myNow . appKey
+	}
+	sign:=bcrypt.hash(signString, "SHA256")
+	sendStr:=youdaoApiString . "&salt=" . salt . "&curtime=" . myNow . "&sign=" . sign . "&q=" . UTF8encode(NativeString)
+	whr := ComObjCreate("Msxml2.XMLHTTP")
 
-whr.Open("GET", sendStr, False)
+	whr.Open("GET", sendStr, False)
+} else {
+	sendStr:=youdaoApiString . UTF8Codes
+	whr := ComObjCreate("WinHttp.WinHttpRequest.5.1")
+
+	whr.Open("GET", sendStr)
+}
 
 ;~ MsgBox, 3
 try
@@ -128,10 +151,7 @@ catch
 afterSend:
 responseStr := whr.ResponseText
 
-;~ transJson:=JSON_from(responseStr) 
-;MsgBox, % signString
-;MsgBox, % sendStr
-;MsgBox, % responseStr
+;~ transJson:=JSON_from(responseStr)
 transJson:=JSON.Load(responseStr)
 ; MsgBox, % responseStr
 ; MsgBox, % JSON_to(transJson) ;弹出整个翻译结果的json，测试用
@@ -172,7 +192,7 @@ if(returnError) ;如果返回错误结果，显示出相应原因
 	}
 	else if (returnError=202)
 	{
-		MsgBoxStr:=lang_yd_errorTextTooLong
+		MsgBoxStr:=lang_yd_errorKeyInvalid
 	}
 	goto, setTransText
 	return
