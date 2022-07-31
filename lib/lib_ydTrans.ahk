@@ -3,6 +3,7 @@
 */
 
 #Include lib_json.ahk   	;引入json解析文件
+#Include sha256.ahk		;引入sha256加密文件
 
 global TransEdit,transEditHwnd,transGuiHwnd, NativeString
 
@@ -12,18 +13,19 @@ global youdaoApiString:=""
 ;  #Include *i youdaoApiKey.ahk
 global youdaoApiKey0, youdaoApiKey1
 youdaoApiKey0=12763084
+global appID=""
+global appKey=""
 
+; 收费版改版
+; free key
 if(CLSets.TTranslate.apiType=1)
 {
-	if(CLSets.TTranslate.apiKey!="")
+	if (CLSets.TTranslate.appPaidID != "" && CLSets.TTranslate.appPaidID != "")
 	{
-		key:=CLSets.TTranslate.apiKey
-		youdaoApiString=http://fanyi.youdao.com/paidapi/fanyiapi?key=%key%&type=data&doctype=json&q=
+		appID:=CLSets.TTranslate.appPaidID
+		appKey:=CLSets.TTranslate.appPaidKey
 	}
-	else if(youdaoApiKey1)
-	{
-		youdaoApiString=http://fanyi.youdao.com/paidapi/fanyiapi?key=%youdaoApiKey1%&type=data&doctype=json&q=
-	}
+	youdaoApiString=http://openapi.youdao.com/api?signType=v3&from=auto&to=auto&appKey=%appID%
 }
 else
 {
@@ -100,7 +102,6 @@ if(NativeString) ;如果传入的字符串非空则翻译
 
 Return
 
-
 ydApi:
 UTF8Codes:="" ;重置要发送的代码
 SetFormat, integer, H
@@ -110,10 +111,32 @@ if(youdaoApiString="")
 	MsgBoxStr=%lang_yd_needKey%
 	goto, setTransText
 }
-sendStr:=youdaoApiString . UTF8Codes
-whr := ComObjCreate("WinHttp.WinHttpRequest.5.1")
 
-whr.Open("GET", sendStr)
+if (CLSets.TTranslate.apiType=1) {
+	; salt sign curtime
+	; sign=sha256(应用ID+input+salt+curtime+应用密钥)
+	myNow := A_NowUTC
+	myNow -= 19700101000000, Seconds
+	salt := CreateUUID()
+	myNow := Format("{:d}", myNow)
+	if (StrLen(NativeString) > 20) {
+		NativeStringF := SubStr(NativeString, 1, 10)
+		NativeStringE := SubStr(NativeString, -9, 10)
+		signString := appID . NativeStringF . Format("{:d}", StrLen(NativeString)) . NativeStringE . salt . myNow . appKey
+	} else {
+		signString := appID . NativeString . salt . myNow . appKey
+	}
+	sign:=bcrypt.hash(signString, "SHA256")
+	sendStr:=youdaoApiString . "&salt=" . salt . "&curtime=" . myNow . "&sign=" . sign . "&q=" . UTF8encode(NativeString)
+	whr := ComObjCreate("Msxml2.XMLHTTP")
+
+	whr.Open("GET", sendStr, False)
+} else {
+	sendStr:=youdaoApiString . UTF8Codes
+	whr := ComObjCreate("WinHttp.WinHttpRequest.5.1")
+
+	whr.Open("GET", sendStr)
+}
 
 ;~ MsgBox, 3
 try
@@ -128,7 +151,7 @@ catch
 afterSend:
 responseStr := whr.ResponseText
 
-;~ transJson:=JSON_from(responseStr) 
+;~ transJson:=JSON_from(responseStr)
 transJson:=JSON.Load(responseStr)
 ; MsgBox, % responseStr
 ; MsgBox, % JSON_to(transJson) ;弹出整个翻译结果的json，测试用
@@ -139,11 +162,11 @@ if(returnError) ;如果返回错误结果，显示出相应原因
 	{
 		MsgBoxStr:=lang_yd_errorTooLong
 	}
-	if(returnError=11)
+	else if(returnError=11)
 	{
 		MsgBoxStr:=lang_yd_errorNoResults
 	}
-	if(returnError=20)
+	else if(returnError=20)
 	{
 		MsgBoxStr:=lang_yd_errorTextTooLong
 	}
@@ -166,6 +189,10 @@ if(returnError) ;如果返回错误结果，显示出相应原因
 	else if(returnError=70)
 	{
 		MsgBoxStr:=lang_yd_errorNoFunds
+	}
+	else if (returnError=202)
+	{
+		MsgBoxStr:=lang_yd_errorKeyInvalid
 	}
 	goto, setTransText
 	return
@@ -276,3 +303,12 @@ IfWinExist, ahk_id %transGuiHwnd%
     WinActivate, ahk_id %transGuiHwnd%
 }
 return
+
+CreateUUID()
+{
+    VarSetCapacity(puuid, 16, 0)
+    if !(DllCall("rpcrt4.dll\UuidCreate", "ptr", &puuid))
+        if !(DllCall("rpcrt4.dll\UuidToString", "ptr", &puuid, "uint*", suuid))
+            return StrGet(suuid), DllCall("rpcrt4.dll\RpcStringFree", "uint*", suuid)
+    return ""
+}

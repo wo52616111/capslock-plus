@@ -285,6 +285,7 @@ progressColor=0x00cc99
 ; The request frequency of the API is limited to 1000 times per hour, In other words, all the people who are using
 ; Capslock+ translation can not translate more than 1000 times in one hour.
 ; Youdao API website: http://fanyi.youdao.com/openapi
+; paid version website: https://ai.youdao.com/console/#/
 
 ; The key of Youdao API. Leave blank to use the built-in key, shared by all users.
 apiKey=0123456789
@@ -295,6 +296,10 @@ apiType=0
 
 ; The "keyfrom" parameter of the API key
 keyFrom=xxx
+
+; The key of paid Youdao API.
+appPaidID=0123456789
+appPaidKey=0123456789
 
 
 ;----------------------------------------------------------------;
