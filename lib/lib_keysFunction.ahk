@@ -819,9 +819,63 @@ keyFunc_goCjkPage(){
     return
 }
 
+; 鼠标左键点击
+keyfunc_click_left(){
+    Click, Left
+}
+
+; 鼠标右键点击
+keyfunc_click_right(){
+    Click, Right
+}
+
+; 移动鼠标
+keyfunc_mouse_up(){
+    MouseMove, 0, -dynamic_speed(), 0, R
+}
+
+keyfunc_mouse_down(){
+    MouseMove, 0, dynamic_speed(), 0, R
+}
+
+keyfunc_mouse_left(){
+    MouseMove, -dynamic_speed(), 0, 0, R
+}
+
+keyfunc_mouse_right(){
+    MouseMove, dynamic_speed(), 0, 0, R
+}
+
+; 上滑滚轮
+keyfunc_wheel_up(){
+    Send, {WheelUp 3}
+}
+
+; 下滑滚轮
+keyfunc_wheel_down(){
+    Send, {Wheeldown 3}
+}
+
  
 ;keys functions end-------------
-; testing arer ---
+
+
+; 判断是否为连续点击，连续点击时指数增加移动速度
+; init 初始单次移动距离
+; a 加速度
+; max 最大单次移动距离
+dynamic_speed(init:=10, a:=0.2, max:=80) 
+{
+    static N := 0
+    if (A_ThisHotkey = A_PriorHotkey) and (A_TimeSincePriorHotkey < 300)
+        N += a
+    else
+        N = 0
+    return Min(Floor(init+Exp(N)), max)
+}
+
+
+; testing area ---
 
 keyFunc_activateSideWin(UDLR){
     activateSideWin(UDLR)
