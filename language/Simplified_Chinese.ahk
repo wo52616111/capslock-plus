@@ -681,6 +681,26 @@ keyFunc_volumeDown
 ;静音
 keyFunc_volumeMute
 
+; 鼠标左键点击
+keyfunc_click_left
+
+; 鼠标右键点击
+keyfunc_click_right
+
+; 移动鼠标（长按可加快移动速度）
+keyfunc_mouse_up
+
+keyfunc_mouse_down
+
+keyfunc_mouse_left
+
+keyfunc_mouse_right
+
+; 滚轮上滑
+keyfunc_wheel_up
+
+; 滚轮下滑
+keyfunc_wheel_down
 
 )
 global lang_winsInfosRecorderIniInit:=""

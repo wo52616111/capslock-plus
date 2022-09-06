@@ -709,6 +709,27 @@ keyFunc_volumeDown
 ; Mute
 keyFunc_volumeMute
 
+; click left mouse button
+keyfunc_click_left
+
+; click right mouse button
+keyfunc_click_right
+
+; mouse movement
+keyfunc_mouse_up
+
+keyfunc_mouse_down
+
+keyfunc_mouse_left
+
+keyfunc_mouse_right
+
+; mouse wheel up (away from you)
+keyfunc_wheel_up
+
+; mouse wheel down (toward you)
+keyfunc_wheel_down
+
 
 )
 global lang_winsInfosRecorderIniInit:=""
