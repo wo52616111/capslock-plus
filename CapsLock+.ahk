@@ -109,8 +109,14 @@ if(winTapedX!=-1)
 {
     winsSort(winTapedX)
 }
+return
 
-Return
+<!Capslock::
+; 按下lalt+Capslock时，同样启动 Capslock+ 功能
+CapsLock:=1
+KeyWait, Capslock
+CapsLock:=""
+return
 
 setCapsLock2:
 CapsLock2:=""
