@@ -112,7 +112,8 @@ if(winTapedX!=-1)
 return
 
 <!Capslock::
-; 按下lalt+Capslock时，同样启动 Capslock+ 功能
+#Capslock::
+; 按下lalt+Capslock或win+Capslock时，同样启动 Capslock+ 功能
 CapsLock:=1
 KeyWait, Capslock
 CapsLock:=""
