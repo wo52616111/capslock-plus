@@ -70,6 +70,7 @@ keyFunc_moveUp(i:=1){
     {
         ControlFocus, , ahk_id %LV_show_Hwnd%
         SendInput, {Up %i%}
+        Sleep, 5
         ControlFocus, , ahk_id %editHwnd%
     }
     else
@@ -84,6 +85,7 @@ keyFunc_moveDown(i:=1){
     {
         ControlFocus, , ahk_id %LV_show_Hwnd%
         SendInput, {Down %i%}
+        Sleep, 5
         ControlFocus, , ahk_id %editHwnd%
     }
     else
