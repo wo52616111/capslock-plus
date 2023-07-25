@@ -205,7 +205,7 @@ cldocs=https://capslox.com/capslock-plus/en.html
 ;----------------------------------------------------------------;
 ; ## The hotstring settings of TabScript
 
-; - Capslock + Tab will replace the string matching a key name on the left of the cursor with the corresponding value, 
+; - Capslock + Tab will replace the string matching a key name on the left of the cursor with the corresponding value,
 ;   for example:
 ;   There is "@=capslock-plus@cjkis.me" here, then you can type "@" anywhere, and press "Capslock+Tab", the "@" will be
 ;   replaced with "capslock-plus@cjkis.me"
@@ -298,8 +298,8 @@ apiType=0
 keyFrom=xxx
 
 ; The key of paid Youdao API.
-appPaidID=0123456789
-appPaidKey=0123456789
+appKey=xxx
+appSecret=xxx
 
 
 ;----------------------------------------------------------------;
@@ -319,7 +319,7 @@ lang_settingsDemoFileContent_2=
 ;   Capslock + LALt + F1~F12
 ;   Capslock + LALt + 0~9
 ;   Capslock + LALt + a~z
-;   Capslock + LALt + `-=[]\;',./ 
+;   Capslock + LALt + `-=[]\;',./
 ;   Capslock + LALt + Backspace, Tab, Enter, Space, RAlt
 ;   Capslock + Win + 0~9
 

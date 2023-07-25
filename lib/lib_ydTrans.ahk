@@ -3,42 +3,25 @@
 */
 
 #Include lib_json.ahk   	;引入json解析文件
-#Include sha256.ahk		;引入sha256加密文件
+#Include Class_CNG.ahk
 
 global TransEdit,transEditHwnd,transGuiHwnd, NativeString
 
 youdaoApiInit:
-global youdaoApiString:=""
 
 ;  #Include *i youdaoApiKey.ahk
-global youdaoApiKey0, youdaoApiKey1
-youdaoApiKey0=12763084
-global appID=""
-global appKey=""
 
-; 收费版改版
-; free key
-if(CLSets.TTranslate.apiType=1)
+global appKey := ""
+global appSecret := ""
+
+if(CLSets.TTranslate.appKey != "")
 {
-	if (CLSets.TTranslate.appPaidID != "" && CLSets.TTranslate.appPaidID != "")
-	{
-		appID:=CLSets.TTranslate.appPaidID
-		appKey:=CLSets.TTranslate.appPaidKey
-	}
-	youdaoApiString=http://openapi.youdao.com/api?signType=v3&from=auto&to=auto&appKey=%appID%
+    appKey := CLSets.TTranslate.appKey
 }
-else
+
+if(CLSets.TTranslate.appSecret != "")
 {
-	if(CLSets.TTranslate.apiKey!="")
-	{
-		key:=CLSets.TTranslate.apiKey
-		keyFrom:=ClSets.TTranslate.keyFrom
-		youdaoApiString=http://fanyi.youdao.com/openapi.do?keyfrom=%keyFrom%&key=%key%&type=data&doctype=json&version=1.1&q=
-	}
-	else if(youdaoApiKey0)
-	{
-		youdaoApiString=http://fanyi.youdao.com/openapi.do?keyfrom=CapsLock&key=%youdaoApiKey0%&type=data&doctype=json&version=1.1&q=
-	}
+    appSecret := CLSets.TTranslate.appSecret
 }
 return
 
@@ -52,12 +35,12 @@ transStart:
     ;  if(StrLen(ss) >= 2000)
     ;  {
     ;      MsgBox, , , 文本过长，请重新选择。, 1
-    ;      return 
+    ;      return
     ;  }
 	ss:=RegExReplace(ss, "\s", " ") ;把所有空白符换成空格，因为如果有回车符的话，json转换时会出错
-	
-	;~ global 
-	
+
+	;~ global
+
 	NativeString:=Trim(ss)
 
 transGui:
@@ -75,13 +58,13 @@ if(ifGuiExistButHide)
 else ;IfWinNotExist,  ahk_id %transGuiHwnd% ;有道翻译
 {
 	;~ MsgBox, 0
-	
+
 	Gui, new, +HwndtransGuiHwnd , %lang_yd_name%
 	Gui, +AlwaysOnTop -Border +Caption -Disabled -LastFound -MaximizeBox -OwnDialogs -Resize +SysMenu -Theme -ToolWindow
 	Gui, Font, s10 w400, Microsoft YaHei UI ;设置字体
 	Gui, Font, s10 w400, 微软雅黑
-	gui, Add, Button, x-40 y-40 Default, OK  
-	
+	gui, Add, Button, x-40 y-40 Default, OK
+
 	Gui, Add, Edit, x-2 y0 w504 h405 vTransEdit HwndtransEditHwnd -WantReturn -VScroll , %MsgBoxStr%
 	Gui, Color, ffffff, fefefe
 	Gui, +LastFound
@@ -102,41 +85,21 @@ if(NativeString) ;如果传入的字符串非空则翻译
 
 Return
 
+
 ydApi:
 UTF8Codes:="" ;重置要发送的代码
-SetFormat, integer, H
 UTF8Codes:=UTF8encode(NativeString)
-if(youdaoApiString="")
-{
-	MsgBoxStr=%lang_yd_needKey%
-	goto, setTransText
-}
 
-if (CLSets.TTranslate.apiType=1) {
-	; salt sign curtime
-	; sign=sha256(应用ID+input+salt+curtime+应用密钥)
-	myNow := A_NowUTC
-	myNow -= 19700101000000, Seconds
-	salt := CreateUUID()
-	myNow := Format("{:d}", myNow)
-	if (StrLen(NativeString) > 20) {
-		NativeStringF := SubStr(NativeString, 1, 10)
-		NativeStringE := SubStr(NativeString, -9, 10)
-		signString := appID . NativeStringF . Format("{:d}", StrLen(NativeString)) . NativeStringE . salt . myNow . appKey
-	} else {
-		signString := appID . NativeString . salt . myNow . appKey
-	}
-	sign:=bcrypt.hash(signString, "SHA256")
-	sendStr:=youdaoApiString . "&salt=" . salt . "&curtime=" . myNow . "&sign=" . sign . "&q=" . UTF8encode(NativeString)
-	whr := ComObjCreate("Msxml2.XMLHTTP")
+q := UTF8Codes
+curtime := getUnixTimestamp()
+salt := curtime * 1000
+truncatText := truncat(NativeString)
+plainText = %appKey%%truncatText%%salt%%curtime%%appSecret%
+sign := Crypt.Hash.String("SHA256", plainText)
 
-	whr.Open("GET", sendStr, False)
-} else {
-	sendStr:=youdaoApiString . UTF8Codes
-	whr := ComObjCreate("WinHttp.WinHttpRequest.5.1")
-
-	whr.Open("GET", sendStr)
-}
+sendStr = https://openapi.youdao.com/api?q=%q%&appKey=%appKey%&salt=%salt%&from=auto&to=auto&sign=%sign%&signType=v3&curtime=%curtime%
+whr := ComObjCreate("WinHttp.WinHttpRequest.5.1")
+whr.Open("GET", sendStr)
 
 ;~ MsgBox, 3
 try
@@ -162,11 +125,11 @@ if(returnError) ;如果返回错误结果，显示出相应原因
 	{
 		MsgBoxStr:=lang_yd_errorTooLong
 	}
-	else if(returnError=11)
+	if(returnError=11)
 	{
 		MsgBoxStr:=lang_yd_errorNoResults
 	}
-	else if(returnError=20)
+	if(returnError=20)
 	{
 		MsgBoxStr:=lang_yd_errorTextTooLong
 	}
@@ -189,10 +152,6 @@ if(returnError) ;如果返回错误结果，显示出相应原因
 	else if(returnError=70)
 	{
 		MsgBoxStr:=lang_yd_errorNoFunds
-	}
-	else if (returnError=202)
-	{
-		MsgBoxStr:=lang_yd_errorKeyInvalid
 	}
 	goto, setTransText
 	return
@@ -250,7 +209,7 @@ if(returnError) ;如果返回错误结果，显示出相应原因
 			{
 				MsgBoxStr:=% MsgBoxStr . "`r`n"   ;每条短语换一行
 			}
-			MsgBoxStr:= % MsgBoxStr . transJson.web[A_Index].key . A_Space . A_Space   ;短语  
+			MsgBoxStr:= % MsgBoxStr . transJson.web[A_Index].key . A_Space . A_Space   ;短语
 			thisA_index:=A_Index
 			Loop
 			{
@@ -279,7 +238,7 @@ setTransText:
 ControlSetText, , %MsgBoxStr%, ahk_id %transEditHwnd%
 ControlFocus, , ahk_id %transEditHwnd%
 SetTimer, setTransActive, 50
-return 
+return
 ;================拼MsgBox显示的内容
 
 ButtonOK:
@@ -304,11 +263,17 @@ IfWinExist, ahk_id %transGuiHwnd%
 }
 return
 
-CreateUUID()
-{
-    VarSetCapacity(puuid, 16, 0)
-    if !(DllCall("rpcrt4.dll\UuidCreate", "ptr", &puuid))
-        if !(DllCall("rpcrt4.dll\UuidToString", "ptr", &puuid, "uint*", suuid))
-            return StrGet(suuid), DllCall("rpcrt4.dll\RpcStringFree", "uint*", suuid)
-    return ""
+
+getUnixTimestamp(){
+    nowUTC := A_NowUTC
+    nowUTC -= 19700101000000, S
+    return nowUTC
+}
+
+truncat(str){
+    len := StrLen(str)
+    If (len > 10) {
+        Return SubStr(str, 1, 10) . len . SubStr(str, len - 9, 10)
+    }
+    return str
 }

@@ -58,6 +58,7 @@ UTF8encode(str) ;UTF8转码
         returnStr .= "%"SubStr(NumGet(UTF8String, A_Index - 1, "UChar"), 3) ; 逐字节获取，去除开头的“0x”后在前面加上"%"连接起来。
     }
     ;~ MsgBox, % returnStr ; 显示“E4B8AD”，前面附加“0x”就变成十六进制了。
+    SetFormat, integer, D
     return returnStr
 }
 
@@ -68,7 +69,7 @@ URLencode(str) ;用于链接的话只要符号转换就行。需要全部转换�
 
     loop, % arr1.MaxIndex()
     {
-        StringReplace, str, str, % arr1[A_Index], % arr2[A_Index], All 
+        StringReplace, str, str, % arr1[A_Index], % arr2[A_Index], All
     }
     ; MsgBox, % str
     return str
@@ -160,7 +161,7 @@ extractSetStr(str, ByRef runStr:="", ByRef ifAdmin:=false, ByRef param:="")
 		EnvGet, _t, % str0Match1
 		StringReplace, str, str, % str0Match, % _t
 	}
-	
+
 	;没有引号且文件存在，例：C:\Program Files\Internet Explorer\iexplore.exe
     ;或者是ftp路径
     if(FileExist(str)||RegExMatch(str, "^ftp://"))
@@ -169,7 +170,7 @@ extractSetStr(str, ByRef runStr:="", ByRef ifAdmin:=false, ByRef param:="")
         return str
 	}
 
-	
+
 	;有引号且文件存在，例："C:\Program Files\Internet Explorer\iexplore.exe"
 	RegExMatch(str, "^('|"")(.*)\1$", strMatch)
 	if(FileExist(strMatch2)||RegExMatch(str, "^ftp://"))
@@ -177,7 +178,7 @@ extractSetStr(str, ByRef runStr:="", ByRef ifAdmin:=false, ByRef param:="")
 		runStr:=str
 		return strMatch2
     }
-	
+
 	RegExMatch(str, "('|"")(.*)\1", strMatch)
 	if(FileExist(strMatch2))
 	{
@@ -186,7 +187,7 @@ extractSetStr(str, ByRef runStr:="", ByRef ifAdmin:=false, ByRef param:="")
 		strArr:=StrSplit(str, strMatch)
 		arr1:=Trim(strArr[1])
 		arr2:=Trim(strArr[2])
-        
+
 		if(RegExMatch(arr1,"i)^\*RunAs$"))
 		{
 			ifAdmin:=true
@@ -266,7 +267,7 @@ clipSaver(clipX)
 ;      StringReplace, str, str, \", ", All
 ;      StringReplace, str, str, \', ', All
 ;      StringReplace, str, str, \\, \, All
-    
+
 ;      return str
 ;  }
 
@@ -282,7 +283,7 @@ runFunc(str){
     if(RegExMatch(str, "(\w+)\((.*)\)$", match))
     {
         func:=Func(match1)
-        
+
         if(!match2)
         {
             func.()
@@ -307,7 +308,7 @@ runFunc(str){
         }
 
         parmasLen:=params.MaxIndex()
-        
+
         if(parmasLen==1)
         {
             func.(params[1])

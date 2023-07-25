@@ -272,8 +272,8 @@ apiType=0
 keyFrom=xxx
 
 ;收费版申请的key
-appPaidID=0123456789
-appPaidKey=0123456789
+appKey=xxx
+appSecret=xxx
 
 
 ;----------------------------------------------------------------;
@@ -288,12 +288,12 @@ lang_settingsDemoFileContent_2=
 ;   Capslock + F1~F12
 ;   Capslock + 0~9
 ;   Capslock + a~z
-;   Capslock + `-=[]\;',./ 
+;   Capslock + `-=[]\;',./
 ;   Capslock + Backspace, Tab, Enter, Space, RAlt
 ;   Capslock + LALt + F1~F12
 ;   Capslock + LALt + 0~9
 ;   Capslock + LALt + a~z
-;   Capslock + LALt + `-=[]\;',./ 
+;   Capslock + LALt + `-=[]\;',./
 ;   Capslock + LALt + Backspace, Tab, Enter, Space, RAlt
 ;   Capslock + Win + 0~9
 
@@ -368,7 +368,7 @@ caps_t=keyFunc_doNothing
 ;选中至行首
 caps_u=keyFunc_selectHome
 
-;独立剪贴板 1 的粘贴 
+;独立剪贴板 1 的粘贴
 caps_v=keyFunc_paste_1
 
 ;backspace
