@@ -272,7 +272,7 @@ getUnixTimestamp(){
 
 truncat(str){
     len := StrLen(str)
-    If (len > 10) {
+    If (len > 20) {
         Return SubStr(str, 1, 10) . len . SubStr(str, len - 9, 10)
     }
     return str
