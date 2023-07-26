@@ -298,8 +298,8 @@ apiType=0
 keyFrom=xxx
 
 ; The key of paid Youdao API.
-appKey=xxx
-appSecret=xxx
+appPaidID=xxx
+appPaidID=xxx
 
 
 ;----------------------------------------------------------------;

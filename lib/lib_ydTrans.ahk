@@ -14,14 +14,14 @@ youdaoApiInit:
 global appKey := ""
 global appSecret := ""
 
-if(CLSets.TTranslate.appKey != "")
+if(CLSets.TTranslate.appPaidID != "")
 {
-    appKey := CLSets.TTranslate.appKey
+    appKey := CLSets.TTranslate.appPaidID
 }
 
-if(CLSets.TTranslate.appSecret != "")
+if(CLSets.TTranslate.appPaidKey != "")
 {
-    appSecret := CLSets.TTranslate.appSecret
+    appSecret := CLSets.TTranslate.appPaidKey
 }
 return
 

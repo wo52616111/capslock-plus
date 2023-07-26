@@ -272,8 +272,8 @@ apiType=0
 keyFrom=xxx
 
 ;收费版申请的key
-appKey=xxx
-appSecret=xxx
+appPaidID=xxx
+appPaidKey=xxx
 
 
 ;----------------------------------------------------------------;
