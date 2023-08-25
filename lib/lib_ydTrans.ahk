@@ -13,8 +13,8 @@ global youdaoApiString:=""
 ;  #Include *i youdaoApiKey.ahk
 global youdaoApiKey0, youdaoApiKey1
 youdaoApiKey0=12763084
-global appID=""
-global appKey=""
+global appID="46d9e8c2efd55a37"
+global appKey="VIV9uU4FDzHNM0cbWXuIFuueFhLc9rHK"
 
 ; 收费版改版
 ; free key
