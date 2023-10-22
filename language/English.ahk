@@ -26,6 +26,7 @@ global lang_yd_errorNoFunds:="Insufficient account balance"
 global lang_yd_trans:=  "------------------------------ Youdao Translation -----------------------------"
 global lang_yd_dict:=   "------------------------------ Youdao dictionary ------------------------------"
 global lang_yd_phrase:= "----------------------------------- Phrase ------------------------------------"
+global lang_yd_free_key_unavailable_warning:="Youdao Translate no longer provides free translation API, now you can only use the paid API (new accounts have a trial amount), please refer to the instructions in the [TTranslate] section of the CapsLock+settingsDemo.ini file to set up the key and use the translation function."
 
 global lang_settingsFileContent:=""
 lang_settingsFileContent=
@@ -282,24 +283,27 @@ progressColor=0x00cc99
 [TTranslate]
 ; About Youdao API
 ; The translation function is implemented by calling Youdao API.
-; The request frequency of the API is limited to 1000 times per hour, In other words, all the people who are using
-; Capslock+ translation can not translate more than 1000 times in one hour.
-; Youdao API website: http://fanyi.youdao.com/openapi
-; paid version website: https://ai.youdao.com/console/#/
 
-; The key of Youdao API. Leave blank to use the built-in key, shared by all users.
-apiKey=0123456789
+; Youdao's paid version API website: https://ai.youdao.com/console/#/
+; Getting started docs about Youdao's API: https://ai.youdao.com/doc.s#guide
 
-; API key type, 0 is the free version, 1 is the paid version. The free version of the key can be applied through the
-; above URL.
-apiType=0
+; Translation API type, currently can only be 1
+; 0: Free version of Youdao API (no longer available, no longer provided by Youdao)
+; 1: Paid version of Youdao API (default value)
+apiType=1
 
-; The "keyfrom" parameter of the API key
-keyFrom=xxx
+; Parameters for paid version Youdao application
 
-; The key of paid Youdao API.
-appPaidID=0123456789
-appPaidKey=0123456789
+; Application ID
+appPaidID=xxx
+
+; Application key
+appPaidKey=xxx
+
+; Capslock+ could use either the free version or the paid version of the Yodao API before, to provide translation functions, now Yodao no longer provides the free version of the API,
+; only the paid version of the API can be used. The following parameters related to the free version of the API have been deprecated, please delete them if they are used in your settings file.
+; apiKey=xxx
+; keyFrom=xxx
 
 
 ;----------------------------------------------------------------;

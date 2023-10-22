@@ -16,15 +16,11 @@ youdaoApiKey0=12763084
 global appID=""
 global appKey=""
 
-; 收费版改版
-; free key
-if(CLSets.TTranslate.apiType=1)
+; 收费版 API
+if (CLSets.TTranslate.appPaidID != "" && CLSets.TTranslate.appPaidID != "")
 {
-	if (CLSets.TTranslate.appPaidID != "" && CLSets.TTranslate.appPaidID != "")
-	{
-		appID:=CLSets.TTranslate.appPaidID
-		appKey:=CLSets.TTranslate.appPaidKey
-	}
+	appID:=CLSets.TTranslate.appPaidID
+	appKey:=CLSets.TTranslate.appPaidKey
 	youdaoApiString=http://openapi.youdao.com/api?signType=v3&from=auto&to=auto&appKey=%appID%
 }
 else
@@ -48,6 +44,11 @@ return
 
 ydTranslate(ss)
 {
+if(CLSets.TTranslate.apiType = 0 || CLSets.TTranslate.appPaidID = "")
+{
+	MsgBox, %lang_yd_free_key_unavailable_warning%
+	return
+}
 transStart:
     ;  if(StrLen(ss) >= 2000)
     ;  {
@@ -112,7 +113,9 @@ if(youdaoApiString="")
 	goto, setTransText
 }
 
-if (CLSets.TTranslate.apiType=1) {
+; 目前 apiType 只可能为 1，暂时保留对 apiType 的判断结构，以防以后需要添加其他 api 类型的支持
+; youdao api docs: https://ai.youdao.com/DOCSIRMA/html/trans/api/wbfy/index.html
+if (true || CLSets.TTranslate.apiType=1) {
 	; salt sign curtime
 	; sign=sha256(应用ID+input+salt+curtime+应用密钥)
 	myNow := A_NowUTC
