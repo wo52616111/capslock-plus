@@ -646,6 +646,10 @@ caps_lalt_wheelUp=keyFunc_doNothing
 
 caps_lalt_wheelDown=keyFunc_doNothing
 
+caps_wheelUp=keyFunc_doNothing
+
+caps_wheelDown=keyFunc_doNothing
+
 ; CapsLock + Windows + 0~9 -> 绑定窗口 0~9
 caps_win_1=keyFunc_winbind_binding(1)
 
@@ -705,6 +709,12 @@ keyfunc_wheel_up
 
 ; 滚轮下滑
 keyfunc_wheel_down
+
+; 左滑滚轮
+keyFunc_wheel_left
+
+; 右滑滚轮
+keyFunc_wheel_right
 
 )
 global lang_winsInfosRecorderIniInit:=""

@@ -858,6 +858,15 @@ keyfunc_wheel_down(){
     Send, {Wheeldown 3}
 }
 
+; 左滑滚轮
+keyFunc_wheel_left(){
+    Send {WheelLeft}
+}
+
+; 右滑滚轮
+keyFunc_wheel_right(){
+    Send {WheelRight}
+}
  
 ;keys functions end-------------
 
