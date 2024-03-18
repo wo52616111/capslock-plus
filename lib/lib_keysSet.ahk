@@ -551,6 +551,10 @@ keySchemeInit_capslockPlus(){
     if(!keyset.caps_lalt_wheelDown)
         keyset.caps_lalt_wheelDown:="keyFunc_mouseSpeedDecrease"
 
+    if(!keyset.caps_wheelUp)
+        keyset.caps_wheelUp:="keyFunc_doNothing"
+    if(!keyset.caps_wheelDown)
+        keyset.caps_wheelDown:="keyFunc_doNothing"
 
 
     return
