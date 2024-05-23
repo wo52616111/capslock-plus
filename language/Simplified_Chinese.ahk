@@ -292,12 +292,12 @@ lang_settingsDemoFileContent_2=
 ;   Capslock + F1~F12
 ;   Capslock + 0~9
 ;   Capslock + a~z
-;   Capslock + `-=[]\;',./ 
+;   Capslock + `-=[]\;',./
 ;   Capslock + Backspace, Tab, Enter, Space, RAlt
 ;   Capslock + LALt + F1~F12
 ;   Capslock + LALt + 0~9
 ;   Capslock + LALt + a~z
-;   Capslock + LALt + `-=[]\;',./ 
+;   Capslock + LALt + `-=[]\;',./
 ;   Capslock + LALt + Backspace, Tab, Enter, Space, RAlt
 ;   Capslock + Win + 0~9
 
@@ -372,7 +372,7 @@ caps_t=keyFunc_doNothing
 ;选中至行首
 caps_u=keyFunc_selectHome
 
-;独立剪贴板 1 的粘贴 
+;独立剪贴板 1 的粘贴
 caps_v=keyFunc_paste_1
 
 ;backspace
@@ -669,6 +669,23 @@ caps_win_0=keyFunc_winbind_binding(10)
 
 
 ;----------------其他功能----------------
+
+; 用指定的字符包裹选定的文本，或输出指定的字符
+; 例如:
+;
+; "..."
+; caps_quote=keyFunc_doubleChar(""")
+;
+; (...)
+; caps_9=keyFunc_doubleChar((,))
+;
+; {...}
+; caps_leftSquareBracket=keyFunc_doubleChar({,})
+;
+; [...]
+; caps_rightSquareBracket=keyFunc_doubleChar([,])
+;
+keyFunc_doubleChar
 
 ;上一首
 keyFunc_mediaPrev

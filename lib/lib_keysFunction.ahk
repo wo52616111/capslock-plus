@@ -140,11 +140,11 @@ keyFunc_translate(){
     global
     selText:=getSelText()
     if(selText)
-    { 
+    {
         ydTranslate(selText)
     }
     else
-    { 
+    {
         ClipboardOld:=ClipboardAll
         Clipboard:=""
         SendInput, ^{Left}^+{Right}^{insert}
@@ -238,7 +238,11 @@ keyFunc_doubleChar(char1,char2:=""){
     else
     {
         Clipboard:=char1 . char2
-        SendInput, +{insert}{left %charLen%}
+        SendInput, +{insert}
+        ; prevent the left input from interrupting the paste (may occur in vscode)
+        ; fact: tests show that 50ms is not enough
+        Sleep, 75
+        SendInput, {left %charLen%}
     }
     Sleep, 100
     Clipboard:=ClipboardOld
@@ -345,7 +349,7 @@ keyFunc_cut_1(){
         CapsLock2:=""
         return
     }
-        
+
     ClipboardOld:=ClipboardAll
     Clipboard:=""
     SendInput, ^{x}
@@ -657,7 +661,7 @@ keyFunc_getJSEvalString(){
         if(!ErrorLevel)
         {
             Clipboard:=result
-    
+
             return
         }
     }
@@ -806,7 +810,7 @@ keyFunc_winPin(){
     ;  {
     ;      WinSet, AlwaysOnTop, Off
     ;      WinSet, Transparent, Off
-    ;    
+    ;
     ;      return
     ;  }
     WinSet, AlwaysOnTop
@@ -858,7 +862,7 @@ keyfunc_wheel_down(){
     Send, {Wheeldown 3}
 }
 
- 
+
 ;keys functions end-------------
 
 
@@ -866,7 +870,7 @@ keyfunc_wheel_down(){
 ; init 初始单次移动距离
 ; a 加速度
 ; max 最大单次移动距离
-dynamic_speed(init:=10, a:=0.2, max:=80) 
+dynamic_speed(init:=10, a:=0.2, max:=80)
 {
     static N := 0
     if (A_ThisHotkey = A_PriorHotkey) and (A_TimeSincePriorHotkey < 300)
