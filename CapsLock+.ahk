@@ -245,6 +245,66 @@ try
 Capslock2:=""
 return
 
+` & space::
+try
+    keyFunc_send(0)
+Capslock2:=""
+return
+
+` & n::
+try
+    keyFunc_send(1)
+Capslock2:=""
+return
+
+` & m::
+try
+    keyFunc_send(2)
+Capslock2:=""
+return
+
+` & ,::
+try
+    keyFunc_send(3)
+Capslock2:=""
+return
+
+` & h::
+try
+    keyFunc_send(4)
+Capslock2:=""
+return
+
+
+` & j::
+try
+    keyFunc_send(5)
+Capslock2:=""
+return
+
+` & k::
+try
+    keyFunc_send(6)
+Capslock2:=""
+return
+
+` & y::
+try
+    keyFunc_send(7)
+Capslock2:=""
+return
+
+` & u::
+try
+    keyFunc_send(8)
+Capslock2:=""
+return
+
+` & i::
+try
+    keyFunc_send(9)
+Capslock2:=""
+return
 
 -::
 try
