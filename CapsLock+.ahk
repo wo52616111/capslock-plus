@@ -306,6 +306,18 @@ try
 Capslock2:=""
 return
 
+` & backspace::
+try
+    runFunc(keyset.caps_w)
+Capslock2:=""
+return
+    
+` & .::
+try
+    SendInput, {U+002e}
+Capslock2:=""
+return
+
 -::
 try
     runFunc(keyset.caps_minus)
