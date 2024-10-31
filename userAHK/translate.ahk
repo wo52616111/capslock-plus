@@ -1,11 +1,8 @@
 ydTranslate_cus(ss)
 {
-    transStart_cus:
     ss:=RegExReplace(ss, "\s", " ") ;把所有空白符换成空格，因为如果有回车符的话，json转换时会出错
-    NativeString:=Trim(ss)
-
-    transGui_cus:
-    MsgBoxStr:=NativeString?lang_yd_translating:""
+    global NativeString:=Trim(ss)
+    global MsgBoxStr:=NativeString?lang_yd_translating:""
 
     DetectHiddenWindows, On ;可以检测到隐藏窗口
     WinGet, ifGuiExistButHide, Count, ahk_id %transGuiHwnd%
@@ -27,6 +24,7 @@ ydTranslate_cus(ss)
         Gui, +LastFound
         WinSet, TransColor, ffffff 210
         Gui, Show, Center w500 h402, %lang_yd_name%
+        global transEditHwnd
         ControlFocus, , ahk_id %transEditHwnd%
     }
 
@@ -45,6 +43,13 @@ ydTranslate_cus(ss)
     sendStr2 := "https://dict.youdao.com/jsonapi_s?doctype=json&jsonversion=4&le=en&q=" . UTF8encode(NativeString)
     whr2 := ComObjCreate("Msxml2.XMLHTTP")
     whr2.Open("GET", sendStr2, False)
+
+    ; 获取翻译
+    sendStr := "https://dict.youdao.com/suggest?num=6&ver=3.0&doctype=json&cache=false&le=en&q=" . UTF8encode(NativeString)
+    global whr := ComObjCreate("Msxml2.XMLHTTP")
+    whr.Open("GET", sendStr, True)
+    whr.onreadystatechange := Func("Onready_suggestion")
+    whr.Send()
 
     try
     {
@@ -74,39 +79,46 @@ ydTranslate_cus(ss)
     }
     MsgBoxStr:= % MsgBoxStr . "`r`n`r`n" . lang_yd_trans . "`r`n" ;分隔，换行
 
-    sendStr := "https://dict.youdao.com/suggest?num=6&ver=3.0&doctype=json&cache=false&le=en&q=" . UTF8encode(NativeString)
-    whr := ComObjCreate("Msxml2.XMLHTTP")
-    whr.Open("GET", sendStr, False)
+    Onready_suggestion()
 
-    try
-    {
-        whr.Send()
-    }
-    catch
-    {
-        MsgBoxStr:=lang_yd_errorNoNet
-        goto, setTransText_cus
-    }
-
-    responseStr := whr.ResponseText
-    transJson := JSON.Load(responseStr)
-
-    if (transJson.result.code != 200)
-    {
-        MsgBoxStr := lang_yd_errorNoResults
-        goto, setTransText_cus
-        return
-    }
-
-    ; MsgBoxStr := transJson.data.query . "`r`n`r`n"
-    for index, entry in transJson.data.entries
-    {
-        MsgBoxStr := MsgBoxStr . entry.entry . ": " . entry.explain . "`r`n`r`n"
-    }
 
     setTransText_cus:
     ControlSetText, , %MsgBoxStr%, ahk_id %transEditHwnd%
     ControlFocus, , ahk_id %transEditHwnd%
     return 
 
+}
+
+Onready_suggestion(){
+    global MsgBoxStr, NativeString, whr, transEditHwnd
+    if(whr.readyState != 4)
+    {
+        return
+    }
+
+    try {
+        responseStr := whr.ResponseText
+        transJson := JSON.Load(responseStr)
+
+        if(transJson.data.query != NativeString)
+        {
+            MsgBoxStr := MsgBoxStr . lang_yd_errorNoResults
+            goto, setTransText_cus_ano
+            return
+        }
+    
+        ; MsgBoxStr := transJson.data.query . "`r`n`r`n"
+        for index, entry in transJson.data.entries
+        {
+            MsgBoxStr := MsgBoxStr . entry.entry . ": " . entry.explain . "`r`n`r`n"
+        }
+    }catch {
+        MsgBoxStr := MsgBoxStr . lang_yd_errorNoNet
+        goto, setTransText_cus_ano
+    }
+
+    setTransText_cus_ano:
+    ControlSetText, , %MsgBoxStr%, ahk_id %transEditHwnd%
+    ControlFocus, , ahk_id %transEditHwnd%
+    return 
 }
