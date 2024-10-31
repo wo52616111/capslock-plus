@@ -1,10 +1,5 @@
 ydTranslate_cus(ss)
 {
-    if(CLSets.TTranslate.apiType = 0 || CLSets.TTranslate.appPaidID = "")
-    {
-        MsgBox, %lang_yd_free_key_unavailable_warning%
-        return
-    }
     transStart_cus:
     ss:=RegExReplace(ss, "\s", " ") ;把所有空白符换成空格，因为如果有回车符的话，json转换时会出错
     NativeString:=Trim(ss)
@@ -33,7 +28,6 @@ ydTranslate_cus(ss)
         WinSet, TransColor, ffffff 210
         Gui, Show, Center w500 h402, %lang_yd_name%
         ControlFocus, , ahk_id %transEditHwnd%
-        SetTimer, setTransActive, 50
     }
 
     if(NativeString)
@@ -45,14 +39,40 @@ ydTranslate_cus(ss)
     Return
 
     ydApi_cus:
-    UTF8Codes:="" ;重置要发送的代码
     SetFormat, integer, H
-    UTF8Codes:=UTF8encode(NativeString)
-    if(youdaoApiString="")
+
+    ; 获取音标
+    sendStr2 := "https://dict.youdao.com/jsonapi_s?doctype=json&jsonversion=4&le=en&q=" . UTF8encode(NativeString)
+    whr2 := ComObjCreate("Msxml2.XMLHTTP")
+    whr2.Open("GET", sendStr2, False)
+
+    try
     {
-        MsgBoxStr=%lang_yd_needKey%
+        whr2.Send()
+    }
+    catch
+    {
+        MsgBoxStr:=MsgBoxStr . lang_yd_errorNoNet
         goto, setTransText_cus
     }
+
+    responseStr2 := whr2.ResponseText
+    transJson2 := JSON.Load(responseStr2)
+
+    if (transJson2.simple.query != NativeString)
+    {
+        MsgBoxStr := MsgBoxStr . lang_yd_errorNoResults
+        goto, setTransText_cus
+        return
+    }
+
+    MsgBoxStr:= % transJson2.simple.query . "`t"   ;原单词
+    if (transJson2.simple.word[1].ukphone)
+    {
+        ; MsgBoxStr := MsgBoxStr . "UK Phonetic: " . transJson2.simple.word[1].ukphone . "`r`n`r`n"
+        MsgBoxStr:=% MsgBoxStr . "[" . transJson2.simple.word[1].ukphone . "] "  ;读音
+    }
+    MsgBoxStr:= % MsgBoxStr . "`r`n`r`n" . lang_yd_trans . "`r`n" ;分隔，换行
 
     sendStr := "https://dict.youdao.com/suggest?num=6&ver=3.0&doctype=json&cache=false&le=en&q=" . UTF8encode(NativeString)
     whr := ComObjCreate("Msxml2.XMLHTTP")
@@ -78,7 +98,7 @@ ydTranslate_cus(ss)
         return
     }
 
-    MsgBoxStr := transJson.data.query . "`r`n`r`n"
+    ; MsgBoxStr := transJson.data.query . "`r`n`r`n"
     for index, entry in transJson.data.entries
     {
         MsgBoxStr := MsgBoxStr . entry.entry . ": " . entry.explain . "`r`n`r`n"
@@ -87,14 +107,6 @@ ydTranslate_cus(ss)
     setTransText_cus:
     ControlSetText, , %MsgBoxStr%, ahk_id %transEditHwnd%
     ControlFocus, , ahk_id %transEditHwnd%
-    SetTimer, setTransActive, 50
     return 
 
-    ButtonOK_cus:
-    Gui, Submit, NoHide
-    TransEdit:=RegExReplace(TransEdit, "\s", " ") ;把所有空白符换成空格，因为如果有回车符的话，json转换时会出错
-    NativeString:=Trim(TransEdit)
-    goto, transGui_cus
-
-    return
 }
