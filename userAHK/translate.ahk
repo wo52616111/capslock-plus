@@ -42,13 +42,13 @@ ydTranslate_cus(ss)
     ; 获取音标
     sendStr2 := "https://dict.youdao.com/jsonapi_s?doctype=json&jsonversion=4&le=en&q=" . UTF8encode(NativeString)
     whr2 := ComObjCreate("Msxml2.XMLHTTP")
-    whr2.Open("GET", sendStr2, False)
+    whr2.Open("POST", sendStr2, False)
 
     ; 获取翻译
     sendStr := "https://dict.youdao.com/suggest?num=6&ver=3.0&doctype=json&cache=false&le=en&q=" . UTF8encode(NativeString)
     global whr := ComObjCreate("Msxml2.XMLHTTP")
     whr.Open("GET", sendStr, True)
-    whr.onreadystatechange := Func("Onready_suggestion")
+    whr.onreadystatechange := Func("onReady_suggestion")
     whr.Send()
 
     try
@@ -57,7 +57,7 @@ ydTranslate_cus(ss)
     }
     catch
     {
-        MsgBoxStr:=MsgBoxStr . lang_yd_errorNoNet
+        MsgBoxStr:= lang_yd_errorNoNet
         goto, setTransText_cus
     }
 
@@ -66,7 +66,11 @@ ydTranslate_cus(ss)
 
     if (transJson2.simple.query != NativeString)
     {
-        MsgBoxStr := MsgBoxStr . lang_yd_errorNoResults
+        MsgBoxStr := lang_yd_errorNoResults
+        if(transJson2.fanyi){
+            MsgBoxStr := % transJson2.fanyi.input . "`r`n`r`n" . lang_yd_trans . "`r`n" ;分隔，换行
+            MsgBoxStr := % MsgBoxStr . transJson2.fanyi.tran . "`r`n`r`n"
+        }
         goto, setTransText_cus
         return
     }
@@ -79,7 +83,7 @@ ydTranslate_cus(ss)
     }
     MsgBoxStr:= % MsgBoxStr . "`r`n`r`n" . lang_yd_trans . "`r`n" ;分隔，换行
 
-    Onready_suggestion()
+    onReady_suggestion()
 
 
     setTransText_cus:
@@ -89,7 +93,7 @@ ydTranslate_cus(ss)
 
 }
 
-Onready_suggestion(){
+onReady_suggestion(){
     global MsgBoxStr, NativeString, whr, transEditHwnd
     if(whr.readyState != 4)
     {
@@ -102,7 +106,6 @@ Onready_suggestion(){
 
         if(transJson.data.query != NativeString)
         {
-            MsgBoxStr := MsgBoxStr . lang_yd_errorNoResults
             goto, setTransText_cus_ano
             return
         }
