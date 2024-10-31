@@ -11,8 +11,26 @@
 ; 3. Save, reload Capslock+ (CapsLock+F5)
 ; 4. Press `CapsLock+F7` to invoke the function
 
-#include demo.ahk
+#include translate.ahk
 
-keyFunc_example1(){
-  msgbox, example1
+keyFunc_translate_cus(){
+    global
+    selText:=getSelText()
+    if(selText)
+    {
+        ydTranslate_cus(selText)
+    }
+    else
+    {
+        ClipboardOld:=ClipboardAll
+        Clipboard:=""
+        SendInput, ^{Left}^+{Right}^{insert}
+        ClipWait, 0.05
+        selText:=Clipboard
+        ydTranslate_cus(selText)
+        Clipboard:=ClipboardOld
+    }
+    SetTimer, setTransGuiActive, -400
+    Return
+
 }
