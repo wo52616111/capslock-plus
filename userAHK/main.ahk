@@ -11,8 +11,24 @@
 ; 3. Save, reload Capslock+ (CapsLock+F5)
 ; 4. Press `CapsLock+F7` to invoke the function
 
+#include demo.ahk
+
+keyFunc_example1(){
+  msgbox, example1
+}
+
+; end demo
+
+
 #include translate.ahk
 
+
+; This function calls the Youdao translation web API to achieve free translation functionality.
+; It is an unconventional method, but I hope it can give you some inspiration.
+; add below setting under the [Keys] section in `CapsLock+settings.ini`:
+;   caps_f9=keyFunc_translate_cus
+; 3. Save, reload Capslock+ (CapsLock+F5)
+; 4. Press `CapsLock+F9` to invoke the function
 keyFunc_translate_cus(){
     global
     selText:=getSelText()
