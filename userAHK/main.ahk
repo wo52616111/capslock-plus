@@ -25,10 +25,11 @@ keyFunc_example1(){
 
 ; This function calls the Youdao translation web API to achieve free translation functionality.
 ; It is an unconventional method, but I hope it can give you some inspiration.
-; add below setting under the [Keys] section in `CapsLock+settings.ini`:
+; How to use:
+; 1. add below setting under the [Keys] section in `CapsLock+settings.ini`:
 ;   caps_f9=keyFunc_translate_cus
-; 3. Save, reload Capslock+ (CapsLock+F5)
-; 4. Press `CapsLock+F9` to invoke the function
+; 2. Save, reload Capslock+ (CapsLock+F5)
+; 3. Press `CapsLock+F9` to invoke the function
 keyFunc_translate_cus(){
     global
     selText:=getSelText()
