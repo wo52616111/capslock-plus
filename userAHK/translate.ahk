@@ -93,6 +93,8 @@ ydTranslate_cus(ss)
         goto, setTransText_cus
     }
 
+    MsgBoxStr := lang_yd_errorNoResults
+
     setTransText_cus:
     ControlSetText, , %MsgBoxStr%, ahk_id %transEditHwnd%
     ControlFocus, , ahk_id %transEditHwnd%
