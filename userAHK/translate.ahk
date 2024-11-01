@@ -39,7 +39,7 @@ ydTranslate_cus(ss)
     SetFormat, integer, H
 
     ; 获取音标
-    sendStr := "https://dict.youdao.com/jsonapi_s?doctype=json&jsonversion=4&le=en&q=" . UTF8encode(NativeString) . "_"
+    sendStr := "https://dict.youdao.com/jsonapi_s?doctype=json&jsonversion=4&le=en&q=" . UTF8encode(NativeString) . "~"
     whr := ComObjCreate("Msxml2.XMLHTTP")
     whr.Open("POST", sendStr, False)
 
@@ -56,7 +56,7 @@ ydTranslate_cus(ss)
     responseStr := whr.ResponseText
     transJson := JSON.Load(responseStr)
 
-    MsgBoxStr := % NativeString
+    MsgBoxStr := NativeString
 
     if(transJson.fanyi){
         MsgBoxStr := % MsgBoxStr . "`r`n`r`n" . lang_yd_trans . "`r`n`r`n" ;分隔，换行
