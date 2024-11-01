@@ -56,7 +56,7 @@ ydTranslate_cus(ss)
     responseStr := whr.ResponseText
     transJson := JSON.Load(responseStr)
 
-    MsgBoxStr := % NativeString . "      " 
+    MsgBoxStr := % NativeString
 
     if(transJson.fanyi){
         MsgBoxStr := % MsgBoxStr . "`r`n`r`n" . lang_yd_trans . "`r`n`r`n" ;分隔，换行
@@ -66,8 +66,12 @@ ydTranslate_cus(ss)
     }
 
     if(transJson.ec){
+        if(transJson.ec.word.usphone){
+            MsgBoxStr := % MsgBoxStr . "      " . "[" . transJson.ec.word.usphone . "] "  ;读音
+        }
+
         if(transJson.ec.word.ukphone){
-            MsgBoxStr := % MsgBoxStr . "[" . transJson.ec.word.ukphone . "] "  ;读音
+            MsgBoxStr := % MsgBoxStr . "      " . "[" . transJson.ec.word.ukphone . "] "  ;读音
         }
 
         MsgBoxStr := % MsgBoxStr . "`r`n`r`n" . lang_yd_trans . "`r`n`r`n" ;分隔，换行
