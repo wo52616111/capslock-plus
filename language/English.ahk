@@ -674,6 +674,10 @@ caps_lalt_wheelUp=keyFunc_doNothing
 
 caps_lalt_wheelDown=keyFunc_doNothing
 
+caps_wheelUp=keyFunc_doNothing
+
+caps_wheelDown=keyFunc_doNothing
+
 ; CapsLock + Windows + 0~9 -> Bind window 0~9
 caps_win_1=keyFunc_winbind_binding(1)
 

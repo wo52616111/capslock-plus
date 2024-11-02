@@ -164,6 +164,18 @@ try
 Capslock2:=""
 return
 
+<WheelUp::
+try
+    runFunc(keyset.caps_wheelUp)
+Capslock2:=""
+return
+
+<WheelDown::
+try
+    runFunc(keyset.caps_wheelDown)
+Capslock2:=""
+return
+
 ;--::-------------------------
 ;  KEY_TO_NAME := {"a":"a","b":"b","c":"c","d":"d","e":"e","f":"f","g":"g","h":"h","i":"i"
 ;    ,"j":"j","k":"k","l":"l","m":"m","n":"n","o":"o","p":"p","q":"q","r":"r"
