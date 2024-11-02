@@ -60,7 +60,7 @@ ydTranslate_cus(ss)
     ; MsgBox, , , %sign%,
 
 
-    sendStr := "https://dict.youdao.com/jsonapi_s?doctype=json&jsonversion=4&le=en&client=web&keyfrom=webdict&q=" . URLencode(NativeString) . "&t=" . t . "&sign=" . sign
+    sendStr := "https://dict.youdao.com/jsonapi_s?doctype=json&jsonversion=4&le=en&client=web&keyfrom=webdict&q=" . UTF8encode(NativeString) . "&t=" . t . "&sign=" . sign
     whr := ComObjCreate("Msxml2.XMLHTTP")
     whr.Open("POST", sendStr, False)
 
