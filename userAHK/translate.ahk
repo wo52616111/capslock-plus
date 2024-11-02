@@ -60,13 +60,15 @@ ydTranslate_cus(ss)
     ; MsgBox, , , %sign%,
 
 
-    sendStr := "https://dict.youdao.com/jsonapi_s?doctype=json&jsonversion=4&le=en&client=web&keyfrom=webdict&q=" . UTF8encode(NativeString) . "&t=" . t . "&sign=" . sign
     whr := ComObjCreate("Msxml2.XMLHTTP")
-    whr.Open("POST", sendStr, False)
+    whr.Open("POST", "https://dict.youdao.com/jsonapi_s?doctype=json&jsonversion=4", False)
+    whr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
+    body := "q=" . UTF8encode(NativeString) . "&le=en&t=" . t . "&client=web&sign=" . sign . "&keyfrom=webdict"
+    ; MsgBox,  ,  , %body%,  
 
     try
     {
-        whr.Send()
+        whr.Send(body)
     }
     catch
     {
