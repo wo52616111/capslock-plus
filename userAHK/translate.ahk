@@ -1,6 +1,18 @@
+; 'https://dict.youdao.com/jsonapi_s?doctype=json&jsonversion=4'
+; 'q=i%20am%20sorry&le=en&t=7&client=web&sign=d1d46a696e94826a992dccc7592827ea&keyfrom=webdict'
+
+; l = {
+;     q: NativeString,
+;     le: en,
+;     t: (NativeString.length + "webdict".length) % 10,
+;     client: "web",
+;     sign: ,
+;     keyfrom: "webdict"
+; }
+
 ydTranslate_cus(ss)
 {
-    ss:=RegExReplace(ss, "\s", " ") ;把所有空白符换成空格，因为如果有回车符的话，json转换时会出错
+    ss:=RegExReplace(ss, "\s+", " ") ;把所有空白符换成空格，因为如果有回车符的话，json转换时会出错
     NativeString:=Trim(ss)
     MsgBoxStr:=NativeString?lang_yd_translating:""
 
@@ -36,10 +48,19 @@ ydTranslate_cus(ss)
     Return
 
     ydApi_cus:
-    SetFormat, integer, H
 
-    ; 获取音标
-    sendStr := "https://dict.youdao.com/jsonapi_s?doctype=json&jsonversion=4&le=en&q=" . UTF8encode(NativeString) . "~"
+    signString := NativeString . "webdict"
+    tempSign := bcrypt.hash(signString, "MD5")
+    ; MsgBox, , , %tempSign%, 
+
+    t := Mod(StrLen(NativeString) + StrLen("webdict"), 10)
+
+    n := "web" . NativeString . t . "Mk6hqtUp33DGGtoS63tTJbMUYjRrG1Lu" . tempSign
+    sign := bcrypt.hash(n, "MD5")
+    ; MsgBox, , , %sign%,
+
+
+    sendStr := "https://dict.youdao.com/jsonapi_s?doctype=json&jsonversion=4&le=en&client=web&keyfrom=webdict&q=" . URLencode(NativeString) . "&t=" . t . "&sign=" . sign
     whr := ComObjCreate("Msxml2.XMLHTTP")
     whr.Open("POST", sendStr, False)
 
