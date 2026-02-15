@@ -3,39 +3,39 @@
 ## 概述
 本实施计划基于 2026-02-15 的代码审查结果，按照优先级和依赖关系组织改进任务。
 
-- [ ] 1. 修复 Excel 批量插入行列逻辑错误
+- [x] 1. 修复 Excel 批量插入行列逻辑错误
   - 修改 `!f` 热键，将 `EntireColumn.Insert` 改为 `EntireRow.Insert`
   - 修改 `!d` 热键，将 `EntireRow.Insert` 改为 `EntireColumn.Insert`
   - 移除不必要的 `Offset(1, 0)` 调用
   - 测试批量插入行功能是否正确
   - 测试批量插入列功能是否正确
 
-- [ ] 2. 添加 InputBox 输入验证
-  - [ ] 2.1 为批量插入行添加输入验证
+- [x] 2. 添加 InputBox 输入验证
+  - [x] 2.1 为批量插入行添加输入验证
     - 在 `!f` 热键中添加输入验证
     - 确保输入为正整数
     - 添加错误提示
 
-  - [ ] 2.2 为批量插入列添加输入验证
+  - [x] 2.2 为批量插入列添加输入验证
     - 在 `!d` 热键中添加输入验证
     - 确保输入为正整数
     - 添加错误提示
 
-- [ ] 3. 修复翻译 API 条件判断错误
+- [x] 3. 修复翻译 API 条件判断错误
   - 修改 `lib_ydTrans.ahk:20` 的条件判断
   - 将 `CLSets.TTranslate.appPaidID != "" && CLSets.TTranslate.appPaidID != ""` 改为 `CLSets.TTranslate.appPaidID != "" && CLSets.TTranslate.appPaidKey != ""`
 
-- [ ] 4. 清理调试代码
+- [x] 4. 清理调试代码
   - 删除 `lib_clQ.ahk:8` 的 `msgbox, % p_l` 调试代码
 
-- [ ] 5. 清理注释代码
+- [x] 5. 清理注释代码
   - 清理 `CapsLock+.ahk:27` 的注释代码
   - 清理 `CapsLock+.ahk:103-105` 的注释代码
   - 清理 `CapsLock+.ahk:346-356` 的注释代码
   - 清理 `CapsLock+.ahk:361-399` 的注释代码
 
-- [ ] 6. 优化 COM 对象资源管理
-  - [ ] 6.1 为 Excel 相关函数添加 COM 对象释放
+- [x] 6. 优化 COM 对象资源管理
+  - [x] 6.1 为 Excel 相关函数添加 COM 对象释放
     - 在 `!l` 热键结束时释放 `objExcel` 对象
     - 在 `!q` 热键结束时释放 `objExcel` 对象
     - 在 `!a` 热键结束时释放 `objExcel` 对象
@@ -45,7 +45,7 @@
     - 在 `!f` 热键结束时释放 `objExcel` 对象
     - 在 `!d` 热键结束时释放 `objExcel` 对象
 
-- [ ] 7. 添加网络请求超时设置
+- [x] 7. 添加网络请求超时设置
   - 在 `lib_ydTrans.ahk:136-137` 的 HTTP 请求中添加超时设置
   - 设置合理的超时时间（建议 10 秒）
 
@@ -54,8 +54,8 @@
   - 修改 `lib_mouseSpeed.ahk` 中的硬编码值
   - 修改 `lib_keysFunction.ahk` 中的硬编码值
 
-- [ ] 9. 完善函数文档注释
-  - [ ] 9.1 为 lib_functions.ahk 中的函数添加注释
+- [x] 9. 完善函数文档注释
+  - [x] 9.1 为 lib_functions.ahk 中的函数添加注释
     - 为 `getSelText()` 添加参数说明和返回值说明
     - 为 `UTF8encode()` 添加参数说明和返回值说明
     - 为 `URLencode()` 添加参数说明和返回值说明
@@ -65,7 +65,7 @@
     - 为 `showMsg()` 添加参数说明和返回值说明
     - 为 `extractSetStr()` 添加参数说明和返回值说明
 
-  - [ ] 9.2 为 lib_keysFunction.ahk 中的关键函数添加注释
+  - [x] 9.2 为 lib_keysFunction.ahk 中的关键函数添加注释
     - 为 `keyFunc_mouseSpeedIncrease()` 添加参数说明和返回值说明
     - 为 `keyFunc_mouseSpeedDecrease()` 添加参数说明和返回值说明
     - 为 `keyFunc_translate()` 添加参数说明和返回值说明
@@ -75,18 +75,18 @@
     - 为 `ydTranslate()` 添加参数说明和返回值说明
     - 为 `ydApi()` 添加参数说明和返回值说明
 
-  - [ ] 9.4 为 Excel 相关热键添加注释
+  - [x] 9.4 为 Excel 相关热键添加注释
     - 为 `!f` 热键添加功能说明
     - 为 `!d` 热键添加功能说明
     - 为 `!x` 热键添加功能说明
     - 为 `!z` 热键添加功能说明
 
-- [ ] 10. 添加错误处理
-  - [ ] 10.1 为文件操作添加错误处理
+- [x] 10. 添加错误处理
+  - [x] 10.1 为文件操作添加错误处理
     - 在 `lib_settings.ahk:26-57` 添加 try-catch 错误处理
     - 在文件读取失败时显示友好的错误信息
 
-  - [ ] 10.2 为网络请求添加错误处理
+  - [x] 10.2 为网络请求添加错误处理
     - 在 `lib_ydTrans.ahk:145-150` 的网络请求中添加详细的错误处理
     - 区分不同类型的网络错误
     - 显示用户友好的错误信息

@@ -1,4 +1,4 @@
-﻿; keys functions start-------------
+; keys functions start-------------
 ; 所有按键对应功能都放在这，为防止从set.ini通过按键设置调用到非按键功能函数，
 ; 规定函数以"keyFunc_"开头
 
@@ -26,6 +26,7 @@ keyFunc_toggleCapsLock(){
     return
 }
 
+; 增加鼠标速度
 keyFunc_mouseSpeedIncrease(){
     global
     mouseSpeed+=1
@@ -39,6 +40,7 @@ keyFunc_mouseSpeedIncrease(){
 }
 
 
+; 减少鼠标速度
 keyFunc_mouseSpeedDecrease(){
     global
     mouseSpeed-=1
@@ -136,6 +138,7 @@ keyFunc_forwardDeleteWord(){
 }
 
 
+; 翻译选中的文本或光标下的单词
 keyFunc_translate(){
     global
     selText:=getSelText()

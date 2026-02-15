@@ -1,4 +1,4 @@
-﻿;为了避免在IDE里Ctrl+C会复制一行，写个函数来获取
+;为了避免在IDE里Ctrl+C会复制一行，写个函数来获取
 getSelText_testVersion()
 {
     ClipboardOld:=ClipboardAll
@@ -25,6 +25,8 @@ getSelText_testVersion()
 }
 
 
+; 获取当前选中的文本
+; 返回值: 选中的文本字符串，如果没有选中则返回空
 getSelText()
 {
     ClipboardOld:=ClipboardAll
@@ -45,6 +47,9 @@ getSelText()
     return
 }
 
+; 将字符串编码为 UTF-8 百分比编码格式
+; 参数 str: 需要编码的字符串
+; 返回值: UTF-8 编码后的字符串
 UTF8encode(str) ;UTF8转码
 {
     SetFormat, integer, h
@@ -55,12 +60,18 @@ UTF8encode(str) ;UTF8转码
 
     Loop, % StrCap - 1   ;StrPut 返回的长度中包含末尾的字符串截止符，因此必须减 1。
     {
-        returnStr .= "%"SubStr(NumGet(UTF8String, A_Index - 1, "UChar"), 3) ; 逐字节获取，去除开头的“0x”后在前面加上"%"连接起来。
+        returnStr .= "%"SubStr(NumGet(UTF8String, A_Index - 1, "UChar"), 3) ; 逐字节获取，去除开头的"0x"后在前面加上"%"连接起来。
     }
+    ;~ MsgBox, % returnStr ; 显示"E4B8AD"，前面附加"0x"就变成十六进制了。
+    return returnStr
+}
     ;~ MsgBox, % returnStr ; 显示“E4B8AD”，前面附加“0x”就变成十六进制了。
     return returnStr
 }
 
+; 将字符串中的特殊字符进行 URL 编码（仅符号，不包含字母数字）
+; 参数 str: 需要编码的字符串
+; 返回值: URL 编码后的字符串
 URLencode(str) ;用于链接的话只要符号转换就行。需要全部转换的，用UTF8encode()
 {
     local arr1:=["!","#","$","&","'","(",")","*","+",",",":",";","=","?","@","[","]"], ;"/",
@@ -75,6 +86,10 @@ URLencode(str) ;用于链接的话只要符号转换就行。需要全部转换�
 }
 
 
+; 检查字符串类型（文件、文件夹、网页、FTP等）
+; 参数 str: 需要检查的字符串
+; 参数 fuzzy: 是否模糊匹配，默认为 0
+; 返回值: 类型字符串（"web"、"ftp"、"file"、"folder"、"unknown"）
 checkStrType(str, fuzzy:=0)
 {
     if(!FileExist(str))
@@ -106,6 +121,9 @@ checkStrType(str, fuzzy:=0)
 ;  300%dpi：288
 ;  400%dpi：384
 ;  500%dpi：480
+; 修复 DPI 缩放问题，用于窗口切割等操作
+; 参数 num: 需要修复的数值
+; 返回值: 根据 DPI 缩放后的数值
 fixDpi(num)
 {
     ;msgbox, % Ceil(1/96*A_ScreenDPI)
@@ -127,13 +145,18 @@ fixDpi(num)
 
 
 
-;保存设置到settings.ini
+; 保存设置到 settings.ini 文件
+; 参数 sec: 配置节名称
+; 参数 key: 配置键名称
+; 参数 val: 配置值
 setSettings(sec,key,val)
 {
     IniWrite, % val, CapsLock+settings.ini, %sec%, % key
 }
 
-;显示一个信息
+; 显示工具提示信息
+; 参数 msg: 要显示的消息
+; 参数 t: 显示时间（毫秒），默认 2000 毫秒
 showMsg(msg,t:=2000)
 {
     ToolTip, % msg
@@ -146,8 +169,12 @@ ToolTip
 return
 
 
-;提取Set里QRun的信息
-;返回文件路径，runStr为供run运行的字符串，ifAdmin是否管理员权限运行，param程序运行参数
+; 提取设置字符串，返回文件路径和运行参数
+; 参数 str: 设置字符串
+; 参数 runStr: ByRef 参数，返回供 run 命令运行的字符串
+; 参数 ifAdmin: ByRef 参数，返回是否需要管理员权限
+; 参数 param: ByRef 参数，返回程序运行参数
+; 返回值: 文件路径
 extractSetStr(str, ByRef runStr:="", ByRef ifAdmin:=false, ByRef param:="")
 {
     str:=Trim(str, " `t")
@@ -160,6 +187,48 @@ extractSetStr(str, ByRef runStr:="", ByRef ifAdmin:=false, ByRef param:="")
 		EnvGet, _t, % str0Match1
 		StringReplace, str, str, % str0Match, % _t
 	}
+	
+	;没有引号且文件存在，例：C:\Program Files\Internet Explorer\iexplore.exe
+    ;或者是ftp路径
+    if(FileExist(str)||RegExMatch(str, "^ftp://"))
+	{
+		runStr:=str
+        return str
+	}
+	
+	
+	;有引号且文件存在，例："C:\Program Files\Internet Explorer\iexplore.exe"
+	RegExMatch(str, "^('|"")(.*)\1$", strMatch)
+	if(FileExist(strMatch2)||RegExMatch(str, "^ftp://"))
+	{
+		runStr:=str
+		return strMatch2
+    }
+	
+	RegExMatch(str, "('|"")(.*)\1", strMatch)
+	if(FileExist(strMatch2))
+	{
+		runStr:=str
+		;判断是否管理员权限
+		strArr:=StrSplit(str, strMatch)
+		arr1:=Trim(strArr[1])
+		arr2:=Trim(strArr[2])
+        
+		if(RegExMatch(arr1,"i)^\*RunAs$"))
+		{
+			ifAdmin:=true
+			runStr:="*RunAs " . runStr
+		}
+		;如果有参数
+		if(arr2)
+		{
+			param:=arr2
+			runStr:=runStr . " " . arr2
+		}
+		return strMatch2
+	}
+    return
+}
 	
 	;没有引号且文件存在，例：C:\Program Files\Internet Explorer\iexplore.exe
     ;或者是ftp路径

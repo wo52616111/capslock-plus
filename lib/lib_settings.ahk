@@ -1,4 +1,4 @@
-﻿/*
+/*
 提出settings.ini的设置信息
 
 ini demo:
@@ -24,36 +24,57 @@ FileGetTime, settingsModifyTime, CapsLock+settings.ini
 
 ;init CapsLock+settingsDemo.ini and CapsLock+settings.ini
 IfNotExist, CapsLock+settingsDemo.ini
-{       
-    FileAppend, %lang_settingsDemoFileContent_1%, CapsLock+settingsDemo.ini, UTF-16
-    FileAppend, %lang_settingsDemoFileContent_2%, CapsLock+settingsDemo.ini, UTF-16
-    FileSetAttrib, +R, CapsLock+settingsDemo.ini
-}
-else
 {
-    FileGetTime, setDemoModifyTime, CapsLock+settingsDemo.ini
-    IfExist, language
+    try
     {
-        FileGetTime, thisScriptModifyTime, language
-    }
-    else
-    {
-        FileGetTime, thisScriptModifyTime, %A_ScriptName%
-    }
-    
-    thisScriptModifyTime -= setDemoModifyTime, S
-    if(thisScriptModifyTime > 0) ;如果主程序文件比较新，那就是更新过，那就覆盖一遍
-    {
-        FileSetAttrib, -R, CapsLock+settingsDemo.ini
-        FileDelete, CapsLock+settingsDemo.ini
         FileAppend, %lang_settingsDemoFileContent_1%, CapsLock+settingsDemo.ini, UTF-16
         FileAppend, %lang_settingsDemoFileContent_2%, CapsLock+settingsDemo.ini, UTF-16
         FileSetAttrib, +R, CapsLock+settingsDemo.ini
     }
+    catch e
+    {
+        MsgBox, 16, 错误, 无法创建配置文件模板: %e.Message%
+    }
+}
+else
+{
+    try
+    {
+        FileGetTime, setDemoModifyTime, CapsLock+settingsDemo.ini
+        IfExist, language
+        {
+            FileGetTime, thisScriptModifyTime, language
+        }
+        else
+        {
+            FileGetTime, thisScriptModifyTime, %A_ScriptName%
+        }
+
+        thisScriptModifyTime -= setDemoModifyTime, S
+        if(thisScriptModifyTime > 0) ;如果主程序文件比较新，那就是更新过，那就覆盖一遍
+        {
+            FileSetAttrib, -R, CapsLock+settingsDemo.ini
+            FileDelete, CapsLock+settingsDemo.ini
+            FileAppend, %lang_settingsDemoFileContent_1%, CapsLock+settingsDemo.ini, UTF-16
+            FileAppend, %lang_settingsDemoFileContent_2%, CapsLock+settingsDemo.ini, UTF-16
+            FileSetAttrib, +R, CapsLock+settingsDemo.ini
+        }
+    }
+    catch e
+    {
+        MsgBox, 16, 错误, 更新配置文件模板失败: %e.Message%
+    }
 }
 IfNotExist, CapsLock+settings.ini
-{   
-    FileAppend, %lang_settingsFileContent%, CapsLock+settings.ini, UTF-16
+{
+    try
+    {
+        FileAppend, %lang_settingsFileContent%, CapsLock+settings.ini, UTF-16
+    }
+    catch e
+    {
+        MsgBox, 16, 错误, 无法创建配置文件: %e.Message%
+    }
 }
 lang_settingsDemoFileContent_1:=""
 lang_settingsDemoFileContent_2:=""

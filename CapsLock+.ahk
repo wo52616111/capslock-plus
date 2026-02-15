@@ -1,4 +1,4 @@
-﻿#SingleInstance force
+#SingleInstance force
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 
 ; If the script is not elevated, relaunch as administrator and kill current instance:
@@ -17,8 +17,7 @@ if not (A_IsAdmin or RegExMatch(full_command_line, " /restart(?!\S)"))
 
 IfExist, capslock+icon.ico
 {
-;freezing icon
-menu, TRAY, Icon, capslock+icon.ico, , 1
+    menu, TRAY, Icon, capslock+icon.ico, , 1
 }
 Menu, Tray, Icon,,, 1
 
@@ -30,7 +29,6 @@ global cClipboardAll ;capslock+ clipboard
 global caClipboardAll ;capslock+alt clipboard
 global sClipboardAll ;system clipboard
 global whichClipboardNow  ;0 system clipboard; 1 capslock+ clipboard; 2 capslock+alt clipboard
-;  global clipSaveArr=[]
 allowRunOnClipboardChange:=true
 
 
@@ -41,16 +39,11 @@ allowRunOnClipboardChange:=true
 #include ..\language\lang_func.ahk
 #include ..\language\Simplified_Chinese.ahk
 #include ..\language\English.ahk
-;  #include ..\language\Traditional_Chinese.ahk
-; /language
 
 #include lib_keysFunction.ahk
 #include lib_keysSet.ahk
-;  #include lib_ahkExec.ahk
-;  #include lib_scriptDemo.ahk
-;  #include lib_fileMethods.ahk
 
-#include lib_settings.ahk ;get the settings from capslock+settings.ini 
+#include lib_settings.ahk ;get the settings from capslock+settings.ini
 #Include lib_clQ.ahk ;capslock+Q
 #Include lib_ydTrans.ahk  ;capslock+T translate
 #Include lib_clTab.ahk 
@@ -157,6 +150,7 @@ Excel_Get()
         objExcel.ActiveWorkbook.Save
         objExcel.ActiveWorkbook.close
         objExcel.Application.DisplayAlerts:= true
+        objExcel:=""
     return
 
     ; az排序
@@ -173,17 +167,19 @@ Excel_Get()
     !q::
         objExcel:=Excel_Get()
         objExcel.Selection.Interior.ColorIndex := 6
-        objExcel.Selection.Font.ColorIndex := 3    ; 将字体颜色设为红色
+        objExcel.Selection.Font.ColorIndex := 3
+        objExcel:=""
     return
 
     ; 无填充
     !a::
         try{
             objExcel:=Excel_Get()
-            objExcel.Selection.Interior.ColorIndex := -4142    ; 将背景色设为无色（透明）
-            objExcel.Selection.Font.ColorIndex := 1    ; 将字体颜色设为黑色
+            objExcel.Selection.Interior.ColorIndex := -4142
+            objExcel.Selection.Font.ColorIndex := 1
+            objExcel:=""
         }
-        catch e{    ; 出错就用传统快捷键
+        catch e{
             Send,!hhn
         }
     return
@@ -205,8 +201,9 @@ Excel_Get()
         try{
             objExcel:=Excel_Get()
             objExcel.Selection.ActiveSheet.UsedRange.RemoveDuplicates
+            objExcel:=""
         }
-        catch e{    ; 出错就用传统快捷键
+        catch e{
             Send,!am
         }
     return
@@ -216,10 +213,21 @@ Excel_Get()
         try{
             ox := ComObjActive("Excel.Application")
             ox.Application.Selection.EntireRow.AutoFit
+            ox:=""
         }
         catch e{
-            ; 出错就用传统快捷键
             Send,!ora
+        }
+    return
+
+    !z::
+        try{
+            ox := ComObjActive("Excel.Application")
+            ox.Application.Selection.EntireColumn.AutoFit
+            ox:=""
+        }
+        catch e{
+            Send,!oca
         }
     return
 
@@ -249,24 +257,81 @@ Excel_Get()
             send,{Blind}^v
     return
 
+    ; 批量插入行
     !f::
-        ;批量插入行,F键留空，用于Everything
         objExcel:=Excel_Get()
         InputBox,b,批量插入行
-        loop % b
+        if(b is integer && b > 0)
         {
-            objExcel.ActiveCell.Offset(1, 0).EntireColumn.Insert
+            loop % b
+            {
+                objExcel.ActiveCell.EntireRow.Insert
+            }
+        }
+        else
+        {
+            MsgBox, 16, 错误, 请输入有效的正整数
+        }
+        objExcel:=""
+    return
+
+    ; 批量插入列
+    !d::
+        objExcel:=Excel_Get()
+        InputBox,b,批量插入列
+        if(b is integer && b > 0)
+        {
+            loop % b
+            {
+                objExcel.ActiveCell.EntireColumn.Insert
+            }
+        }
+        else
+        {
+            MsgBox, 16, 错误, 请输入有效的正整数
+        }
+        objExcel:=""
+    return
+
+    ; 自行调整行高
+    !x::
+        try{
+            ox := ComObjActive("Excel.Application")
+            ox.Application.Selection.EntireRow.AutoFit
+            ox:=""
+        }
+        catch e{
+            Send,!ora
+        }
+    return
+
+    ; 自行调整列宽
+    !z::
+        try{
+            ox := ComObjActive("Excel.Application")
+            ox.Application.Selection.EntireColumn.AutoFit
+            ox:=""
+        }
+        catch e{
+            Send,!oca
         }
     return
 
     !d::
-        ;批量插入列
         objExcel:=Excel_Get()
         InputBox,b,批量插入列
-        loop % b
+        if(b is integer && b > 0)
         {
-            objExcel.ActiveCell.Offset(1, 0).EntireRow.Insert
+            loop % b
+            {
+                objExcel.ActiveCell.EntireColumn.Insert
+            }
         }
+        else
+        {
+            MsgBox, 16, 错误, 请输入有效的正整数
+        }
+        objExcel:=""
     return
 
     ; 选中和移动光标和切换工作表格中的行和列
@@ -342,22 +407,6 @@ try
 Capslock2:=""
 return
 
-;--::-------------------------
-;  KEY_TO_NAME := {"a":"a","b":"b","c":"c","d":"d","e":"e","f":"f","g":"g","h":"h","i":"i"
-;    ,"j":"j","k":"k","l":"l","m":"m","n":"n","o":"o","p":"p","q":"q","r":"r"
-;    ,"s":"s","t":"t","u":"u","v":"v","w":"w","x":"x","y":"y","z":"z"
-;    ,"1":"1","2":"2","3":"3","4":"4","5":"5","6":"6","7":"7","8":"8","9":"9","0":"0"
-;    ,"f1":"f1","f2":"f2","f3":"f3","f4":"f4","f5":"f5","f6":"f6"
-;    ,"f7":"f7","f8":"f8","f9":"f9","f10":"f10","f11":"f11","f12":"f12"
-;    ,"f13":"f13","f14":"f14","f15":"f15","f16":"f16","f17":"f17","f18":"f18","f19":"f19"
-;    ,"space":"space","tab":"tab","enter":"enter","esc":"esc","backspace":"backspace"
-;    ,"`":"backQuote","-":"minus","=":"equal","[":"leftSquareBracket","]":"rightSquareBracket"
-;    ,"\":"backSlash",";":"semicolon","'":"quote",",":"comma",".":"dot","/":"slash","ralt":"ralt"
-;    ,"wheelUp":"wheelUp","wheelDown":"wheelDown"}
-
-;  for k,v in KEY_TO_NAME{
-;      msgbox, % v
-;  }
 a::
 b::
 c::

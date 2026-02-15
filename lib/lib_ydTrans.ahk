@@ -1,4 +1,4 @@
-﻿/*
+/*
 有道翻译
 */
 
@@ -17,7 +17,7 @@ global appID=""
 global appKey=""
 
 ; 收费版 API
-if (CLSets.TTranslate.appPaidID != "" && CLSets.TTranslate.appPaidID != "")
+if (CLSets.TTranslate.appPaidID != "" && CLSets.TTranslate.appPaidKey != "")
 {
 	appID:=CLSets.TTranslate.appPaidID
 	appKey:=CLSets.TTranslate.appPaidKey
@@ -132,23 +132,34 @@ if (true || CLSets.TTranslate.apiType=1) {
 	sign:=bcrypt.hash(signString, "SHA256")
 	sendStr:=youdaoApiString . "&salt=" . salt . "&curtime=" . myNow . "&sign=" . sign . "&q=" . UTF8encode(NativeString)
 	whr := ComObjCreate("Msxml2.XMLHTTP")
-
 	whr.Open("GET", sendStr, False)
+	whr.SetRequestHeader("User-Agent", "CapsLock+")
 } else {
 	sendStr:=youdaoApiString . UTF8Codes
 	whr := ComObjCreate("WinHttp.WinHttpRequest.5.1")
-
 	whr.Open("GET", sendStr)
+	whr.SetRequestHeader("User-Agent", "CapsLock+")
 }
 
-;~ MsgBox, 3
 try
 {
+	whr.SetTimeouts(10000, 10000, 10000, 10000)
 	whr.Send()
 }
-catch
+catch e
 {
-	MsgBoxStr:=lang_yd_errorNoNet
+	if(InStr(e.Message, "timeout") || InStr(e.Message, "超时"))
+	{
+		MsgBoxStr:=lang_yd_errorNoNet " (请求超时)"
+	}
+	else if(InStr(e.Message, "network") || InStr(e.Message, "网络"))
+	{
+		MsgBoxStr:=lang_yd_errorNoNet " (网络错误)"
+	}
+	else
+	{
+		MsgBoxStr:=lang_yd_errorNoNet " (" . e.Message . ")"
+	}
 	goto, setTransText
 }
 afterSend:

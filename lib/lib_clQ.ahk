@@ -1,11 +1,10 @@
-﻿global LastHw:=0x000000
+global LastHw:=0x000000
 global LostFocusHw2Handlers:=Object()
 ; For catching unfocus events
 HandleWindowMessage( p_w, p_l, p_m, p_hw )
 {
     global
     local control
-    msgbox, % p_l
     setformat, integerfast, h
     if(LastHw==0x000000)
     {
