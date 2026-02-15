@@ -13,6 +13,9 @@
 
 #include demo.ahk
 
+#include lib_excel.ahk
+#include lib_outlook.ahk
+
 keyFunc_example1(){
   msgbox, example1
 }
