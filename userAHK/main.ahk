@@ -17,6 +17,72 @@ keyFunc_example1(){
   msgbox, example1
 }
 
+keyFunc_qbarExternalApp(){
+    global CLSets
+    KeyWait, CapsLock
+    externalPath:=""
+    if(IsObject(CLSets) && IsObject(CLSets.Global))
+    {
+        externalPath:=Trim(CLSets.Global.externalAppPath)
+        if(externalPath="")
+            externalPath:=Trim(CLSets.Global.listaryPath)
+    }
+    if(externalPath="")
+    {
+        message:="Set the external application path in Settings > Qbar first."
+        MsgBox, 0x40030, CapsLock+, %message%
+        return
+    }
+    if(!FileExist(externalPath))
+    {
+        message:="The external application path does not exist. Configure it again."
+        MsgBox, 0x40030, CapsLock+, %message%
+        return
+    }
+    externalExeName:=""
+    SplitPath, externalPath, externalExeName
+    StringLower, externalExeNameLower, externalExeName
+    isListary:=externalExeNameLower="listary.exe"
+    if(isListary)
+        selText:=getSelText()
+    Process, Exist, %externalExeName%
+    if(!ErrorLevel)
+    {
+        quotedExternalPath:="""" . externalPath . """"
+        Run, %quotedExternalPath%,, UseErrorLevel
+        if(ErrorLevel)
+        {
+            message:="The external application could not be started. Check its path."
+            MsgBox, 0x40030, CapsLock+, %message%
+            return
+        }
+        Sleep, 300
+    }
+    if(isListary)
+    {
+        SendInput, !{Space}
+        WinWait, ahk_exe %externalExeName%, , 0.8
+        if(selText!="")
+        {
+            selText:="gg " . selText
+            SendInput, %selText%
+            SendInput, {Home}
+        }
+    }
+    else
+    {
+        WinWait, ahk_exe %externalExeName%, , 1.5
+        WinActivate, ahk_exe %externalExeName%
+    }
+    return
+}
+
+; Keep the legacy function name working for existing configuration files.
+keyFunc_qbarListary(){
+    keyFunc_qbarExternalApp()
+    return
+}
+
 ; end demo
 
 

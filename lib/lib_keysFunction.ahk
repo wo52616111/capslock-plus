@@ -524,7 +524,15 @@ keyFunc_qbar(){
     ;先关闭所有Caps热键，然后再打开
     ;防止其他功能在 qbar 出来这段时间因为输入文字而被触发
     CapsLock:=CapsLock2:=""
+    needsQbarInit:=needInitQ
     CLq()
+    ; 设置面板或样式变化可能刚重建了 Qbar。第一次调用负责重建，
+    ; 第二次立即显示，避免用户必须再次按 CapsLock+Q。
+    if(needsQbarInit)
+    {
+        DetectHiddenWindows, Off
+        CLq()
+    }
     CapsLock:=1
     return
 
@@ -805,15 +813,22 @@ keyFunc_winbind_binding(n){
 
 keyFunc_winPin(){
     _id:=WinExist("A")
-    ;  WinGet, ExStyle, ExStyle
-    ;  if (ExStyle & 0x8)
-    ;  {
-    ;      WinSet, AlwaysOnTop, Off
-    ;      WinSet, Transparent, Off
-    ;
-    ;      return
-    ;  }
-    WinSet, AlwaysOnTop
+    if(!_id)
+        return
+
+    WinSet, AlwaysOnTop, Toggle, ahk_id %_id%
+    WinGet, ExStyle, ExStyle, ahk_id %_id%
+
+    if(ExStyle & 0x8)
+    {
+        winPinBorder_add(_id)
+        winPin_playSound(true)
+    }
+    else
+    {
+        winPinBorder_remove(_id)
+        winPin_playSound(false)
+    }
     ;  WinSet, Transparent, 210
     return
 }
