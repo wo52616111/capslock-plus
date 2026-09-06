@@ -13,7 +13,20 @@ if(CLSets.global.default_hotkey_scheme == "capslock_plus") {
     keySchemeInit_capslox()
 }
 
+keysSet_applyQbarExternalApp()
+
 return
+
+
+keysSet_applyQbarExternalApp(){
+    global CLSets, keyset
+    if(!IsObject(CLSets) || !IsObject(CLSets.Global))
+        return
+    if(CLSets.Global.qbarExternalApp="listary")
+        keyset.caps_q:="keyFunc_qbarListary"
+    else if(CLSets.Global.qbarExternalApp="builtin")
+        keyset.caps_q:="keyFunc_qbar"
+}
 
 
 keySchemeInit_capslox(){

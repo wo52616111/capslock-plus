@@ -812,9 +812,15 @@ keyFunc_winPin(){
     WinGet, ExStyle, ExStyle, ahk_id %_id%
 
     if(ExStyle & 0x8)
+    {
         winPinBorder_add(_id)
+        winPin_playSound(true)
+    }
     else
+    {
         winPinBorder_remove(_id)
+        winPin_playSound(false)
+    }
     ;  WinSet, Transparent, 210
     return
 }

@@ -17,6 +17,20 @@ keyFunc_example1(){
   msgbox, example1
 }
 
+keyFunc_qbarListary(){
+    KeyWait, CapsLock
+    selText:=getSelText()
+    SendInput, !{Space}
+    WinWait, ahk_exe Listary.exe, , 0.5
+    if(selText!="")
+    {
+        selText:="gg " . selText
+        SendInput, %selText%
+        SendInput, {Home}
+    }
+    return
+}
+
 ; end demo
 
 

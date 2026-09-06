@@ -2,27 +2,48 @@
 ; 边框由一个中间镂空、不激活、鼠标穿透的工具窗口组成，不会影响目标窗口操作。
 
 global winPinBorders:={}
+global winPinBorderGuiNames:={}
 global winPinBorderSizes:={}
 global winPinBorderPositions:={}
+global winPinBorderVisibility:={}
+global winPinBorderFrameMetrics:={}
 global winPinBorderWinIds:=[]
 global winPinBorderColor:="00ADEF"
 global winPinBorderWidth:=6
+global winPinBorderSyncInterval:=0
+global winPinBorderIdleTicks:=0
+global winPinBorderActiveInterval:=15
+global winPinBorderIdleInterval:=50
+global winPinCustomSoundFile:=""
 
 winPinBorder_add(winId){
-    global winPinBorders, winPinBorderColor, winPinBorderSizes, winPinBorderPositions, winPinBorderWinIds, winPinBorderWidth
+    global winPinBorders, winPinBorderGuiNames, winPinBorderColor, winPinBorderSizes, winPinBorderPositions, winPinBorderVisibility, winPinBorderFrameMetrics, winPinBorderWinIds, winPinBorderWidth, winPinBorderActiveInterval, winPinBorderIdleInterval, winPinBorderIdleTicks
 
     if(!IsObject(winPinBorders))
         winPinBorders:={}
+    if(!IsObject(winPinBorderGuiNames))
+        winPinBorderGuiNames:={}
     if(!IsObject(winPinBorderSizes))
         winPinBorderSizes:={}
     if(!IsObject(winPinBorderPositions))
         winPinBorderPositions:={}
+    if(!IsObject(winPinBorderVisibility))
+        winPinBorderVisibility:={}
+    if(!IsObject(winPinBorderFrameMetrics))
+        winPinBorderFrameMetrics:={}
     if(!IsObject(winPinBorderWinIds))
         winPinBorderWinIds:=[]
     if(winPinBorderColor="")
         winPinBorderColor:="00ADEF"
     if(winPinBorderWidth="")
         winPinBorderWidth:=6
+    if(winPinBorderActiveInterval="")
+        winPinBorderActiveInterval:=15
+    if(winPinBorderIdleInterval="")
+        winPinBorderIdleInterval:=50
+    if(winPinBorderIdleTicks="")
+        winPinBorderIdleTicks:=0
+    winPinBorder_refreshSettings()
     if(!DllCall("IsWindow", "Ptr", winId))
         return false
 
@@ -36,12 +57,10 @@ winPinBorder_add(winId){
     y:=rect.y
     w:=rect.w
     h:=rect.h
-    dpi:=DllCall("User32\GetDpiForWindow", "Ptr", winId, "UInt")
-    if(!dpi)
-        dpi:=A_ScreenDPI
+    dpi:=rect.dpi
     thickness:=Max(2, Round(winPinBorderWidth*dpi/96))
 
-    guiName:="WinPinBorder_" . winId
+    guiName:="WinPinBorder_" . Format("{:d}", winId+0)
     Gui, %guiName%:New, +HwndborderHwnd -Caption +ToolWindow +AlwaysOnTop +E0x20 +E0x08000000
     Gui, %guiName%:Color, %winPinBorderColor%
 
@@ -52,29 +71,36 @@ winPinBorder_add(winId){
     if(A_PtrSize!=8)
         DllCall("User32\SetWindowLong", "Ptr", borderHwnd, "Int", -8, "Ptr", winId, "Ptr")
 
-    Gui, %guiName%:Show, NA x%x% y%y% w%w% h%h%
+    showOptions:="NA x" . Format("{:d}", x) . " y" . Format("{:d}", y) . " w" . Format("{:d}", w) . " h" . Format("{:d}", h)
+    Gui, %guiName%:Show, %showOptions%
     winPinBorder_setRegion(borderHwnd, w, h, thickness)
 
     winPinBorders[winId]:=borderHwnd
+    winPinBorderGuiNames[winId]:=guiName
     winPinBorderSizes[winId]:=w . "|" . h . "|" . thickness
     winPinBorderPositions[winId]:=x . "|" . y . "|" . w . "|" . h
+    winPinBorderVisibility[winId]:=true
     winPinBorderWinIds.Push(winId)
-    SetTimer, winPinBorderSyncTimer, 10
+    winPinBorderIdleTicks:=0
+    winPinBorder_setTimerInterval(winPinBorderActiveInterval)
     return true
 }
 
 winPinBorder_remove(winId){
-    global winPinBorders, winPinBorderSizes, winPinBorderPositions, winPinBorderWinIds
+    global winPinBorders, winPinBorderGuiNames, winPinBorderSizes, winPinBorderPositions, winPinBorderVisibility, winPinBorderWinIds, winPinBorderSyncInterval
 
     if(!winPinBorders.HasKey(winId))
         return
 
     borderHwnd:=winPinBorders[winId]
-    Gui, %borderHwnd%:Destroy
+    guiName:=winPinBorderGuiNames[winId]
+    Gui, %guiName%:Destroy
 
     winPinBorders.Delete(winId)
+    winPinBorderGuiNames.Delete(winId)
     winPinBorderSizes.Delete(winId)
     winPinBorderPositions.Delete(winId)
+    winPinBorderVisibility.Delete(winId)
     Loop, % winPinBorderWinIds.Length()
     {
         if(winPinBorderWinIds[A_Index]=winId)
@@ -84,7 +110,107 @@ winPinBorder_remove(winId){
         }
     }
     if(!winPinBorders.Count())
+    {
         SetTimer, winPinBorderSyncTimer, Off
+        winPinBorderSyncInterval:=0
+    }
+}
+
+winPinBorder_setTimerInterval(interval){
+    global winPinBorderSyncInterval, winPinBorderIdleTicks
+
+    if(winPinBorderSyncInterval=interval)
+        return
+    winPinBorderSyncInterval:=interval
+    if(interval>0)
+        SetTimer, winPinBorderSyncTimer, %interval%
+    else
+        SetTimer, winPinBorderSyncTimer, Off
+    if(interval>0)
+        winPinBorderIdleTicks:=0
+}
+
+winPinBorder_parseColor(value){
+    if(winPinBorder_tryParseColor(value, normalizedColor))
+        return normalizedColor
+    return "00ADEF"
+}
+
+winPinBorder_tryParseColor(value, ByRef normalizedColor){
+    value:=Trim(value)
+    if(RegExMatch(value, "i)^(?:#|0x)?([0-9a-f]{6})$", colorMatch))
+    {
+        StringUpper, normalizedColor, colorMatch1
+        return true
+    }
+
+    if(RegExMatch(value, "^\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})\s*$", rgbMatch))
+    {
+        red:=rgbMatch1+0
+        green:=rgbMatch2+0
+        blue:=rgbMatch3+0
+        if(red<=255 && green<=255 && blue<=255)
+        {
+            normalizedColor:=Format("{:02X}{:02X}{:02X}", red, green, blue)
+            return true
+        }
+    }
+    normalizedColor:=""
+    return false
+}
+
+winPinBorder_refreshSettings(){
+    global CLSets, winPinBorderColor, winPinBorders, winPinBorderGuiNames
+
+    if(!IsObject(winPinBorders))
+        winPinBorders:={}
+    if(!IsObject(winPinBorderGuiNames))
+        winPinBorderGuiNames:={}
+
+    configuredColor:=""
+    if(IsObject(CLSets) && IsObject(CLSets.Global))
+        configuredColor:=CLSets.Global.winPinBorderColor
+    newColor:=winPinBorder_parseColor(configuredColor)
+    if(newColor=winPinBorderColor)
+        return
+
+    winPinBorderColor:=newColor
+    for winId,borderHwnd in winPinBorders
+    {
+        guiName:=winPinBorderGuiNames[winId]
+        Gui, %guiName%:Color, %winPinBorderColor%
+        DllCall("User32\RedrawWindow", "Ptr", borderHwnd, "Ptr", 0, "Ptr", 0, "UInt", 0x105)
+    }
+}
+
+winPin_playSound(isPinned, force:=false){
+    static pinSoundFile:=A_WinDir . "\Media\Speech On.wav"
+    static unpinSoundFile:=A_WinDir . "\Media\Speech Sleep.wav"
+    global CLSets, winPinCustomSoundFile
+
+    if(!force && IsObject(CLSets) && IsObject(CLSets.Global) && CLSets.Global.winPinSoundEnabled="0")
+        return false
+
+    configuredSoundFile:=""
+    if(IsObject(CLSets) && IsObject(CLSets.Global))
+        configuredSoundFile:=Trim(CLSets.Global.winPinSoundFile)
+    if(configuredSoundFile!=winPinCustomSoundFile)
+        winPinCustomSoundFile:=configuredSoundFile
+
+    if(winPinCustomSoundFile!="" && FileExist(winPinCustomSoundFile))
+        return DllCall("Winmm\PlaySoundW", "WStr", winPinCustomSoundFile, "Ptr", 0, "UInt", 0x20003)
+
+    ; 异步播放期间路径缓冲区必须保持有效，因此直接传入静态变量。
+    if(isPinned)
+    {
+        if(!FileExist(pinSoundFile))
+            return false
+        return DllCall("Winmm\PlaySoundW", "WStr", pinSoundFile, "Ptr", 0, "UInt", 0x20003)
+    }
+
+    if(!FileExist(unpinSoundFile))
+        return false
+    return DllCall("Winmm\PlaySoundW", "WStr", unpinSoundFile, "Ptr", 0, "UInt", 0x20003)
 }
 
 winPinBorder_setRegion(borderHwnd, w, h, thickness){
@@ -109,6 +235,7 @@ winPinBorder_shouldShow(winId){
 
 winPinBorder_getRect(winId){
     static rectBuffer
+    global winPinBorderFrameMetrics
 
     VarSetCapacity(rectBuffer, 16, 0)
     if(!DllCall("User32\GetWindowRect", "Ptr", winId, "Ptr", &rectBuffer))
@@ -120,21 +247,26 @@ winPinBorder_getRect(winId){
     if(rectW<=0 || rectH<=0)
         return false
 
+    dpi:=DllCall("User32\GetDpiForWindow", "Ptr", winId, "UInt")
+    if(!dpi)
+        dpi:=A_ScreenDPI
+
     ; Win10/11 会在可缩放窗口四周保留一圈不可见的调整边距。
     ; 按系统边框指标向内修正，避免可见边框与窗口之间出现空隙。
     windowStyle:=DllCall("User32\GetWindowLongPtr", "Ptr", winId, "Int", -16, "Ptr")
     if(windowStyle & 0x40000) ; WS_THICKFRAME
     {
-        dpi:=DllCall("User32\GetDpiForWindow", "Ptr", winId, "UInt")
-        if(!dpi)
-            dpi:=A_ScreenDPI
-        frameX:=DllCall("User32\GetSystemMetricsForDpi", "Int", 32, "UInt", dpi, "Int")
-        frameY:=DllCall("User32\GetSystemMetricsForDpi", "Int", 33, "UInt", dpi, "Int")
-        padded:=DllCall("User32\GetSystemMetricsForDpi", "Int", 92, "UInt", dpi, "Int")
+        if(!winPinBorderFrameMetrics.HasKey(dpi))
+        {
+            frameX:=DllCall("User32\GetSystemMetricsForDpi", "Int", 32, "UInt", dpi, "Int")
+            frameY:=DllCall("User32\GetSystemMetricsForDpi", "Int", 33, "UInt", dpi, "Int")
+            padded:=DllCall("User32\GetSystemMetricsForDpi", "Int", 92, "UInt", dpi, "Int")
+            winPinBorderFrameMetrics[dpi]:={x:frameX+padded, y:frameY+padded}
+        }
+        frameX:=winPinBorderFrameMetrics[dpi].x
+        frameY:=winPinBorderFrameMetrics[dpi].y
         if(frameX>0 && frameY>0)
         {
-            frameX+=padded
-            frameY+=padded
             rectX+=frameX
             rectW-=2*frameX
             rectH-=frameY
@@ -143,7 +275,7 @@ winPinBorder_getRect(winId){
 
     if(rectW<=0 || rectH<=0)
         return false
-    return {x:rectX, y:rectY, w:rectW, h:rectH}
+    return {x:rectX, y:rectY, w:rectW, h:rectH, dpi:dpi}
 }
 
 winPinBorder_show(borderHwnd, show){
@@ -152,6 +284,7 @@ winPinBorder_show(borderHwnd, show){
 }
 
 winPinBorderSyncTimer:
+winPinBorderSyncChanged:=false
 winPinBorderSyncIndex:=winPinBorderWinIds.Length()
 while(winPinBorderSyncIndex>=1)
 {
@@ -172,10 +305,21 @@ while(winPinBorderSyncIndex>=1)
     }
 
     winPinBorderSyncHwnd:=winPinBorders[winPinBorderSyncWinId]
-    winPinBorderSyncRect:=winPinBorder_getRect(winPinBorderSyncWinId)
-    if(!winPinBorder_shouldShow(winPinBorderSyncWinId) || !IsObject(winPinBorderSyncRect))
+    if(!winPinBorder_shouldShow(winPinBorderSyncWinId))
     {
-        DllCall("User32\ShowWindow", "Ptr", winPinBorderSyncHwnd, "Int", 0)
+        if(winPinBorderVisibility[winPinBorderSyncWinId])
+        {
+            DllCall("User32\ShowWindow", "Ptr", winPinBorderSyncHwnd, "Int", 0)
+            winPinBorderVisibility[winPinBorderSyncWinId]:=false
+            winPinBorderSyncChanged:=true
+        }
+        winPinBorderSyncIndex--
+        continue
+    }
+
+    winPinBorderSyncRect:=winPinBorder_getRect(winPinBorderSyncWinId)
+    if(!IsObject(winPinBorderSyncRect))
+    {
         winPinBorderSyncIndex--
         continue
     }
@@ -184,9 +328,7 @@ while(winPinBorderSyncIndex>=1)
     winPinBorderSyncY:=winPinBorderSyncRect.y
     winPinBorderSyncW:=winPinBorderSyncRect.w
     winPinBorderSyncH:=winPinBorderSyncRect.h
-    winPinBorderSyncDpi:=DllCall("User32\GetDpiForWindow", "Ptr", winPinBorderSyncWinId, "UInt")
-    if(!winPinBorderSyncDpi)
-        winPinBorderSyncDpi:=A_ScreenDPI
+    winPinBorderSyncDpi:=winPinBorderSyncRect.dpi
     winPinBorderSyncThickness:=Max(2, Round(winPinBorderWidth*winPinBorderSyncDpi/96))
 
     winPinBorderSyncPositionKey:=winPinBorderSyncX . "|" . winPinBorderSyncY . "|" . winPinBorderSyncW . "|" . winPinBorderSyncH
@@ -194,16 +336,33 @@ while(winPinBorderSyncIndex>=1)
     {
         DllCall("User32\MoveWindow", "Ptr", winPinBorderSyncHwnd+0, "Int", winPinBorderSyncX, "Int", winPinBorderSyncY, "Int", winPinBorderSyncW, "Int", winPinBorderSyncH, "Int", true)
         winPinBorderPositions[winPinBorderSyncWinId]:=winPinBorderSyncPositionKey
+        winPinBorderSyncChanged:=true
     }
-    if(!DllCall("User32\IsWindowVisible", "Ptr", winPinBorderSyncHwnd+0))
+    if(!winPinBorderVisibility[winPinBorderSyncWinId])
+    {
         DllCall("User32\ShowWindow", "Ptr", winPinBorderSyncHwnd+0, "Int", 8)
+        winPinBorderVisibility[winPinBorderSyncWinId]:=true
+        winPinBorderSyncChanged:=true
+    }
 
     winPinBorderSyncSizeKey:=winPinBorderSyncW . "|" . winPinBorderSyncH . "|" . winPinBorderSyncThickness
     if(winPinBorderSizes[winPinBorderSyncWinId]!=winPinBorderSyncSizeKey)
     {
         winPinBorder_setRegion(winPinBorderSyncHwnd, winPinBorderSyncW, winPinBorderSyncH, winPinBorderSyncThickness)
         winPinBorderSizes[winPinBorderSyncWinId]:=winPinBorderSyncSizeKey
+        winPinBorderSyncChanged:=true
     }
     winPinBorderSyncIndex--
+}
+if(winPinBorderSyncChanged)
+{
+    winPinBorderIdleTicks:=0
+    winPinBorder_setTimerInterval(winPinBorderActiveInterval)
+}
+else
+{
+    winPinBorderIdleTicks++
+    if(winPinBorderIdleTicks>=20)
+        winPinBorder_setTimerInterval(winPinBorderIdleInterval)
 }
 return

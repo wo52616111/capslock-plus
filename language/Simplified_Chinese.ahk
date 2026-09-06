@@ -36,6 +36,9 @@ lang_settingsFileContent=
 [Global]
 
 loadScript=scriptDemo.js
+winPinBorderColor=0, 173, 239
+winPinSoundEnabled=1
+winPinSoundFile=
 
 [QSearch]
 
@@ -95,6 +98,15 @@ allowClipboard=1
 
 ;是否开启程序加载动画，1是（默认），0否
 loadingAnimation=1
+
+;顶置窗口外边框颜色。支持 RGB（例如 65, 131, 143）或十六进制（例如 #fdfdfd），默认 #00ADEF
+winPinBorderColor=0, 173, 239
+
+;顶置或取消顶置时是否播放提示音，1为是（默认），0为否
+winPinSoundEnabled=1
+
+;自定义顶置提示音 WAV 文件；留空时使用 PowerToys 同款默认音效
+winPinSoundFile=
 
 ;----------------------------------------------------------------
 ; ## Qbar搜索指令设置

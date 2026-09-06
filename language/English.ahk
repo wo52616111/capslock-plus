@@ -36,6 +36,9 @@ lang_settingsFileContent=
 [Global]
 
 loadScript=scriptDemo.js
+winPinBorderColor=0, 173, 239
+winPinSoundEnabled=1
+winPinSoundFile=
 
 [QSearch]
 
@@ -101,6 +104,15 @@ allowClipboard=1
 
 ; Whether to show the startup loading animation, 1 is yes (default), 0 is no
 loadingAnimation=1
+
+; Border color for pinned windows. Supports RGB (for example 65, 131, 143) or hex (for example #fdfdfd). Default: #00ADEF
+winPinBorderColor=0, 173, 239
+
+; Whether to play a sound when pinning or unpinning, 1 is yes (default), 0 is no
+winPinSoundEnabled=1
+
+; Custom WAV file for pinning sounds. Leave empty to use the PowerToys default sounds
+winPinSoundFile=
 
 ;----------------------------------------------------------------
 ; ## Qbar searching command settings

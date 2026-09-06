@@ -96,6 +96,7 @@ if(latestModifyTime!=settingsModifyTime)
     }
     if(isChangeGlobal) ;如果global改过
     {
+        winPinBorder_refreshSettings()
         
         for key1 in setsChanges.Global
         {

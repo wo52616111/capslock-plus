@@ -57,6 +57,7 @@ allowRunOnClipboardChange:=true
 #Include lib_bindWins.ahk ;capslock+` 1~8, windows bind
 #Include lib_winJump.ahk
 #Include lib_winPinBorder.ahk
+#Include lib_settingsGui.ahk
 #Include lib_winTransparent.ahk
 #Include lib_mouseSpeed.ahk
 #Include lib_mathBoard.ahk

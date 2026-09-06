@@ -376,6 +376,22 @@ progressUpdate(now,total)
 }
 
 
+clqNormalizeColor(value, defaultValue){
+    value:=Trim(value)
+    if(RegExMatch(value, "^\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})\s*$", rgbMatch))
+    {
+        if(rgbMatch1<=255 && rgbMatch2<=255 && rgbMatch3<=255)
+            return Format("{:02X}{:02X}{:02X}", rgbMatch1+0, rgbMatch2+0, rgbMatch3+0)
+        return defaultValue
+    }
+    if(RegExMatch(value, "i)^(?:#|0x)?([0-9a-f]{6})$", hexMatch))
+    {
+        StringUpper, normalizedColor, hexMatch1
+        return normalizedColor
+    }
+    return value!="" ? value : defaultValue
+}
+
 CLq()
 { ;CLq()Start
     global
@@ -465,22 +481,16 @@ CLq()
     guiRadius:=_t!=""?_t:2
     editW:=354
     listW:=editW-2 ;**改代码时注意**：因为edit为了去掉外框而隐藏掉了2px，所以list要和edit对齐就要-2px
-    _t:=CLSets["QStyle"]["borderBackgroundColor"]
-    guiBGColor:=_t!=""?_t:0x555555 ;0x515151 ;0x006ab7 ; 0x002b36 ;窗口背景颜色
-    _t:=CLSets["QStyle"]["textBackgroundColor"]
-    editBGColor:=_t!=""?_t:0xee2255 ;0xff3366 ; 0xd33682 ;edit插件背景颜色
-    _t:=CLSets["QStyle"]["textColor"]
-    editColor:=_t!=""?_t:0xffffff ;edit文字颜色
-    _t:=CLSets["QStyle"]["listColor"]
-    listColor:=_t!=""?_t:0xffffff ;list文字颜色
-    _t:=CLSets["QStyle"]["listBackgroundColor"]
-    listBGColor:=_t!=""?_t:0x333333 ;list背景颜色
-    _t:=CLSets["QStyle"]["progressColor"]
+    guiBGColor:=clqNormalizeColor(CLSets["QStyle"]["borderBackgroundColor"], "555555") ;窗口背景颜色
+    editBGColor:=clqNormalizeColor(CLSets["QStyle"]["textBackgroundColor"], "EE2255") ;edit插件背景颜色
+    editColor:=clqNormalizeColor(CLSets["QStyle"]["textColor"], "FFFFFF") ;edit文字颜色
+    listColor:=clqNormalizeColor(CLSets["QStyle"]["listColor"], "FFFFFF") ;list文字颜色
+    listBGColor:=clqNormalizeColor(CLSets["QStyle"]["listBackgroundColor"], "333333") ;list背景颜色
     editFontName:=CLSets["QStyle"]["textFontName"]
     _t:=CLSets["QStyle"]["textFontSize"]
     editFontSize:=_t!=""?_t:12
     listFontName:=CLSets["QStyle"]["listFontName"]
-    progressColor:=_t!=""?_t:0x11ddaa
+    progressColor:=clqNormalizeColor(CLSets["QStyle"]["progressColor"], "11DDAA")
     editFontSizePx := editFontSize * 4 / 3
     editH := editFontSizePx + 15
     _t:=CLSets["QStyle"]["textHeight"]
@@ -1576,13 +1586,8 @@ ButtonSubmit:
             }
 
             if(paramStr="set"||paramStr="settings")
-            { 
-                IfExist, CapsLock+settingsDemo.ini
-                    Run, CapsLock+settingsDemo.ini
-                
-                IfExist, CapsLock+settings.ini
-                    Run, CapsLock+settings.ini
-                
+            {
+                settingsGui_show()
                 return
             }
             if(paramStr="pay")

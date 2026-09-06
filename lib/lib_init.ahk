@@ -35,6 +35,7 @@ if(isLangChinese())
 ;------------  /language -----------
 
 gosub, settingsInit ;初始化设置
+settingsGui_init()
 
 
 gosub, bindWinsInit
