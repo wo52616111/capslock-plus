@@ -805,15 +805,16 @@ keyFunc_winbind_binding(n){
 
 keyFunc_winPin(){
     _id:=WinExist("A")
-    ;  WinGet, ExStyle, ExStyle
-    ;  if (ExStyle & 0x8)
-    ;  {
-    ;      WinSet, AlwaysOnTop, Off
-    ;      WinSet, Transparent, Off
-    ;
-    ;      return
-    ;  }
-    WinSet, AlwaysOnTop
+    if(!_id)
+        return
+
+    WinSet, AlwaysOnTop, Toggle, ahk_id %_id%
+    WinGet, ExStyle, ExStyle, ahk_id %_id%
+
+    if(ExStyle & 0x8)
+        winPinBorder_add(_id)
+    else
+        winPinBorder_remove(_id)
     ;  WinSet, Transparent, 210
     return
 }
