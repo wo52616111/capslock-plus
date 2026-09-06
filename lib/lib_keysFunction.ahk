@@ -524,7 +524,15 @@ keyFunc_qbar(){
     ;先关闭所有Caps热键，然后再打开
     ;防止其他功能在 qbar 出来这段时间因为输入文字而被触发
     CapsLock:=CapsLock2:=""
+    needsQbarInit:=needInitQ
     CLq()
+    ; 设置面板或样式变化可能刚重建了 Qbar。第一次调用负责重建，
+    ; 第二次立即显示，避免用户必须再次按 CapsLock+Q。
+    if(needsQbarInit)
+    {
+        DetectHiddenWindows, Off
+        CLq()
+    }
     CapsLock:=1
     return
 

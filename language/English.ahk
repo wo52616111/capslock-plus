@@ -36,9 +36,6 @@ lang_settingsFileContent=
 [Global]
 
 loadScript=scriptDemo.js
-winPinBorderColor=0, 173, 239
-winPinSoundEnabled=1
-winPinSoundFile=
 
 [QSearch]
 

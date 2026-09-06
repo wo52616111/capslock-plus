@@ -22,9 +22,9 @@ keysSet_applyQbarExternalApp(){
     global CLSets, keyset
     if(!IsObject(CLSets) || !IsObject(CLSets.Global))
         return
-    if(CLSets.Global.qbarExternalApp="listary")
-        keyset.caps_q:="keyFunc_qbarListary"
-    else if(CLSets.Global.qbarExternalApp="builtin")
+    if(CLSets.Global.qbarExternalApp="external" || CLSets.Global.qbarExternalApp="listary")
+        keyset.caps_q:="keyFunc_qbarExternalApp"
+    else
         keyset.caps_q:="keyFunc_qbar"
 }
 

@@ -450,6 +450,8 @@ CLq()
         WinMove, ahk_id %GuiHwnd%, , , , , %h%   ;--cjk1
         ;  WinMove, ahk_id %GuiHwnd%, , , , , %guiH%   ;--cjk1
         WinShow, ahk_id %GuiHwnd%
+        ; 设置面板可能仍处于前台。显示隐藏的 Qbar 后必须主动激活，避免它被设置窗口挡住。
+        WinActivate, ahk_id %GuiHwnd%
         
         WinSetTitle, ahk_id %GuiHwnd%, , Qbar ;上面show出窗口后会把窗口标题改成ahk_id xxxx，改回来
 
